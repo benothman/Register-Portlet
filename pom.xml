@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.jboss</groupId>
+    <artifactId>RegisterPortlet</artifactId>
+    <packaging>war</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <name>RegisterPortlet JEE5 Webapp</name>
+    <url>http://maven.apache.org</url>
+    <dependencies>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.gatein.pc</groupId>
+            <artifactId>pc-portlet</artifactId>
+            <version>2.1.0-GA</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.portlet</groupId>
+            <artifactId>portlet-api</artifactId>
+            <version>2.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.portletbridge</groupId>
+            <artifactId>portletbridge-api</artifactId>
+            <version>2.0.0.CR1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.portletbridge</groupId>
+            <version>2.0.0.CR1</version>
+            <artifactId>portletbridge-impl</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- SimpleCaptcha dependency -->
+
+        <dependency>
+            <groupId>org.gatein.captcha</groupId>
+            <artifactId>simplecaptcha</artifactId>
+            <version>1.1.1-GA-Patch01</version>
+        </dependency>
+
+        <!-- Exo Platform dependencies -->
+        <dependency>
+            <groupId>org.exoplatform.kernel</groupId>
+            <artifactId>exo.kernel.container</artifactId>
+            <version>2.2.0-GA</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.exoplatform.core</groupId>
+            <artifactId>exo.core.component.organization.api</artifactId>
+            <version>2.3.0-GA</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.exoplatform.portal</groupId>
+            <artifactId>exo.portal.component.resources</artifactId>
+            <version>3.0.0-GA</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- JSF & Facelets dependencies -->
+        <dependency>
+            <groupId>javax.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>1.2_12</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>1.2-b19</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.facelets</groupId>
+            <artifactId>jsf-facelets</artifactId>
+            <version>1.1.15</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>el-api</artifactId>
+            <version>1.2</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.faces.portlet</groupId>
+            <artifactId>jsf-portlet</artifactId>
+            <version>1.2.5</version>
+            <scope>compile</scope>
+        </dependency>
+        
+         <!-- Richfaces dependencies -->
+        <dependency>
+            <groupId>org.richfaces.framework</groupId>
+            <artifactId>richfaces-api</artifactId>
+            <version>3.3.3.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.framework</groupId>
+            <artifactId>richfaces-impl</artifactId>
+            <version>3.3.3.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.ui</groupId>
+            <artifactId>richfaces-ui</artifactId>
+            <version>3.3.3.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.2</version>
+            <scope>test</scope>
+        </dependency>
+    
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.4.3</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+        <finalName>RegisterPortlet</finalName>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>JBoss repository</id>
+            <url>http://repository.jboss.com/maven2</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>openqa-releases</id>
+            <name>OpenQA Releases</name>
+            <url>http://nexus.openqa.org/content/repositories/releases</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>maven2-repository.dev.java.net</id>
+            <name>Java.net Repository for Maven</name>
+            <url>http://download.java.net/maven/2/</url>
+            <layout>legacy</layout>
+        </repository>
+        <repository>
+            <id>maven1-repository.dev.java.net</id>
+            <name>Java.net Repository for Maven</name>
+            <url>http://download.java.net/maven/1/</url>
+            <layout>legacy</layout>
+        </repository>        
+    </repositories>
+
+    <properties>
+        <netbeans.hint.deploy.server>JBoss4</netbeans.hint.deploy.server>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+</project>

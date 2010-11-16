@@ -1,0 +1,168 @@
+
+#top {
+    position: relative;
+    background-color: #FFFFFf;
+    color: black;
+    padding: 0px;
+    top: 0px;
+    margin: 0px 0px 0px 0px;
+}
+
+
+#body_content {
+    margin: 110px 0px 0px 0px;
+    padding: 10px;
+    /*background: url(../images/content_bg.png) repeat-x;*/
+}
+
+#bottom {
+    position: relative;
+    background-color: #c2dfef;
+    padding: 5px;
+    margin: 10px 10px 10px 10px;
+    text-align: center;
+}
+
+#left {
+    float: left;
+    background-color: #ece3a5;
+    padding: 5px;
+    width: 150px;
+    margin-left: 10px;
+}
+
+#right {
+    float: right;
+    background-color: #ece3a5;
+    padding: 5px;
+    width: 150px;
+}
+
+.center_content {
+    
+    width: 618px;
+    background: url(../images/wrapbg.gif) no-repeat top;
+    border-color: #dddddd;
+    position: relative;
+    /*background-color: #ffffff; */
+    padding: 5px;
+    margin: 60px 180px 10px 180px;
+}
+
+.left_content {
+    background-color: #dddddd;
+    padding: 5px;
+    margin-left: 170px;
+}
+
+.right_content {
+    background-color: #dddddd;
+    padding: 5px;
+    margin: 0px 180px 0px 180px;
+}
+
+#top a:link, #top a:visited {
+    color: white;
+    font-weight : bold;
+    text-decoration: none;
+}
+
+#top a:link:hover, #top a:visited:hover  {
+    color: black;
+    font-weight : bold;
+    text-decoration : underline;
+}
+
+input {
+    /*
+    padding: 5px;
+    font-size: 15px;
+    */
+    text-shadow: 0px 1px 0px #fff;
+    outline: none;
+    background: -webkit-gradient(linear, left top, left bottom, from(#bcbcbe), to(#ffffff));
+    background: -moz-linear-gradient(top,  #bcbcbe,  #ffffff);
+
+}
+
+.inputClass1 {
+    padding: 5px;
+    font-size: 15px;
+    text-shadow: 0px 1px 0px #fff;
+    outline: none;
+    background: -webkit-gradient(linear, left top, left bottom, from(#bcbcbe), to(#ffffff));
+    background: -moz-linear-gradient(top,  #bcbcbe,  #ffffff);
+    filter: alpha(opacity=50);
+    moz-opacity : 0.50;
+    opacity : 0.50;
+}
+.inputClass2 {
+    padding: 5px;
+    font-size: 15px;
+    text-shadow: 0px 1px 0px #fff;
+    outline: none;
+    background: -webkit-gradient(linear, left top, left bottom, from(#bcbcbe), to(#ffffff));
+    background: -moz-linear-gradient(top,  #bcbcbe,  #ffffff);
+    filter: alpha(opacity=100);
+    moz-opacity : 1.00;
+    opacity : 1.0;
+}
+
+
+input:focus {
+    -webkit-box-shadow: 0px 0px 5px #007eff;
+    -moz-box-shadow: 0px 0px 5px #007eff;
+    box-shadow: 0px 0px 5px #007eff;
+}
+
+/* CSS Document */
+
+.textfield_effect    {
+    /*we will first set the border styles.*/
+    border-width: 1px;
+    border-style: solid;
+    border-color: #999999;
+    /*we are now going to add in the shadow image that we created earlier*/
+    background-image: url(back_field.gif);
+    background-repeat: repeat-x;
+    /*I am going to add some text formatting of my own*/
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: #333333;
+    width: 200px;
+    height: 15px;
+}
+
+/*we are now going to style how the textfield will look when we
+hover over it and when we actually have it selected*/
+
+.textfield_effect:hover    {
+    border-color: #64acd8;
+    border-width: 1px;
+}
+
+.textfield_effect:focus    {
+    border-color: #64acd8;
+    border-width: 1px;
+}
+
+/*you may also like to add some styles for the rest of the form*/
+
+fieldset    {
+
+    border-style: solid;
+    border-width: 1px;
+    border-color: #036399;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #F5F5F5;
+}
+fieldset:hover    {
+    border-color: #0ca0ff;
+}
+legend    {
+    font-family: sans-serif;
+    font-size: 18px;
+    color: #097bc3;
+    font-weight: bold;
+}
