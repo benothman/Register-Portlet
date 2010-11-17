@@ -21,13 +21,13 @@ package org.jboss.gatein.portlet;
 import java.io.IOException;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
-import javax.portlet.GenericPortlet;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletException;
 import javax.portlet.PortletRequestDispatcher;
 import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import javax.portlet.faces.GenericFacesPortlet;
 import org.gatein.common.logging.Logger;
 import org.gatein.common.logging.LoggerFactory;
 
@@ -39,20 +39,20 @@ import org.gatein.common.logging.LoggerFactory;
  * @author Nabil Benothman
  * @version 1.0
  */
-public class RegisterPortlet extends GenericPortlet {
+public class RegisterPortlet extends GenericFacesPortlet {
 
     private static String jspDir = null;
     private static String viewPage = null;
     private static String editPage = null;
     private static String helpPage = null;
     private static String errorPage = null;
-    private static final Logger logger = LoggerFactory.getLogger(RegisterPortlet.class) ;
+    private static final Logger logger = LoggerFactory.getLogger(RegisterPortlet.class);
 
     /**
      * Create a new {@code RegisterPortlet} instance
      */
     public RegisterPortlet() {
-        // 
+        //
     }
 
     /*
@@ -86,43 +86,50 @@ public class RegisterPortlet extends GenericPortlet {
     private void initParams() {
         logger.info("Initializing Register Protlet parameters");
         PortletConfig config = getPortletConfig();
+
+        editPage = config.getInitParameter("javax.portlet.faces.defaultViewId.edit");
+        viewPage = config.getInitParameter("javax.portlet.faces.defaultViewId.view");
+        helpPage = config.getInitParameter("javax.portlet.faces.defaultViewId.help");
+        /*
         jspDir = config.getInitParameter("jspDir");
         editPage = config.getInitParameter("EditPage");
         viewPage = config.getInitParameter("ViewPage");
         helpPage = config.getInitParameter("HelpPage");
+         */
         errorPage = config.getInitParameter("ErrorPage");
     }
 
     /*
      * (non-Javadoc)
      * @see javax.portlet.GenericPortlet.doEdit(javax.portlet.RenderRequest, javax.portlet.RenderResponse)
-     */
+     *
     @Override
     public void doEdit(RenderRequest request, RenderResponse response) throws IOException, PortletException {
-        logger.info("Display Register Portlet edit page");
-        forward(request, response, editPage);
+    logger.info("Display Register Portlet edit page");
+    forward(request, response, editPage);
     }
 
     /*
      * (non-Javadoc)
      * @see javax.portlet.GenericPortlet.doView(javax.portlet.RenderRequest, javax.portlet.RenderResponse)
-     */
+     *
     @Override
     public void doView(RenderRequest request, RenderResponse response) throws IOException, PortletException {
-        logger.info("Display Register Portlet view page");
-        forward(request, response, viewPage);
+    logger.info("Display Register Portlet view page");
+    forward(request, response, viewPage);
     }
 
     /*
      * (non-Javadoc)
      * @see javax.portlet.GenericPortlet.doHelp(javax.portlet.RenderRequest, javax.portlet.RenderResponse)
-     */
+     *
     @Override
     public void doHelp(RenderRequest request, RenderResponse response) throws IOException, PortletException {
-        logger.info("Display Register Portlet help page");
-        forward(request, response, helpPage);
+    logger.info("Display Register Portlet help page");
+    forward(request, response, helpPage);
     }
-
+     */
+    
     /*
      * (non-Javadoc)
      * @see javax.portlet.GenericPortlet.processAction(javax.portlet.ActionRequest, javax.portlet.ActionResponse)
@@ -133,7 +140,7 @@ public class RegisterPortlet extends GenericPortlet {
         logger.info("Process user action");
 
         PortletSession session = request.getPortletSession(true);
-        // create a new analytic profile
+        // TODO
 
 
     }

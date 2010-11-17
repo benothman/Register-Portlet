@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : components.xsd
+    Created on : November 11, 2010, 2:31 PM
+    Author     : nabilbenothman
+    Description:
+        Purpose of the document follows.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="properties">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="property">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="name" type="xs:string"/>
+                            <xs:element name="type" type="xs:string"/>
+                            <xs:element name="access-mode" type="xs:string"/>
+                            <xs:element name="usage">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:enumeration value="required"/>
+                                        <xs:enumeration value="optionel"/>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="display-name" type="xs:string">
+                                <xs:complexType>
+                                    <xs:attribute name="xml:lang" type="xs:string" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="mapping">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="database">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="type" type="xs:string"/>
+                                                    <xs:element name="value" type="xs:string"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
+
