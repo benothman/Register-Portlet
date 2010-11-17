@@ -48,8 +48,8 @@
 
     <application>
         <view-handler>org.jboss.portletbridge.application.PortletViewHandler</view-handler>
-        <state-manager>org.jboss.portletbridge.application.PortletStateManager</state-manager>
         <!--view-handler>com.sun.facelets.FaceletViewHandler</view-handler -->
+        <state-manager>org.jboss.portletbridge.application.PortletStateManager</state-manager>
         <application-extension>
             <excluded-attributes>
                 <excluded-attribute>org.jboss.gatein.bean.*</excluded-attribute>
