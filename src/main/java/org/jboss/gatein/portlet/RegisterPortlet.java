@@ -52,7 +52,7 @@ public class RegisterPortlet extends GenericFacesPortlet {
      * Create a new {@code RegisterPortlet} instance
      */
     public RegisterPortlet() {
-        //
+        logger.info("Creating new instance of <<" + this.getClass().getName() + ">>");
     }
 
     /*
@@ -129,7 +129,6 @@ public class RegisterPortlet extends GenericFacesPortlet {
     forward(request, response, helpPage);
     }
      */
-    
     /*
      * (non-Javadoc)
      * @see javax.portlet.GenericPortlet.processAction(javax.portlet.ActionRequest, javax.portlet.ActionResponse)

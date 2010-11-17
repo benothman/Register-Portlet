@@ -54,9 +54,6 @@
             <value>/WEB-INF/jsf/help.xhtml</value>
         </init-param>
 
-
-
-
         <init-param>
             <name>jspDir</name>
             <value>/WEB-INF/jsp/</value>
@@ -76,6 +73,10 @@
         <init-param>
             <name>ErrorPage</name>
             <value>/WEB-INF/jsp/error.jsp</value>
+        </init-param>
+        <init-param>
+            <name>ErrorPageJSF</name>
+            <value>/WEB-INF/jsf/error.xhtml</value>
         </init-param>
 
         <expiration-cache>0</expiration-cache>

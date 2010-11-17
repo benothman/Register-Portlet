@@ -8,18 +8,23 @@
                 xmlns:portlet="http://java.sun.com/portlet_2_0"
                 xmlns:p="http://java.sun.com/jsf/portlet/components">
 
-    <div id="top">
-        <ui:insert name="top"></ui:insert>
-    </div>
-    <center>
-        <div id="content" class="center_content">
-            <ui:insert name="content">Content</ui:insert>
-        </div>
-    </center>
-    <div id="bottom" class="arrondi">
-        <ui:insert name="bottom">
-            <h:outputLink value="http://jboss.org/richfaces" target="_blank">Powered by Richfaces</h:outputLink>,
-            Copyright &#169; 2010 &#160;<h:outputLink value="http://www.redhat.com/" target="_blank"> RedHat Inc.</h:outputLink>
-        </ui:insert>
-    </div>
+    <f:view>
+        <p:portletPage>
+
+            <div id="top">
+                <ui:insert name="top"></ui:insert>
+            </div>
+            <center>
+                <div id="content" class="center_content">
+                    <ui:insert name="content">Content</ui:insert>
+                </div>
+            </center>
+            <div id="bottom" class="arrondi">
+                <ui:insert name="bottom">
+                    <h:outputLink value="http://jboss.org/richfaces" target="_blank">Powered by Richfaces</h:outputLink>,
+                    Copyright &#169; 2010 &#160;<h:outputLink value="http://www.redhat.com/" target="_blank"> RedHat Inc.</h:outputLink>
+                </ui:insert>
+            </div>
+        </p:portletPage>
+    </f:view>
 </ui:composition>
