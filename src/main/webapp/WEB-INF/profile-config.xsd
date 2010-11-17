@@ -7,7 +7,6 @@
         Purpose of the document follows.
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-
     <xs:element name="properties">
         <xs:complexType>
             <xs:sequence>
