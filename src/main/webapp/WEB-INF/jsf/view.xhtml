@@ -3,200 +3,196 @@
 To change this template, choose Tools | Templates
 and open the template in the editor.
 -->
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:a4j="http://richfaces.org/a4j"
-                xmlns:rich="http://richfaces.org/rich"
-                template="template.xhtml">
-    <f:view>
 
-        <ui:define name="content">
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <h:form id="register">
+<ui:decorate template="template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:ui="http://java.sun.com/jsf/facelets"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:f="http://java.sun.com/jsf/core"
+             xmlns:a4j="http://richfaces.org/a4j"
+             xmlns:rich="http://richfaces.org/rich">
 
-                <rich:panel style="border:1px;width:95%">
-                    <f:facet name="header">
-                        <h:outputText value="Create new staff" style="text-align: center" />
-                    </f:facet>
+    <ui:define name="content">
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <h:form id="register">
 
+            <rich:panel style="border:1px;width:95%">
+                <f:facet name="header">
+                    <h:outputText value="Create new staff" style="text-align: center" />
+                </f:facet>
+
+                <fieldset>
+                    <legend align="left"> Required Data </legend>
+                    <h:panelGrid columns="2" cellpadding="5" cellspacing="5" width="60%" >
+
+                        <h:inputText value="#{testBean.data['firstname']}" id="firstname" title="First name" required="true" onfocus="getFocus(this.id)"
+                                     label="First name" size="30" immediate="true" requiredMessage="Value is required" alt="First name" validator="inputTextValidator">
+                            <rich:ajaxValidator event="onblur"/>
+                        </h:inputText>
+                        <h:inputText value="#{testBean.data['lastname']}" id="lastname" required="true" size="30" requiredMessage="Value is required" label="Last name">
+                            <rich:ajaxValidator event="onblur"/>
+                        </h:inputText>
+
+                        <rich:message for="firstname" style="color:#FF0000"/>
+                        <rich:message for="lastname" style="color:#FF0000"/>
+
+                        <h:inputText value="#{testBean.data['email']}" id="email" required="true" size="30" requiredMessage="Value is required" label="Email">
+                            <rich:ajaxValidator event="onblur"/>
+                        </h:inputText>
+                        <h:inputText value="#{testBean.data['username']}" id="username" required="true" label="User name" size="30" requiredMessage="Value is required">
+                            <rich:ajaxValidator event="onblur"/>
+                        </h:inputText>
+                        <rich:message for="email" style="color:#FF0000"/>
+                        <rich:message for="username" style="color:#FF0000"/>
+
+
+                        <h:inputSecret value="#{testBean.data['password']}" id="password" required="true" size="30" requiredMessage="Value is required" label="Password">
+                            <rich:ajaxValidator event="onblur"/>
+                        </h:inputSecret>
+                        <h:inputSecret value="#{testBean.data['confirmPassword']}" id="confirmPassword" required="true" size="30" requiredMessage="Value is required"
+                                       label="Confirm password">
+                            <rich:ajaxValidator event="onblur"/>
+                        </h:inputSecret>
+
+                        <rich:message for="password" style="color:#FF0000"/>
+                        <rich:message for="confirmPassword" style="color:#FF0000"/>
+
+                        <h:inputText value="#{testBean.data['answer']}" id="answer" required="true"
+                                     requiredMessage="Value is required" label="Code" size="30">
+                            <rich:ajaxValidator event="onblur"/>
+                        </h:inputText>
+                        <rich:message for="answer" style="color:#FF0000" />
+                    </h:panelGrid>
+                </fieldset>
+
+                <br/>
+                <br/>
+
+                <a4j:outputPanel id="hide" styleClass="viewsourcelooklink" style="display:none; float: left;">
+                    <rich:effect for="hide" event="onclick" type="BlindUp" targetId="moreOptionsPanel" params="id:'moreOptionsPanel', duration:1.0" />
+                    <rich:effect for="hide" event="onclick" type="Appear" targetId="look" params="delay:1.5, duration:0.5" />
+                    <rich:effect for="hide" event="onclick" type="Fade" targetId="hide" params="delay:0.0, duration:0.1" />
+                    <h:outputText escape="false" style="color: #045491;font-weight : bold;" value="Hide..."/>
+                </a4j:outputPanel>
+                <a4j:outputPanel styleClass="viewsourcelooklink" id="look" style="float: left">
+                    <rich:effect for="look" event="onclick" type="Fade" params="delay:0.0, duration:0.1" disableDefault="true"/>
+                    <rich:effect for="look" event="onclick" type="BlindDown" targetId="moreOptionsPanel" params="delay:0.1,duration:1.0,from:0.0,to:1.0"/>
+                    <rich:effect for="look" event="onclick" type="Appear"  targetId="moreOptionsPanel"  params="delay:0.1,duration:0.5,from:0.0,to:1.0" />
+                    <rich:effect for="look" event="onclick" type="Appear"  targetId="hide"  params="delay:1.5,duration:1.0,from:0.0,to:1.0" />
+                    <h:outputText escape="false" style="color: #045491;font-weight : bold;" value="More..."/>
+                </a4j:outputPanel>
+
+                <br/>
+                <br/>
+
+                <rich:panel id="moreOptionsPanel" style="display:none">
                     <fieldset>
-                        <legend align="left"> Required Data </legend>
-                        <h:panelGrid columns="2" cellpadding="5" cellspacing="5" width="60%" >
+                        <legend align="left"> Optional Data </legend>
 
-                            <h:inputText value="#{testBean.data['firstname']}" id="firstname" title="First name" required="true" onfocus="getFocus(this.id)"
-                                         label="First name" size="30" immediate="true" requiredMessage="Value is required" alt="First name" validator="inputTextValidator">
-                                <rich:ajaxValidator event="onblur"/>
-                            </h:inputText>
-                            <h:inputText value="#{testBean.data['lastname']}" id="lastname" required="true" size="30" requiredMessage="Value is required" label="Last name">
-                                <rich:ajaxValidator event="onblur"/>
-                            </h:inputText>
+                        <rich:messages style="color: #FF0000" />
 
-                            <rich:message for="firstname" style="color:#FF0000"/>
-                            <rich:message for="lastname" style="color:#FF0000"/>
+                        <h:panelGrid columns="2" cellpadding="5" cellspacing="5" width="100%">
+                            <h:selectOneMenu value="#{testBean.data['title']}" id="title">
+                                <f:selectItem itemValue="Mr" itemLabel="Mr" />
+                                <f:selectItem itemValue="Mrs" itemLabel="Mrs" />
+                                <f:selectItem itemValue="Ms" itemLabel="Ms" />
+                            </h:selectOneMenu>
+                            <h:outputText value="Birthday" />
 
-                            <h:inputText value="#{testBean.data['email']}" id="email" required="true" size="30" requiredMessage="Value is required" label="Email">
-                                <rich:ajaxValidator event="onblur"/>
-                            </h:inputText>
-                            <h:inputText value="#{testBean.data['username']}" id="username" required="true" label="User name" size="30" requiredMessage="Value is required">
-                                <rich:ajaxValidator event="onblur"/>
-                            </h:inputText>
-                            <rich:message for="email" style="color:#FF0000"/>
-                            <rich:message for="username" style="color:#FF0000"/>
+                            <h:inputText value="#{testBean.data['address.line1']}" size="30" />
+                            <a4j:outputPanel id="calendar" layout="block">
+                                <rich:calendar value="#{calendarBean.selectedDate}"
+                                               locale="#{calendarBean.locale}"
+                                               popup="#{calendarBean.popup}"
+                                               datePattern="#{calendarBean.pattern}"
+                                               showApplyButton="#{calendarBean.showApply}" cellWidth="24px" cellHeight="22px" style="width:220px"/>
+                            </a4j:outputPanel>
 
 
-                            <h:inputSecret value="#{testBean.data['password']}" id="password" required="true" size="30" requiredMessage="Value is required" label="Password">
-                                <rich:ajaxValidator event="onblur"/>
-                            </h:inputSecret>
-                            <h:inputSecret value="#{testBean.data['confirmPassword']}" id="confirmPassword" required="true" size="30" requiredMessage="Value is required"
-                                           label="Confirm password">
-                                <rich:ajaxValidator event="onblur"/>
-                            </h:inputSecret>
+                            <h:inputText value="#{testBean.data['address.line2']}" size="30" />
+                            <h:inputText value="#{testBean.data['twitter']}" size="30" />
 
-                            <rich:message for="password" style="color:#FF0000"/>
-                            <rich:message for="confirmPassword" style="color:#FF0000"/>
+                            <h:panelGroup>
+                                <h:inputText id="zipCode" value="#{testBean.data['address.zipCode']}" size="8">
+                                    <f:converter id="javax.faces.Integer" converterId="javax.faces.Integer"/>
+                                    <f:validateLongRange minimum="1" maximum="1000000" />
+                                    <rich:ajaxValidator event="onblur"/>
+                                </h:inputText>
+                                <h:inputText value="#{testBean.data['address.city']}" size="15" />
+                            </h:panelGroup>
+                            <h:inputText value="#{testBean.data['skype']}" size="30" />
 
-                            <h:inputText value="#{testBean.data['answer']}" id="answer" required="true"
-                                         requiredMessage="Value is required" label="Code" size="30">
-                                <rich:ajaxValidator event="onblur"/>
-                            </h:inputText>
-                            <rich:message for="answer" style="color:#FF0000" />
+                            <h:inputText value="#{testBean.data['address.state']}" size="30" />
+                            <h:inputText value="#{testBean.data['msn']}" size="30" />
+
+                            <h:selectOneMenu value="#{testBean.data['address.country']}">
+                                <f:selectItems value="#{appBean.counties}" />
+                            </h:selectOneMenu>
+                            <h:inputText value="#{testBean.data['linkedIn']}" size="30" />
+
+                            <h:inputText value="#{testBean.data['phone']}" size="30" />
+                            <h:inputText value="#{testBean.data['icq']}" size="30" />
+
                         </h:panelGrid>
                     </fieldset>
-
-                    <br/>
-                    <br/>
-
-                    <a4j:outputPanel id="hide" styleClass="viewsourcelooklink" style="display:none; float: left;">
-                        <rich:effect for="hide" event="onclick" type="BlindUp" targetId="moreOptionsPanel" params="id:'moreOptionsPanel', duration:1.0" />
-                        <rich:effect for="hide" event="onclick" type="Appear" targetId="look" params="delay:1.5, duration:0.5" />
-                        <rich:effect for="hide" event="onclick" type="Fade" targetId="hide" params="delay:0.0, duration:0.1" />
-                        <h:outputText escape="false" style="color: #045491;font-weight : bold;" value="Hide..."/>
-                    </a4j:outputPanel>
-                    <a4j:outputPanel styleClass="viewsourcelooklink" id="look" style="float: left">
-                        <rich:effect for="look" event="onclick" type="Fade" params="delay:0.0, duration:0.1" disableDefault="true"/>
-                        <rich:effect for="look" event="onclick" type="BlindDown" targetId="moreOptionsPanel" params="delay:0.1,duration:1.0,from:0.0,to:1.0"/>
-                        <rich:effect for="look" event="onclick" type="Appear"  targetId="moreOptionsPanel"  params="delay:0.1,duration:0.5,from:0.0,to:1.0" />
-                        <rich:effect for="look" event="onclick" type="Appear"  targetId="hide"  params="delay:1.5,duration:1.0,from:0.0,to:1.0" />
-                        <h:outputText escape="false" style="color: #045491;font-weight : bold;" value="More..."/>
-                    </a4j:outputPanel>
-
-                    <br/>
-                    <br/>
-
-                    <rich:panel id="moreOptionsPanel" style="display:none">
-                        <fieldset>
-                            <legend align="left"> Optional Data </legend>
-
-                            <rich:messages style="color: #FF0000" />
-
-                            <h:panelGrid columns="2" cellpadding="5" cellspacing="5" width="100%">
-                                <h:selectOneMenu value="#{testBean.data['title']}" id="title">
-                                    <f:selectItem itemValue="Mr" itemLabel="Mr" />
-                                    <f:selectItem itemValue="Mrs" itemLabel="Mrs" />
-                                    <f:selectItem itemValue="Ms" itemLabel="Ms" />
-                                </h:selectOneMenu>
-                                <h:outputText value="Birthday" />
-
-                                <h:inputText value="#{testBean.data['address.line1']}" size="30" />
-                                <a4j:outputPanel id="calendar" layout="block">
-                                    <rich:calendar value="#{calendarBean.selectedDate}"
-                                                   locale="#{calendarBean.locale}"
-                                                   popup="#{calendarBean.popup}"
-                                                   datePattern="#{calendarBean.pattern}"
-                                                   showApplyButton="#{calendarBean.showApply}" cellWidth="24px" cellHeight="22px" style="width:220px"/>
-                                </a4j:outputPanel>
-
-
-                                <h:inputText value="#{testBean.data['address.line2']}" size="30" />
-                                <h:inputText value="#{testBean.data['twitter']}" size="30" />
-
-                                <h:panelGroup>
-                                    <h:inputText id="zipCode" value="#{testBean.data['address.zipCode']}" size="8">
-                                        <f:converter id="javax.faces.Integer" converterId="javax.faces.Integer"/>
-                                        <f:validateLongRange minimum="1" maximum="1000000" />
-                                        <rich:ajaxValidator event="onblur"/>
-                                    </h:inputText>
-                                    <h:inputText value="#{testBean.data['address.city']}" size="15" />
-                                </h:panelGroup>
-                                <h:inputText value="#{testBean.data['skype']}" size="30" />
-
-                                <h:inputText value="#{testBean.data['address.state']}" size="30" />
-                                <h:inputText value="#{testBean.data['msn']}" size="30" />
-
-                                <h:selectOneMenu value="#{testBean.data['address.country']}">
-                                    <f:selectItems value="#{appBean.counties}" />
-                                </h:selectOneMenu>
-                                <h:inputText value="#{testBean.data['linkedIn']}" size="30" />
-
-                                <h:inputText value="#{testBean.data['phone']}" size="30" />
-                                <h:inputText value="#{testBean.data['icq']}" size="30" />
-
-                            </h:panelGrid>
-                        </fieldset>
-                    </rich:panel>
-
-                    <br/>
-                    <br/>
-                    <h:commandButton value="Submit" />
-                    <h:commandButton value="Cancel" />
-
                 </rich:panel>
-            </h:form>
 
-            <script type="text/javascript">
+                <br/>
+                <br/>
+                <h:commandButton value="Submit" />
+                <h:commandButton value="Cancel" />
 
-                function showHide(divId) {
-                    var element  = document.getElementById(divId);
-                    var display = element.style.display;
-                    if(display == "none") {
-                        display = "inline";
-                        document.getElementById("optionsId").innerHTML = "hide...";
-                    } else {
-                        display = "none";
-                        document.getElementById("optionsId").innerHTML = "more...";
-                    }
+            </rich:panel>
+        </h:form>
 
-                    element.style.display = display;
+        <script type="text/javascript">
 
-                    return true;
+            function showHide(divId) {
+                var element  = document.getElementById(divId);
+                var display = element.style.display;
+                if(display == "none") {
+                    display = "inline";
+                    document.getElementById("optionsId").innerHTML = "hide...";
+                } else {
+                    display = "none";
+                    document.getElementById("optionsId").innerHTML = "more...";
                 }
 
+                element.style.display = display;
 
-                function style(element) {
-                    var alt = element.alt;
-                    var value = element.value;
-                    if(alt == value) {
-                        element.className = "inputClass1";
-                    } else {
-                        element.className = "inputClass2";
-                    }
+                return true;
+            }
+
+
+            function style(element) {
+                var alt = element.alt;
+                var value = element.value;
+                if(alt == value) {
+                    element.className = "inputClass1";
+                } else {
+                    element.className = "inputClass2";
                 }
+            }
 
 
-                function getFocus(inputId) {
-                    var input = document.getElementById(inputId);
-                    if(input.value == input.title) {
-                        input.value = "";
-                    }
+            function getFocus(inputId) {
+                var input = document.getElementById(inputId);
+                if(input.value == input.title) {
+                    input.value = "";
                 }
+            }
 
-                function lostFocus(inputId) {
-                    var input = document.getElementById(inputId);
-                    if(input.value == "") {
-                        input.value = input.title;
-                    }
+            function lostFocus(inputId) {
+                var input = document.getElementById(inputId);
+                if(input.value == "") {
+                    input.value = input.title;
                 }
+            }
 
-            </script>
+        </script>
 
-        </ui:define>
-
-
-    </f:view>
-</ui:composition>
+    </ui:define>
+</ui:decorate>

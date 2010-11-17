@@ -4,25 +4,24 @@ To change this template, choose Tools | Templates
 and open the template in the editor.
 -->
 
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:a4j="http://richfaces.org/a4j"
-                xmlns:rich="http://richfaces.org/rich"
-                template="template.xhtml">
-    <f:view>
-            <ui:define name="content">
-                <h:form>
-                    <rich:panel style="border:0;width:50%;text-align:center">
-                        <rich:panel>
-                            <f:facet name="header">
-                                <h:outputText value="Welcome to Register Portlet" />
-                            </f:facet>
-                            <h:outputText value="Welcome to GateIn Portal" style="font-weight:bold;color:#FF0000;"/>
-                        </rich:panel>
-                    </rich:panel>
-                </h:form>
-            </ui:define>
-    </f:view>
-</ui:composition>
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:ui="http://java.sun.com/jsf/facelets"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:f="http://java.sun.com/jsf/core"
+             xmlns:a4j="http://richfaces.org/a4j"
+             xmlns:rich="http://richfaces.org/rich"
+             template="template.xhtml">
+    <ui:define name="content">
+        <h:form>
+            <rich:panel style="border:0;width:50%;text-align:center">
+                <rich:panel>
+                    <f:facet name="header">
+                        <h:outputText value="Welcome to Register Portlet" />
+                    </f:facet>
+                    <h:outputText value="Welcome to GateIn Portal" style="font-weight:bold;color:#FF0000;"/>
+                </rich:panel>
+            </rich:panel>
+        </h:form>
+    </ui:define>
+
+</ui:decorate>
