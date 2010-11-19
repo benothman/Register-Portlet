@@ -23,7 +23,7 @@
 
 .popup {
     position: absolute;
-    display:inline;
+    display:block;
     z-index: 50;
     border-collapse: collapse;
 }
@@ -40,7 +40,13 @@
 .popup td.right { background-image: url(../images/bubble/bubble-right.png); }
 .popup td#bottomleft { background-image: url(../images/bubble/bubble-bottom-left.png); }
 .popup td.bottom { background-image: url(../images/bubble/bubble-bottom-line.png); text-align: center;}
-.popup td.bottom img { display: block; margin: 0 auto; }
+.popup td.bottom img {
+    display: block;
+    margin: 0 auto;
+    text-align:center
+}
+
+
 .popup td#bottomright { background-image: url(../images/bubble/bubble-bottom-right.png); }
 
 .popup table.popup-contents {

@@ -41,6 +41,7 @@ public class UIBubbleInfo extends UIOutput {
     public static final String COMPONENT_TYPE = "org.jboss.gatein.jsf.component.UIBubbleInfo";
     private static final Logger logger = LoggerFactory.getLogger(UIBubbleInfo.class.getName());
     private String _for;
+    private String message;
     private String style;
     private String styleClass;
     private String errorClass;
@@ -104,23 +105,24 @@ public class UIBubbleInfo extends UIOutput {
     public Object saveState(FacesContext context) {
 
         if (values == null) {
-            values = new Object[14];
+            values = new Object[15];
         }
 
         values[0] = super.saveState(context);
         values[1] = this._for;
-        values[2] = this.style;
-        values[3] = this.styleClass;
-        values[4] = this.errorClass;
-        values[5] = this.errorStyle;
-        values[6] = this.infoClass;
-        values[7] = this.infoStyle;
-        values[8] = this.fatalClass;
-        values[9] = this.fatalStyle;
-        values[10] = this.warnClass;
-        values[11] = this.warnStyle;
-        values[12] = this.lang;
-        values[13] = this.title;
+        values[2] = this.message;
+        values[3] = this.lang;
+        values[4] = this.title;
+        values[5] = this.style;
+        values[6] = this.styleClass;
+        values[7] = this.errorClass;
+        values[8] = this.errorStyle;
+        values[9] = this.infoClass;
+        values[10] = this.infoStyle;
+        values[11] = this.fatalClass;
+        values[12] = this.fatalStyle;
+        values[13] = this.warnClass;
+        values[14] = this.warnStyle;
 
         return values;
     }
@@ -130,19 +132,19 @@ public class UIBubbleInfo extends UIOutput {
         values = (Object[]) state;
         super.restoreState(context, values[0]);
         this._for = (String) values[1];
-        this.style = (String) values[2];
-        this.styleClass = (String) values[3];
-        this.errorClass = (String) values[4];
-        this.errorStyle = (String) values[5];
-        this.infoClass = (String) values[6];
-        this.infoStyle = (String) values[7];
-        this.fatalClass = (String) values[8];
-        this.fatalStyle = (String) values[9];
-        this.warnClass = (String) values[10];
-        this.warnStyle = (String) values[11];
-        this.lang = (String) values[12];
-        this.title = (String) values[13];
-
+        this.message = (String) values[2];
+        this.lang = (String) values[3];
+        this.title = (String) values[4];
+        this.style = (String) values[5];
+        this.styleClass = (String) values[6];
+        this.errorClass = (String) values[7];
+        this.errorStyle = (String) values[8];
+        this.infoClass = (String) values[9];
+        this.infoStyle = (String) values[10];
+        this.fatalClass = (String) values[11];
+        this.fatalStyle = (String) values[12];
+        this.warnClass = (String) values[13];
+        this.warnStyle = (String) values[14];
     }
 
     /**
@@ -455,5 +457,31 @@ public class UIBubbleInfo extends UIOutput {
      */
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    /**
+     * @return the message
+     */
+    public String getMessage() {
+        if (this.message != null) {
+            return this.message;
+        }
+        ValueExpression ve = getValueExpression("message");
+        if (ve != null) {
+            try {
+                return ((String) ve.getValue(getFacesContext().getELContext()));
+            } catch (ELException e) {
+                throw new FacesException(e);
+            }
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * @param message the message to set
+     */
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

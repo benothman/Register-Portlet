@@ -38,6 +38,7 @@ public class UIBubbleInfoTag extends UIComponentTag {
 
     private static final Logger logger = LoggerFactory.getLogger(UIBubbleInfo.class.getName());
     private ValueExpression _for;
+    private ValueExpression message;
     private ValueExpression style;
     private ValueExpression styleClass;
     private ValueExpression errorClass;
@@ -319,5 +320,19 @@ public class UIBubbleInfoTag extends UIComponentTag {
      */
     public void setTitle(ValueExpression title) {
         this.title = title;
+    }
+
+    /**
+     * @return the message
+     */
+    public ValueExpression getMessage() {
+        return message;
+    }
+
+    /**
+     * @param message the message to set
+     */
+    public void setMessage(ValueExpression message) {
+        this.message = message;
     }
 }

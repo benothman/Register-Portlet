@@ -60,6 +60,7 @@ public class BubbleInfoRenderer extends Renderer {
 
         writer.startElement("div", bubbleInfo);
 
+
         Map<String, Object> attrs = bubbleInfo.getAttributes();
         Collection<String> keys = attrs.keySet();
 
@@ -70,6 +71,9 @@ public class BubbleInfoRenderer extends Renderer {
         writer.startElement("table", null);
         writer.writeAttribute("id", component.getId() + ":" + "dpopd", "id");
         writer.writeAttribute("class", "popup", "class");
+        writer.writeAttribute("border", "0", "border");
+        writer.writeAttribute("cellpadding", "0", "cellpadding");
+        writer.writeAttribute("cellspacing", "0", "cellspacing");
         writer.startElement("tbody", null);
 
         writer.startElement("tr", null);
@@ -80,7 +84,7 @@ public class BubbleInfoRenderer extends Renderer {
         writer.endElement("td");
 
         writer.startElement("td", null);
-        writer.writeAttribute("class", "corner", "class");
+        writer.writeAttribute("class", "top", "class");
         writer.endElement("td");
 
         writer.startElement("td", null);
@@ -103,12 +107,19 @@ public class BubbleInfoRenderer extends Renderer {
         writer.writeAttribute("id", "release-notes", "id");
         writer.startElement("td", null);
         writer.writeAttribute("class", "head", "class");
-        writer.writeText("&#160;", null);
+        writer.write("&#160;");
         writer.endElement("td");
         writer.startElement("td", null);
         writer.writeAttribute("class", "error", "class");
         writer.startElement("span", null);
-        writer.writeAttribute("id", component.getId() + ":" + "dpopd:" + "bubble-content", "id");
+        writer.writeAttribute("id", bubbleInfo.getId() + ":" + "dpopd:" + "bubble-content", "id");
+
+        if (bubbleInfo.getMessage() != null) {
+            writer.writeText(bubbleInfo.getMessage(), "message");
+        } else {
+            writer.write("&#160;&#160;&#160;");
+        }
+
         writer.endElement("span");
         writer.endElement("td");
         writer.endElement("tr");
@@ -129,14 +140,14 @@ public class BubbleInfoRenderer extends Renderer {
 
         writer.startElement("td", null);
         writer.writeAttribute("class", "bottom", "class");
-        writer.startElement("img", null);
 
+        writer.startElement("img", null);
         writer.writeAttribute("width", "30", "width");
         writer.writeAttribute("height", "29", "height");
         writer.writeAttribute("alt", "popup tail", "alt");
-
         writer.writeAttribute("src", reqCtxPath + "/images/bubble/bubble-bottom-middle.png", "src");
         writer.endElement("img");
+
         writer.endElement("td");
 
         writer.startElement("td", null);
@@ -147,7 +158,6 @@ public class BubbleInfoRenderer extends Renderer {
         writer.endElement("tr");
         writer.endElement("tbody");
         writer.endElement("table");
-
     }
 
     @Override

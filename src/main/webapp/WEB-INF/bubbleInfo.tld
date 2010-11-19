@@ -18,6 +18,9 @@
             <name>for</name>
         </attribute>
         <attribute>
+            <name>message</name>
+        </attribute>
+        <attribute>
             <name>style</name>
         </attribute>
         <attribute>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-    Document   : bubbleInfo.xml.xml
+    Document   : bubbleInfo.taglib.xml
     Created on : November 19, 2010, 11:28 AM
-    Author     : nabilbenothman
+    Author     : Nabil Benothman
     Description:
         Purpose of the document follows.
 -->
@@ -15,11 +15,12 @@
 
     <tag>
         <tag-name>bubbleInfo</tag-name>
+        <!--handler-class>org.jboss.gatein.jsf.handler.UIBubbleInfoTagHandler</handler-class-->
+
         <component>
             <component-type>org.jboss.gatein.jsf.component.UIBubbleInfo</component-type>
             <renderer-type>BUBBLE_INFO_RENDERER</renderer-type>
         </component>
-        
 
         <!--attribute>
             <name>id</name>
