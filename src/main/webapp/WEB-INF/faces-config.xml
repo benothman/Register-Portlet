@@ -39,22 +39,40 @@
     
     <validator>
         <validator-id>inputTextValidator</validator-id>
-        <validator-class>org.jboss.gatein.jsf.GateInInputTextValidator</validator-class>
+        <validator-class>org.jboss.gatein.jsf.validator.GateInInputTextValidator</validator-class>
     </validator>
+    <validator>
+        <validator-id>passwordValidator</validator-id>
+        <validator-class>org.jboss.gatein.jsf.validator.PasswordValidator</validator-class>
+    </validator>
+    <validator>
+        <validator-id>captchaValidator</validator-id>
+        <validator-class>org.jboss.gatein.jsf.validator.CaptchaValidator</validator-class>
+    </validator>
+
     <component>
-        <component-type>gatein</component-type>
-        <component-class>org.jboss.gatein.jsf.GateInHtmlInputText</component-class>
+        <component-type>org.jboss.gatein.jsf.component.UIBubbleInfo</component-type>
+        <component-class>org.jboss.gatein.jsf.component.UIBubbleInfo</component-class>
     </component>
+
+    <render-kit>
+        <renderer>
+            <description>Renderer for the bubble info component</description>
+            <component-family>BIFAMILY</component-family>
+            <renderer-type>BUBBLE_INFO_RENDERER</renderer-type>
+            <renderer-class>org.jboss.gatein.jsf.renderer.BubbleInfoRenderer</renderer-class>
+        </renderer>
+    </render-kit>
 
     <application>
         <view-handler>org.jboss.portletbridge.application.PortletViewHandler</view-handler>
         <!--view-handler>com.sun.facelets.FaceletViewHandler</view-handler -->
         <state-manager>org.jboss.portletbridge.application.PortletStateManager</state-manager>
-        <application-extension>
+        <!--application-extension>
             <excluded-attributes>
                 <excluded-attribute>org.jboss.gatein.bean.*</excluded-attribute>
             </excluded-attributes>
-        </application-extension>
+        </application-extension -->
     </application>
 
 </faces-config>

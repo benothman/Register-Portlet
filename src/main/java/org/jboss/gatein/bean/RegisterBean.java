@@ -18,10 +18,13 @@
  */
 package org.jboss.gatein.bean;
 
+import java.awt.Image;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import nl.captcha.CaptchaBean;
 
 /**
  * {@code RegisterBean}
@@ -36,17 +39,24 @@ public class RegisterBean implements Serializable {
     /*
      * TODO complete implementation
      */
-
-    private Map<String, Object> userProfile;
-    private static final String SUCCESS = "success";
-    private static final String FAILURE = "failure";
+    public static final String SUCCESS = "success";
+    public static final String FAILURE = "failure";
     private CalendarBean calendarBean;
+    private Map<String, Object> data;
+    private CaptchaBean captchaBean;
+    private String answer;
+    private Image captcha;
 
     /**
      * Create a new instance of {@code RegisterBean}
      */
     public RegisterBean() {
-        this.userProfile = new HashMap<String, Object>();
+        this.data = new HashMap<String, Object>();
+        this.captchaBean = new CaptchaBean(50, 20);
+        this.captchaBean.build();
+        this.captcha = this.captchaBean.getImage();
+        this.data.put("captcha", this.captcha);
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("answer", this.captchaBean.getAnswer());
     }
 
     /**
@@ -74,4 +84,59 @@ public class RegisterBean implements Serializable {
         this.calendarBean = calendarBean;
     }
 
+    /**
+     * @return the data
+     */
+    public Map<String, Object> getData() {
+        return data;
+    }
+
+    /**
+     * @param data the data to set
+     */
+    public void setData(Map<String, Object> data) {
+        this.data = data;
+    }
+
+    /**
+     * @return the captchaBean
+     */
+    public CaptchaBean getCaptchaBean() {
+        return captchaBean;
+    }
+
+    /**
+     * @param captchaBean the captchaBean to set
+     */
+    public void setCaptchaBean(CaptchaBean captchaBean) {
+        this.captchaBean = captchaBean;
+    }
+
+    /**
+     * @return the answer
+     */
+    public String getAnswer() {
+        return answer;
+    }
+
+    /**
+     * @param answer the answer to set
+     */
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    /**
+     * @return the captcha
+     */
+    public Image getCaptcha() {
+        return captcha;
+    }
+
+    /**
+     * @param captcha the captcha to set
+     */
+    public void setCaptcha(Image captcha) {
+        this.captcha = captcha;
+    }
 }

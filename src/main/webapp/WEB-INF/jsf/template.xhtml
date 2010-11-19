@@ -6,22 +6,43 @@
                 xmlns:a4j="http://richfaces.org/a4j"
                 xmlns:rich="http://richfaces.org/rich">
 
+    <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/default.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/cssLayout.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/bubble.css" media="screen"/>
+
     <f:view>
 
-            <div id="top">
-                <ui:insert name="top"></ui:insert>
+        <div id="top">
+            <ui:insert name="top"></ui:insert>
+        </div>
+        <center>
+            <div id="content" class="center_content">
+                <ui:insert name="content">Content</ui:insert>
             </div>
-            <center>
-                <div id="content" class="center_content">
-                    <ui:insert name="content">Content</ui:insert>
-                </div>
-            </center>
+        </center>
+        
+        <center>
             <div id="bottom" class="arrondi">
                 <ui:insert name="bottom">
                     <h:outputLink value="http://jboss.org/richfaces" target="_blank">Powered by Richfaces</h:outputLink>,
-                    Copyright &#169; 2010 &#160;<h:outputLink value="http://www.redhat.com/" target="_blank"> RedHat Inc.</h:outputLink>
+                    Copyright &#169; 2010. &#160;<h:outputLink value="http://www.redhat.com/" target="_blank"> Red Hat, Inc.</h:outputLink>
                 </ui:insert>
             </div>
-        
+        </center>
+
+        <script type="text/javascript">
+
+            A4J.AJAX.onError = function(req, status, message) {
+                window.alert("Custom onError handler " + message);
+            }
+
+            A4J.AJAX.onExpired = function(loc, expiredMsg) {
+                if(window.confirm("Custom onExpired handler " + expiredMsg + " for a location: " + loc)) {
+                    return loc;
+                } else {
+                    return false;
+                }
+            }
+        </script>
     </f:view>
 </ui:composition>

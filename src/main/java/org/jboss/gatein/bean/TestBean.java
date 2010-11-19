@@ -20,6 +20,7 @@ package org.jboss.gatein.bean;
 
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.ImageIcon;
@@ -31,10 +32,10 @@ import org.jboss.portletbridge.richfaces.PortletResourceBuilder;
  *
  * Created on Nov 11, 2010, 8:51:24 AM
  *
- * @author nabilbenothman
+ * @author Nabil Benothman
  * @version 1.0
  */
-public class TestBean {
+public class TestBean implements Serializable {
 
     private Map<String, Object> data;
     private CaptchaBean captchaBean;

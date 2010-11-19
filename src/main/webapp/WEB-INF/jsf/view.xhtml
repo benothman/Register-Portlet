@@ -9,17 +9,55 @@ and open the template in the editor.
              xmlns:h="http://java.sun.com/jsf/html"
              xmlns:f="http://java.sun.com/jsf/core"
              xmlns:a4j="http://richfaces.org/a4j"
+             xmlns:gtn="http://www.jboss.org/gatein"
              xmlns:rich="http://richfaces.org/rich">
 
     <ui:define name="content">
         <br/>
         <br/>
         <br/>
+
+        <gtn:bubbleInfo for="" />
+
+
+        <table id="dpopd" class="popup" border="0">
+            <tbody>
+                <tr>
+                    <td id="topleft" class="corner"></td>
+                    <td class="top"></td>
+                    <td id="topright" class="corner"></td>
+                </tr>
+                <tr>
+                    <td class="left"></td>
+                    <td>
+                        <table class="popup-contents">
+                            <tbody>
+                                <tr id="release-notes">
+                                    <td class="head">&#160;</td>
+                                    <td class="error"> <span id="bubble-content">the input value is not valid</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td class="right"></td>
+                </tr>
+                <tr>
+                    <td class="corner" id="bottomleft"></td>
+                    <td class="bottom"><img width="30" height="29" alt="popup tail" src="#{facesContext.externalContext.requestContextPath}/images/bubble/bubble-bottom-middle.png"/></td>
+                    <td id="bottomright" class="corner"></td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+
+
         <br/>
         <br/>
         <h:form id="register">
 
-            <rich:panel style="border:1px;width:95%">
+            <rich:panel style="width:80%">
                 <f:facet name="header">
                     <h:outputText value="Create new staff" style="text-align: center" />
                 </f:facet>
@@ -28,42 +66,50 @@ and open the template in the editor.
                     <legend align="left"> Required Data </legend>
                     <h:panelGrid columns="2" cellpadding="5" cellspacing="5" width="60%" >
 
-                        <h:inputText value="#{testBean.data['firstname']}" id="firstname" title="First name" required="true" onfocus="getFocus(this.id)"
-                                     label="First name" size="30" immediate="true" requiredMessage="Value is required" alt="First name" validator="inputTextValidator">
+                        <h:inputText value="#{registerBean.data['firstname']}" id="firstname" title="First name" required="true" onfocus="getFocus(this.id)"
+                                     label="First name" size="30" immediate="true" requiredMessage="Value is required" alt="First name"
+                                     validator="inputTextValidator" styleClass="textfield_effect">
                             <rich:ajaxValidator event="onblur"/>
                         </h:inputText>
-                        <h:inputText value="#{testBean.data['lastname']}" id="lastname" required="true" size="30" requiredMessage="Value is required" label="Last name">
+                        <h:inputText value="#{registerBean.data['lastname']}" id="lastname" required="true" size="30" requiredMessage="Value is required"
+                                     label="Last name" styleClass="textfield_effect">
                             <rich:ajaxValidator event="onblur"/>
                         </h:inputText>
 
-                        <rich:message for="firstname" style="color:#FF0000"/>
+                        <rich:message for="firstname" style="color:#FF0000" />
                         <rich:message for="lastname" style="color:#FF0000"/>
 
-                        <h:inputText value="#{testBean.data['email']}" id="email" required="true" size="30" requiredMessage="Value is required" label="Email">
+                        <h:inputText value="#{registerBean.data['email']}" id="email" required="true" size="30" requiredMessage="Value is required"
+                                     label="Email" styleClass="textfield_effect">
                             <rich:ajaxValidator event="onblur"/>
                         </h:inputText>
-                        <h:inputText value="#{testBean.data['username']}" id="username" required="true" label="User name" size="30" requiredMessage="Value is required">
+                        <h:inputText value="#{registerBean.data['username']}" id="username" required="true" label="User name" size="30" 
+                                     requiredMessage="Value is required" styleClass="textfield_effect">
                             <rich:ajaxValidator event="onblur"/>
                         </h:inputText>
                         <rich:message for="email" style="color:#FF0000"/>
                         <rich:message for="username" style="color:#FF0000"/>
 
 
-                        <h:inputSecret value="#{testBean.data['password']}" id="password" required="true" size="30" requiredMessage="Value is required" label="Password">
+                        <h:inputSecret value="#{registerBean.data['password']}" id="password" required="true" size="30" requiredMessage="Value is required"
+                                       label="Password" styleClass="textfield_effect">
                             <rich:ajaxValidator event="onblur"/>
                         </h:inputSecret>
-                        <h:inputSecret value="#{testBean.data['confirmPassword']}" id="confirmPassword" required="true" size="30" requiredMessage="Value is required"
-                                       label="Confirm password">
-                            <rich:ajaxValidator event="onblur"/>
+                        <h:inputSecret value="#{registerBean.data['confirmPassword']}" id="confirmPassword" required="true" size="30" requiredMessage="Value is required"
+                                       label="Confirm password" validator="passwordValidator" styleClass="textfield_effect">
+                            <rich:ajaxValidator event="onblur">
+                                <f:param name="password" value="#{registerBean.data['password']}" />
+                            </rich:ajaxValidator>
                         </h:inputSecret>
 
                         <rich:message for="password" style="color:#FF0000"/>
                         <rich:message for="confirmPassword" style="color:#FF0000"/>
 
-                        <h:inputText value="#{testBean.data['answer']}" id="answer" required="true"
-                                     requiredMessage="Value is required" label="Code" size="30">
+                        <h:inputText value="#{registerBean.data['answer']}" id="answer" required="true"
+                                     requiredMessage="Value is required" label="Code" size="30" styleClass="textfield_effect" validator="captchaValidator">
                             <rich:ajaxValidator event="onblur"/>
                         </h:inputText>
+
                         <rich:message for="answer" style="color:#FF0000" />
                     </h:panelGrid>
                 </fieldset>
@@ -92,17 +138,15 @@ and open the template in the editor.
                     <fieldset>
                         <legend align="left"> Optional Data </legend>
 
-                        <rich:messages style="color: #FF0000" />
-
                         <h:panelGrid columns="2" cellpadding="5" cellspacing="5" width="100%">
-                            <h:selectOneMenu value="#{testBean.data['title']}" id="title">
+                            <h:selectOneMenu value="#{registerBean.data['title']}" id="title">
                                 <f:selectItem itemValue="Mr" itemLabel="Mr" />
                                 <f:selectItem itemValue="Mrs" itemLabel="Mrs" />
                                 <f:selectItem itemValue="Ms" itemLabel="Ms" />
                             </h:selectOneMenu>
-                            <h:outputText value="Birthday" />
-
-                            <h:inputText value="#{testBean.data['address.line1']}" size="30" />
+                            
+                            <h:outputLabel for="calendar" value="Birthday" />
+                            <h:inputText value="#{registerBean.data['address.line1']}" size="30" />
                             <a4j:outputPanel id="calendar" layout="block">
                                 <rich:calendar value="#{calendarBean.selectedDate}"
                                                locale="#{calendarBean.locale}"
@@ -111,30 +155,33 @@ and open the template in the editor.
                                                showApplyButton="#{calendarBean.showApply}" cellWidth="24px" cellHeight="22px" style="width:220px"/>
                             </a4j:outputPanel>
 
-
-                            <h:inputText value="#{testBean.data['address.line2']}" size="30" />
-                            <h:inputText value="#{testBean.data['twitter']}" size="30" />
+                            <h:inputText value="#{registerBean.data['address.line2']}" size="30" />
+                            <h:inputText value="#{registerBean.data['twitter']}" size="30" />
 
                             <h:panelGroup>
-                                <h:inputText id="zipCode" value="#{testBean.data['address.zipCode']}" size="8">
+                                <h:inputText id="zipCode" value="#{registerBean.data['address.zipCode']}" size="8" 
+                                             converterMessage="The input must be an Integer" validatorMessage="The input value must be between {0} {1}">
                                     <f:converter id="javax.faces.Integer" converterId="javax.faces.Integer"/>
                                     <f:validateLongRange minimum="1" maximum="1000000" />
                                     <rich:ajaxValidator event="onblur"/>
                                 </h:inputText>
-                                <h:inputText value="#{testBean.data['address.city']}" size="15" />
+                                <h:inputText value="#{registerBean.data['address.city']}" size="15" />
                             </h:panelGroup>
-                            <h:inputText value="#{testBean.data['skype']}" size="30" />
+                            <h:inputText value="#{registerBean.data['skype']}" size="30" />
 
-                            <h:inputText value="#{testBean.data['address.state']}" size="30" />
-                            <h:inputText value="#{testBean.data['msn']}" size="30" />
+                            <rich:message for="zipCode" style="color: #FF0000" />
+                            <rich:spacer />
 
-                            <h:selectOneMenu value="#{testBean.data['address.country']}">
+                            <h:inputText value="#{registerBean.data['address.state']}" size="30" />
+                            <h:inputText value="#{registerBean.data['msn']}" size="30" />
+
+                            <h:selectOneMenu value="#{registerBean.data['address.country']}">
                                 <f:selectItems value="#{appBean.counties}" />
                             </h:selectOneMenu>
-                            <h:inputText value="#{testBean.data['linkedIn']}" size="30" />
+                            <h:inputText value="#{registerBean.data['linkedIn']}" size="30" />
 
-                            <h:inputText value="#{testBean.data['phone']}" size="30" />
-                            <h:inputText value="#{testBean.data['icq']}" size="30" />
+                            <h:inputText value="#{registerBean.data['phone']}" size="30" />
+                            <h:inputText value="#{registerBean.data['icq']}" size="30" />
 
                         </h:panelGrid>
                     </fieldset>
@@ -142,9 +189,8 @@ and open the template in the editor.
 
                 <br/>
                 <br/>
-                <h:commandButton value="Submit" />
-                <h:commandButton value="Cancel" />
-
+                <a4j:commandButton value="Submit" />
+                <a4j:commandButton value="Cancel" />
             </rich:panel>
         </h:form>
 

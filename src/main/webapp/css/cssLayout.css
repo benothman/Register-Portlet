@@ -16,10 +16,11 @@
 }
 
 #bottom {
+    width: 618px;
     position: relative;
-    background-color: #c2dfef;
+    border-color: #036399;
     padding: 5px;
-    margin: 10px 10px 10px 10px;
+    margin: 10px 20px 20px 20px;
     text-align: center;
 }
 
@@ -39,14 +40,14 @@
 }
 
 .center_content {
-    
-    width: 618px;
-    background: url(../images/wrapbg.gif) no-repeat top;
+
+    /*width: 618px;*/
+    /*background: url(../images/wrapbg.gif) no-repeat top;*/
     border-color: #dddddd;
     position: relative;
     /*background-color: #ffffff; */
     padding: 5px;
-    margin: 60px 180px 10px 180px;
+    margin: 60px 20px 10px 20px;
 }
 
 .left_content {
@@ -123,7 +124,7 @@ input:focus {
     border-style: solid;
     border-color: #999999;
     /*we are now going to add in the shadow image that we created earlier*/
-    background-image: url(back_field.gif);
+    /*background-image: url(../images/back_field.png);*/
     background-repeat: repeat-x;
     /*I am going to add some text formatting of my own*/
     font-family: Arial, Helvetica, sans-serif;
@@ -148,8 +149,10 @@ hover over it and when we actually have it selected*/
 
 /*you may also like to add some styles for the rest of the form*/
 
-fieldset    {
-
+fieldset {
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
     border-style: solid;
     border-width: 1px;
     border-color: #036399;

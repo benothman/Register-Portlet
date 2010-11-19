@@ -102,33 +102,38 @@ public class RegisterPortlet extends GenericFacesPortlet {
     /*
      * (non-Javadoc)
      * @see javax.portlet.GenericPortlet.doEdit(javax.portlet.RenderRequest, javax.portlet.RenderResponse)
-     *
+     */
     @Override
     public void doEdit(RenderRequest request, RenderResponse response) throws IOException, PortletException {
-    logger.info("Display Register Portlet edit page");
-    forward(request, response, editPage);
+        logger.info("Display Register Portlet edit page");
+        if (editPage == null) {
+            PortletConfig config = getPortletConfig();
+            editPage = config.getInitParameter("javax.portlet.faces.defaultViewId.edit");
+        }
+
+        forward(request, response, editPage);
     }
 
     /*
      * (non-Javadoc)
      * @see javax.portlet.GenericPortlet.doView(javax.portlet.RenderRequest, javax.portlet.RenderResponse)
-     *
+     */
     @Override
     public void doView(RenderRequest request, RenderResponse response) throws IOException, PortletException {
-    logger.info("Display Register Portlet view page");
-    forward(request, response, viewPage);
+        logger.info("Display Register Portlet view page");
+        forward(request, response, viewPage);
     }
 
     /*
      * (non-Javadoc)
      * @see javax.portlet.GenericPortlet.doHelp(javax.portlet.RenderRequest, javax.portlet.RenderResponse)
-     *
+     */
     @Override
     public void doHelp(RenderRequest request, RenderResponse response) throws IOException, PortletException {
-    logger.info("Display Register Portlet help page");
-    forward(request, response, helpPage);
+        logger.info("Display Register Portlet help page");
+        forward(request, response, helpPage);
     }
-     */
+
     /*
      * (non-Javadoc)
      * @see javax.portlet.GenericPortlet.processAction(javax.portlet.ActionRequest, javax.portlet.ActionResponse)

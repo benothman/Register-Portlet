@@ -1,3 +1,4 @@
+/*
 body {
     background: url(../images/bodybg.gif) repeat-x;
     background-color: #ffffff;
@@ -6,7 +7,7 @@ body {
     color: #000000;  
     margin: 10px;
 }
-
+*/
 h1 {
     font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
     border-bottom: 1px solid #AFAFAF; 
@@ -86,11 +87,9 @@ div.arrondi {
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
 	/* background-color: #D3F3F3; */
-	background-color: #D5D8D9;
-	padding: 10px;
+	/* background-color: #D5D8D9; */
+	/* padding: 10px; */
 }
-
-
 
 .viewsourcediv pre {
     margin: 0px

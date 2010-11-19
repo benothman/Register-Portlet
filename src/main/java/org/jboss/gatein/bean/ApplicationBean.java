@@ -18,6 +18,7 @@
  */
 package org.jboss.gatein.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -29,10 +30,10 @@ import javax.faces.model.SelectItem;
  *
  * Created on Nov 15, 2010, 1:18:52 PM
  *
- * @author nabilbenothman
+ * @author Nabil Benothman
  * @version 1.0
  */
-public class ApplicationBean {
+public class ApplicationBean implements Serializable {
 
     private List<SelectItem> counties;
     public static String[] CountryList = new String[]{"Abkhazia", "Afghanistan", "Akrotiri and Dhekelia",

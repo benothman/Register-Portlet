@@ -18,6 +18,7 @@
  */
 package org.jboss.gatein.bean;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -37,7 +38,7 @@ import org.gatein.common.logging.LoggerFactory;
  * @author Nabil Benothman
  * @version 1.0
  */
-public class CalendarBean {
+public class CalendarBean implements Serializable {
 
     private boolean popup = true;
     private boolean showApply = false;
