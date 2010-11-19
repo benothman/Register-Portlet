@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+"http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+
+<taglib>
+    <tlib-version>1.0</tlib-version>
+    <jsp-version>1.2</jsp-version>
+    <short-name>gtn</short-name>
+    <uri>http://www.jboss.org/gatein</uri>
+    <tag>
+        <name>bubbleInfo</name>
+        <tag-class>org.jboss.gatein.jsf.tag.UIBubbleInfoTag</tag-class>
+        <body-content>JSP</body-content>
+        <attribute>
+            <name>id</name>
+        </attribute>
+        <attribute>
+            <name>for</name>
+        </attribute>
+        <attribute>
+            <name>style</name>
+        </attribute>
+        <attribute>
+            <name>lang</name>
+        </attribute>
+        <attribute>
+            <name>title</name>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+        </attribute>
+        <attribute>
+            <name>infoClass</name>
+        </attribute>
+        <attribute>
+            <name>infoStyle</name>
+        </attribute>
+        <attribute>
+            <name>errorClass</name>
+        </attribute>
+        <attribute>
+            <name>errorStyle</name>
+        </attribute>
+        <attribute>
+            <name>fatalClass</name>
+        </attribute>
+        <attribute>
+            <name>fatalStyle</name>
+        </attribute>
+        <attribute>
+            <name>warnClass</name>
+        </attribute>
+        <attribute>
+            <name>warnStyle</name>
+        </attribute>
+    </tag>
+</taglib>
+

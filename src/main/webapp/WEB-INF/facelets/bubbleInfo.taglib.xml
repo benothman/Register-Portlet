@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : bubbleInfo.xml.xml
+    Created on : November 19, 2010, 11:28 AM
+    Author     : nabilbenothman
+    Description:
+        Purpose of the document follows.
+-->
+<!DOCTYPE facelet-taglib PUBLIC "-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN"
+"http://java.sun.com/dtd/facelet-taglib_1_0.dtd">
+
+<facelet-taglib>
+    <namespace>http://www.jboss.org/gatein</namespace>
+
+    <tag>
+        <tag-name>bubbleInfo</tag-name>
+        <component>
+            <component-type>org.jboss.gatein.jsf.component.UIBubbleInfo</component-type>
+            <renderer-type>BUBBLE_INFO_RENDERER</renderer-type>
+        </component>
+        
+
+        <!--attribute>
+            <name>id</name>
+        </attribute>
+        <attribute>
+            <name>for</name>
+        </attribute>
+        <attribute>
+            <name>style</name>
+        </attribute>
+        <attribute>
+            <name>lang</name>
+        </attribute>
+        <attribute>
+            <name>title</name>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+        </attribute>
+        <attribute>
+            <name>infoClass</name>
+        </attribute>
+        <attribute>
+            <name>infoStyle</name>
+        </attribute>
+        <attribute>
+            <name>errorClass</name>
+        </attribute>
+        <attribute>
+            <name>errorStyle</name>
+        </attribute>
+        <attribute>
+            <name>fatalClass</name>
+        </attribute>
+        <attribute>
+            <name>fatalStyle</name>
+        </attribute>
+        <attribute>
+            <name>warnClass</name>
+        </attribute>
+        <attribute>
+            <name>warnStyle</name>
+        </attribute -->
+    </tag>
+
+
+</facelet-taglib>

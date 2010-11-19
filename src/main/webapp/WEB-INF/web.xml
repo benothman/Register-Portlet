@@ -22,6 +22,11 @@
         <param-name>facelets.SKIP_COMMENTS</param-name>
         <param-value>true</param-value>
     </context-param>
+    <context-param>
+        <param-name>facelets.LIBRARIES</param-name>
+        <param-value>/WEB-INF/facelets/bubbleInfo.taglib.xml</param-value>
+    </context-param>
+
     <!-- Faces Servlet config -->
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
