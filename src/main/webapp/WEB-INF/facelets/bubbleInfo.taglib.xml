@@ -66,5 +66,14 @@
         </attribute -->
     </tag>
 
+    <tag>
+        <tag-name>bubbleInputText</tag-name>
+        <component>
+            <component-type>org.jboss.gatein.jsf.html.GateInHtmlInputText</component-type>
+            <!--renderer-type>BUBBLE_INFO_RENDERER</renderer-type-->
+        </component>
+    </tag>
+
+
 
 </facelet-taglib>

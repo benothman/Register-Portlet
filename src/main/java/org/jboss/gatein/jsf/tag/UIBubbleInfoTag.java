@@ -24,7 +24,6 @@ import javax.faces.webapp.UIComponentTag;
 import org.gatein.common.logging.Logger;
 import org.gatein.common.logging.LoggerFactory;
 import org.jboss.gatein.jsf.component.UIBubbleInfo;
-import org.jboss.gatein.jsf.renderer.BubbleInfoRenderer;
 
 /**
  * {@code UIBubbleInfoTag}
@@ -75,6 +74,7 @@ public class UIBubbleInfoTag extends UIComponentTag {
         // the super class method should be called
         super.release();
         this._for = null;
+        this.message = null;
         this.style = null;
         this.lang = null;
         this.title = null;
@@ -90,9 +90,9 @@ public class UIBubbleInfoTag extends UIComponentTag {
     }
 
     @Override
-    protected void setProperties(UIComponent component) { // the super class method should be called super.setProperties(component);
+    protected void setProperties(UIComponent component) {
+        // the super class method should be called super.setProperties(component);
         super.setProperties(component);
-
         UIBubbleInfo bubbleInfo = null;
         try {
             bubbleInfo = (UIBubbleInfo) component;
@@ -101,41 +101,43 @@ public class UIBubbleInfoTag extends UIComponentTag {
                     + " not expected type. Expected: org.jboss.gatein.jsf.component.UIBubbleInfo. Perhaps you're missing a tag?");
         }
 
-        if (this.getFor() != null) {
-            //message.setValueExpression("for", _for);
+        if (this._for != null) {
             bubbleInfo.setValueExpression("for", this._for);
         }
-        if (this.getStyle() != null) {
+        if (this.message != null) {
+            bubbleInfo.setValueExpression("message", this.message);
+        }
+        if (this.style != null) {
             bubbleInfo.setValueExpression("style", this.style);
         }
-        if (this.getLang() != null) {
+        if (this.lang != null) {
             bubbleInfo.setValueExpression("lang", this.lang);
         }
-        if (this.getTitle() != null) {
+        if (this.title != null) {
             bubbleInfo.setValueExpression("title", this.title);
         }
-        if (this.getInfoClass() != null) {
+        if (this.infoClass != null) {
             bubbleInfo.setValueExpression("infoClass", this.infoClass);
         }
-        if (this.getInfoStyle() != null) {
+        if (this.infoStyle != null) {
             bubbleInfo.setValueExpression("infoStyle", this.infoStyle);
         }
-        if (this.getErrorClass() != null) {
+        if (this.errorClass != null) {
             bubbleInfo.setValueExpression("errorClass", this.errorClass);
         }
-        if (this.getErrorStyle() != null) {
+        if (this.errorStyle != null) {
             bubbleInfo.setValueExpression("errorStyle", this.errorStyle);
         }
-        if (this.getFatalClass() != null) {
+        if (this.fatalClass != null) {
             bubbleInfo.setValueExpression("fatalClass", this.fatalClass);
         }
-        if (this.getFatalStyle() != null) {
+        if (this.fatalStyle != null) {
             bubbleInfo.setValueExpression("fatalStyle", this.fatalStyle);
         }
-        if (this.getWarnClass() != null) {
+        if (this.warnClass != null) {
             bubbleInfo.setValueExpression("warnClass", this.warnClass);
         }
-        if (this.getWarnStyle() != null) {
+        if (this.warnStyle != null) {
             bubbleInfo.setValueExpression("warnStyle", this.warnStyle);
         }
     }

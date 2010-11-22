@@ -9,11 +9,12 @@
 
 .bubbleInfo {
     z-index: 999;
-    border:1px solid;
     position: relative;
-    top: 150px;
+    display: none;
+
+    /*top: 150px;
     left: 100px;
-    width: 500px;
+    width: 500px; */
 }
 .trigger {
     position: absolute;

@@ -49,10 +49,22 @@
         <validator-id>captchaValidator</validator-id>
         <validator-class>org.jboss.gatein.jsf.validator.CaptchaValidator</validator-class>
     </validator>
+    <validator>
+        <validator-id>emailValidator</validator-id>
+        <validator-class>org.jboss.gatein.jsf.validator.EmailValidator</validator-class>
+    </validator>
 
     <component>
         <component-type>org.jboss.gatein.jsf.component.UIBubbleInfo</component-type>
         <component-class>org.jboss.gatein.jsf.component.UIBubbleInfo</component-class>
+    </component>
+    <component>
+        <component-type>org.jboss.gatein.jsf.html.HtmlBubbleInfo</component-type>
+        <component-class>org.jboss.gatein.jsf.html.HtmlBubbleInfo</component-class>
+    </component>
+    <component>
+        <component-type>org.jboss.gatein.jsf.html.GateInHtmlInputText</component-type>
+        <component-class>org.jboss.gatein.jsf.html.GateInHtmlInputText</component-class>
     </component>
 
     <render-kit>

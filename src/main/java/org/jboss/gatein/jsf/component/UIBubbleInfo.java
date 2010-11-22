@@ -18,14 +18,15 @@
  */
 package org.jboss.gatein.jsf.component;
 
+import java.io.Serializable;
 import javax.el.ELException;
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import org.gatein.common.logging.Logger;
 import org.gatein.common.logging.LoggerFactory;
-import org.jboss.gatein.jsf.renderer.BubbleInfoRenderer;
 
 /**
  * {@code BubbleInfo}
@@ -35,11 +36,11 @@ import org.jboss.gatein.jsf.renderer.BubbleInfoRenderer;
  * @author nabilbenothman
  * @version 1.0
  */
-public class UIBubbleInfo extends UIOutput {
+public class UIBubbleInfo extends UIOutput implements Serializable {
 
     public static final String UI_BUBBLE_INFO_FAMILY = "BIFAMILY";
     public static final String COMPONENT_TYPE = "org.jboss.gatein.jsf.component.UIBubbleInfo";
-    private static final Logger logger = LoggerFactory.getLogger(UIBubbleInfo.class.getName());
+    protected static final Logger logger = LoggerFactory.getLogger(UIBubbleInfo.class.getName());
     private String _for;
     private String message;
     private String style;
@@ -54,15 +55,24 @@ public class UIBubbleInfo extends UIOutput {
     private String warnStyle;
     private String lang;
     private String title;
-    private Object[] values;
+    private Object[] _stateValues;
 
     /**
      * Create a new instance of {@code BubbleInfo}
      */
     public UIBubbleInfo() {
         super();
-        setRendererType(BubbleInfoRenderer.RENDER_TYPE);
+        setRendererType(org.jboss.gatein.jsf.renderer.BubbleInfoRenderer.RENDER_TYPE);
         logger.info("Creating a new instance of " + getClass().getName());
+    }
+
+    /**
+     * Create a new instance of {@code BubbleInfo}
+     * @param parent the component parent
+     */
+    public UIBubbleInfo(UIComponent parent) {
+        this();
+        this.setParent(parent);
     }
 
     @Override
@@ -104,47 +114,48 @@ public class UIBubbleInfo extends UIOutput {
     @Override
     public Object saveState(FacesContext context) {
 
-        if (values == null) {
-            values = new Object[15];
+        if (_stateValues == null) {
+            _stateValues = new Object[15];
         }
 
-        values[0] = super.saveState(context);
-        values[1] = this._for;
-        values[2] = this.message;
-        values[3] = this.lang;
-        values[4] = this.title;
-        values[5] = this.style;
-        values[6] = this.styleClass;
-        values[7] = this.errorClass;
-        values[8] = this.errorStyle;
-        values[9] = this.infoClass;
-        values[10] = this.infoStyle;
-        values[11] = this.fatalClass;
-        values[12] = this.fatalStyle;
-        values[13] = this.warnClass;
-        values[14] = this.warnStyle;
+        _stateValues[0] = super.saveState(context);
+        _stateValues[1] = this._for;
+        _stateValues[2] = this.message;
+        _stateValues[3] = this.lang;
+        _stateValues[4] = this.title;
+        _stateValues[5] = this.style;
+        _stateValues[6] = this.styleClass;
+        _stateValues[7] = this.errorClass;
+        _stateValues[8] = this.errorStyle;
+        _stateValues[9] = this.infoClass;
+        _stateValues[10] = this.infoStyle;
+        _stateValues[11] = this.fatalClass;
+        _stateValues[12] = this.fatalStyle;
+        _stateValues[13] = this.warnClass;
+        _stateValues[14] = this.warnStyle;
 
-        return values;
+        return _stateValues;
     }
 
     @Override
     public void restoreState(FacesContext context, Object state) {
-        values = (Object[]) state;
-        super.restoreState(context, values[0]);
-        this._for = (String) values[1];
-        this.message = (String) values[2];
-        this.lang = (String) values[3];
-        this.title = (String) values[4];
-        this.style = (String) values[5];
-        this.styleClass = (String) values[6];
-        this.errorClass = (String) values[7];
-        this.errorStyle = (String) values[8];
-        this.infoClass = (String) values[9];
-        this.infoStyle = (String) values[10];
-        this.fatalClass = (String) values[11];
-        this.fatalStyle = (String) values[12];
-        this.warnClass = (String) values[13];
-        this.warnStyle = (String) values[14];
+        _stateValues = (Object[]) state;
+        super.restoreState(context, _stateValues[0]);
+
+        this._for = (String) _stateValues[1];
+        this.message = (String) _stateValues[2];
+        this.lang = (String) _stateValues[3];
+        this.title = (String) _stateValues[4];
+        this.style = (String) _stateValues[5];
+        this.styleClass = (String) _stateValues[6];
+        this.errorClass = (String) _stateValues[7];
+        this.errorStyle = (String) _stateValues[8];
+        this.infoClass = (String) _stateValues[9];
+        this.infoStyle = (String) _stateValues[10];
+        this.fatalClass = (String) _stateValues[11];
+        this.fatalStyle = (String) _stateValues[12];
+        this.warnClass = (String) _stateValues[13];
+        this.warnStyle = (String) _stateValues[14];
     }
 
     /**

@@ -18,10 +18,10 @@
  */
 package org.jboss.gatein.jsf.html;
 
+import java.io.Serializable;
 import javax.faces.component.html.HtmlInputText;
-
-
-
+import org.gatein.common.logging.Logger;
+import org.gatein.common.logging.LoggerFactory;
 
 /**
  * {@code GateInHtmlInputText}
@@ -31,14 +31,76 @@ import javax.faces.component.html.HtmlInputText;
  * @author Nabil Benothman
  * @version 1.0
  */
-public class GateInHtmlInputText extends HtmlInputText {
+public class GateInHtmlInputText extends HtmlInputText implements Serializable {
 
+    public static final String COMPONENT_TYPE = "org.jboss.gatein.jsf.html.GateInHtmlInputText";
+    //private HtmlBubbleInfo bubbleInfo;
+    private Object _values[];
+    protected static final Logger logger = LoggerFactory.getLogger(GateInHtmlInputText.class.getName());
 
     /**
      * Create a new instance of {@code GateInHtmlInputText}
      */
     public GateInHtmlInputText() {
         super();
+        logger.info("Create new instance of " + getClass().getName());
+        //this.bubbleInfo = new HtmlBubbleInfo();
+        //this.bubbleInfo.setParent(this);
+        //this.getChildren().add(this.bubbleInfo);
+        //this.addValidator(new GateInInputTextValidator());
     }
 
+    /*
+    @Override
+    public void decode(FacesContext context) {
+        logger.info(getClass().getName() + " -> start decode");
+        super.decode(context);
+        //this.bubbleInfo.decode(context);
+        logger.info(getClass().getName() + " -> end decode");
+    }
+
+    @Override
+    public void encodeBegin(FacesContext context) throws IOException {
+        logger.info(getClass().getName() + " -> start encodeBegin");
+        super.encodeBegin(context);
+        //this.bubbleInfo.encodeBegin(context);
+        logger.info(getClass().getName() + " -> end encodeBegin");
+    }
+
+    @Override
+    public void encodeEnd(FacesContext context) throws IOException {
+        logger.info(getClass().getName() + " [" + this.hashCode() + "] -> start encodeEnd");
+        super.encodeEnd(context);
+        //this.bubbleInfo.encodeEnd(context);
+        logger.info(getClass().getName() + " [" + this.hashCode() + "] -> end encodeEnd");
+    }
+    */
+
+    /*
+    @Override
+    public Object saveState(FacesContext _context) {
+        logger.info(getClass().getName() + " [" + this.hashCode() + "] -> start saveSate");
+
+        if (_values == null) {
+            _values = new Object[30];
+        }
+
+        Object values[] = (Object[]) super.saveState(_context);
+        System.arraycopy(values, 0, _values, 0, values.length);
+        //_values[29] = this.bubbleInfo;
+        logger.info(getClass().getName() + " [" + this.hashCode() + "] -> end saveSate");
+        return _values;
+    }
+
+    @Override
+    public void restoreState(FacesContext _context, Object _state) {
+        logger.info(getClass().getName() + " [" + this.hashCode() + "] -> start restoreSate");
+        _values = (Object[]) _state;
+        super.restoreState(_context, _state);
+        //this.bubbleInfo = (HtmlBubbleInfo) _values[29];
+        logger.info(getClass().getName() + " [" + this.hashCode() + "] -> bubble info style : " + this.bubbleInfo.getStyle());
+        logger.info(getClass().getName() + " [" + this.hashCode() + "] -> end restoreSate");
+    }
+    */
+    
 }

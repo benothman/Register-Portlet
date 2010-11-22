@@ -53,13 +53,19 @@ public class BubbleInfoRenderer extends Renderer {
     @Override
     public void encodeBegin(FacesContext ctx, UIComponent component) throws IOException {
 
+        logger.info(" -> start encodeBegin()");
+
         assertValidOutput(ctx, component);
         ResponseWriter writer = ctx.getResponseWriter();
         String reqCtxPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
         UIBubbleInfo bubbleInfo = (UIBubbleInfo) component;
 
         writer.startElement("div", bubbleInfo);
-
+        writer.writeAttribute("class", "bubbleInfo", "class");
+        if (bubbleInfo.getStyle() != null && bubbleInfo.getStyle().length() != 0) {
+            logger.info("BubbleInfo style : " + bubbleInfo.getStyle());
+            writer.writeAttribute("style", bubbleInfo.getStyle(), "style");
+        }
 
         Map<String, Object> attrs = bubbleInfo.getAttributes();
         Collection<String> keys = attrs.keySet();
@@ -114,7 +120,8 @@ public class BubbleInfoRenderer extends Renderer {
         writer.startElement("span", null);
         writer.writeAttribute("id", bubbleInfo.getId() + ":" + "dpopd:" + "bubble-content", "id");
 
-        if (bubbleInfo.getMessage() != null) {
+        // verify that the message is not null nor empty
+        if (bubbleInfo.getMessage() != null && !bubbleInfo.getMessage().matches("\\s*")) {
             writer.writeText(bubbleInfo.getMessage(), "message");
         } else {
             writer.write("&#160;&#160;&#160;");
@@ -158,13 +165,16 @@ public class BubbleInfoRenderer extends Renderer {
         writer.endElement("tr");
         writer.endElement("tbody");
         writer.endElement("table");
+        logger.info(" -> end encodeBegin()");
     }
 
     @Override
     public void encodeEnd(FacesContext ctx, UIComponent component) throws IOException {
+        logger.info(" -> start encodeEnd()");
         assertValidOutput(ctx, component);
         ResponseWriter writer = ctx.getResponseWriter();
         writer.endElement("div");
+        logger.info(" -> end encodeEnd()");
     }
 
     /**

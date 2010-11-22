@@ -17,13 +17,7 @@ and open the template in the editor.
         <br/>
         <br/>
 
-        <gtn:bubbleInfo id=""   ></gtn:bubbleInfo>
-
-
-
-        <br/>
-        <br/>
-        <h:form id="register">
+        <a4j:form id="register">
 
             <rich:panel style="width:80%">
                 <f:facet name="header">
@@ -34,21 +28,39 @@ and open the template in the editor.
                     <legend align="left"> Required Data </legend>
                     <h:panelGrid columns="2" cellpadding="5" cellspacing="5" width="60%" >
 
-                        <h:inputText value="#{registerBean.data['firstname']}" id="firstname" title="First name" required="true" onfocus="getFocus(this.id)"
-                                     label="First name" size="30" immediate="true" requiredMessage="Value is required" alt="First name"
-                                     validator="inputTextValidator" styleClass="textfield_effect">
-                            <rich:ajaxValidator event="onblur"/>
-                        </h:inputText>
-                        <h:inputText value="#{registerBean.data['lastname']}" id="lastname" required="true" size="30" requiredMessage="Value is required"
-                                     label="Last name" styleClass="textfield_effect">
-                            <rich:ajaxValidator event="onblur"/>
-                        </h:inputText>
 
-                        <rich:message for="firstname" style="color:#FF0000" />
-                        <rich:message for="lastname" style="color:#FF0000"/>
+
+                        <rich:panel id="firstname-panel" style="border: 0px">
+                            <h:inputText id="firstname-input" title="First name" required="false"
+                                         label="First name" size="30"  requiredMessage="Value is required" alt="First name"
+                                         styleClass="textfield_effect" validator="inputTextValidator">
+
+                                <gtn:bubbleInfo  id="firstname-bubble-info" for="firstname-input"/>
+                                <rich:ajaxValidator event="onblur" reRender="firstname-panel" />
+                            </h:inputText>
+                        </rich:panel>
+
+                        <h:panelGroup>                            
+                            <h:inputText value="#{registerBean.data['firstname']}" id="firstname" title="First name" required="true"
+                                         label="First name" size="30" immediate="true" requiredMessage="Value is required" alt="First name"
+                                         styleClass="textfield_effect">
+                                <f:validateLength minimum="1" />
+                                <rich:ajaxValidator event="onblur" reRender="firstname-bubbleInfo">
+                                    <f:param name="clientId" value="#{rich:clientId('firstname-bubbleInfo')}"/>
+                                </rich:ajaxValidator>
+                            </h:inputText>
+                        </h:panelGroup>
+                        <h:panelGroup>
+                            <h:inputText value="#{registerBean.data['lastname']}" id="lastname" title="First name" required="true"
+                                         label="Last name" size="30" immediate="true" requiredMessage="Value is required" alt="Last name"
+                                         styleClass="textfield_effect">
+                                <f:validateLength minimum="1" />
+                                <rich:ajaxValidator event="onblur" reRender="lastname-bubbleInfo"/>
+                            </h:inputText>
+                        </h:panelGroup>
 
                         <h:inputText value="#{registerBean.data['email']}" id="email" required="true" size="30" requiredMessage="Value is required"
-                                     label="Email" styleClass="textfield_effect">
+                                     label="Email" styleClass="textfield_effect" validator="emailValidator" >
                             <rich:ajaxValidator event="onblur"/>
                         </h:inputText>
                         <h:inputText value="#{registerBean.data['username']}" id="username" required="true" label="User name" size="30" 
@@ -66,7 +78,7 @@ and open the template in the editor.
                         <h:inputSecret value="#{registerBean.data['confirmPassword']}" id="confirmPassword" required="true" size="30" requiredMessage="Value is required"
                                        label="Confirm password" validator="passwordValidator" styleClass="textfield_effect">
                             <rich:ajaxValidator event="onblur">
-                                <f:param name="password" value="#{registerBean.data['password']}" />
+                                <f:param name="password" value="#{rich:findComponent('register:password').value}" />
                             </rich:ajaxValidator>
                         </h:inputSecret>
 
@@ -112,7 +124,7 @@ and open the template in the editor.
                                 <f:selectItem itemValue="Mrs" itemLabel="Mrs" />
                                 <f:selectItem itemValue="Ms" itemLabel="Ms" />
                             </h:selectOneMenu>
-                            
+
                             <h:outputLabel for="calendar" value="Birthday" />
                             <h:inputText value="#{registerBean.data['address.line1']}" size="30" />
                             <a4j:outputPanel id="calendar" layout="block">
@@ -160,7 +172,7 @@ and open the template in the editor.
                 <a4j:commandButton value="Submit" />
                 <a4j:commandButton value="Cancel" />
             </rich:panel>
-        </h:form>
+        </a4j:form>
 
         <script type="text/javascript">
 

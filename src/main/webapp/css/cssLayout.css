@@ -150,9 +150,9 @@ hover over it and when we actually have it selected*/
 /*you may also like to add some styles for the rest of the form*/
 
 fieldset {
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
     border-style: solid;
     border-width: 1px;
     border-color: #036399;

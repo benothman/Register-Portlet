@@ -18,12 +18,17 @@
  */
 package org.jboss.gatein.jsf.validator;
 
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
+import org.gatein.common.logging.Logger;
+import org.gatein.common.logging.LoggerFactory;
+import org.jboss.gatein.jsf.component.UIBubbleInfo;
+import org.jboss.gatein.jsf.html.GateInHtmlInputText;
 
 /**
  * {@code GateInInputTextValidator}
@@ -35,11 +40,14 @@ import javax.faces.validator.ValidatorException;
  */
 public class GateInInputTextValidator implements Validator {
 
+    private static final Logger logger = LoggerFactory.getLogger(GateInInputTextValidator.class.getName());
+
     /**
      * Create a new instance of {@code GateInInputTextValidator}
      */
     public GateInInputTextValidator() {
         super();
+        logger.info("create new instance of " + getClass().getName());
     }
 
     /*
@@ -48,22 +56,54 @@ public class GateInInputTextValidator implements Validator {
      *   javax.faces.component.UIComponent, java.lang.Object)
      */
     public void validate(FacesContext fc, UIComponent uic, Object o) throws ValidatorException {
-
+        logger.info("validating a new HtmlInputText value");
         if (o != null) {
             if (!(o instanceof String)) {
+                logger.error("Illegal argument exception : " + o);
                 throw new IllegalArgumentException("The value must be a String");
             }
             String value = (String) o;
+            HtmlInputText inputText = (HtmlInputText) uic;
+
+            //GateInHtmlInputText inputText = (GateInHtmlInputText) uic;
+            //UIBubbleInfo bubbleInfo = inputText.getBubbleInfo();
+            UIBubbleInfo bubbleInfo = null;
+            //List<UIComponent> children = inputText.getChildren();
+            List<UIComponent> children = inputText.getChildren();
+
+            for (UIComponent child : children) {
+                if (child instanceof UIBubbleInfo) {
+                    bubbleInfo = (UIBubbleInfo) child;
+                    break;
+                }
+            }
+
             if (value.matches("\\s*")) {
+                logger.error("value is required");
+                if (bubbleInfo != null) {
+                    inputText.setStyle("background-color: #FF0000;");
+                    bubbleInfo.setMessage("Value is required!");
+                    bubbleInfo.setStyle("display:block;");
+                }
                 throw new ValidatorException(new FacesMessage("Value is required!"));
             }
 
-            HtmlInputText hInputText = (HtmlInputText) uic;
-            String label = hInputText.getLabel();
+            String label = inputText.getLabel();
             if (value.equalsIgnoreCase(label)) {
+                logger.error("Invalid input value");
+                if (bubbleInfo != null) {
+                    inputText.setStyle("background-color: #FF0000;");
+                    bubbleInfo.setMessage("Invalid input value!");
+                    bubbleInfo.setStyle("display:block;");
+                }
                 throw new ValidatorException(new FacesMessage("Invalid input value!"));
             }
+            // if validation passes with success, hide bubble info
+            if (bubbleInfo != null) {
+                bubbleInfo.setMessage("");
+                bubbleInfo.setStyle("display:none;");
+            }
         }
-
+        logger.info("validation of HtmlInputText value passed with succes");
     }
 }

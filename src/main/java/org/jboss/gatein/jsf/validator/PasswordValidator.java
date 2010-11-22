@@ -21,6 +21,7 @@ package org.jboss.gatein.jsf.validator;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlInputSecret;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
@@ -62,6 +63,8 @@ public class PasswordValidator implements Validator {
             System.out.println("value -> " + value);
             String otherValue = null;
             if (request != null) {
+                ExternalContext exCtx = fc.getExternalContext();
+
                 otherValue = request.getParameter("password");
                 System.out.println("other value -> " + otherValue);
 
