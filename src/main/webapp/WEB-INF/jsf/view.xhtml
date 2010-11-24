@@ -13,84 +13,166 @@ and open the template in the editor.
              xmlns:rich="http://richfaces.org/rich">
 
     <ui:define name="content">
-        <br/>
-        <br/>
-        <br/>
 
-        <a4j:form id="register">
 
-            <rich:panel style="width:80%">
+
+        <a4j:form id="register" ajaxSubmit="true">
+
+            <rich:panel style="width:60%" id="rigister-panel">
                 <f:facet name="header">
                     <h:outputText value="Create new staff" style="text-align: center" />
                 </f:facet>
 
+                <br/>
+                <br/>
+
                 <fieldset>
                     <legend align="left"> Required Data </legend>
+
+                    <br/>
+
+                    <table cellpadding="5" cellspacing="5" width="60%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="bubbleInfo">
+                                        <table class="popup" cellpadding="0" cellspacing="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td id="topleft" class="corner"></td>
+                                                    <td class="top"></td>
+                                                    <td id="topright" class="corner"></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="left"></td>
+                                                    <td>
+                                                        <table class="popup-contents"  cellpadding="0" cellspacing="0">
+                                                            <tbody>
+                                                                <tr id="release-notes">
+                                                                    <th>&#160;</th>
+                                                                    <td>
+                                                            <rich:message for="firstname" errorClass="error" infoClass="success" />
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                </td>
+                                <td class="right"></td>
+                            </tr>
+
+                            <tr>
+                                <td class="corner" id="bottomleft"></td>
+                                <td class="bottom">
+                                    <img src="#{facesContext.externalContext.requestContextPath}/images/bubble/bubble-bottom-middle.png" width="30" height="29" alt="popup tail" />
+                                </td>
+                                <td id="bottomright" class="corner"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br/>
+                    <div>
+                        <h:inputText value="#{registerBean.data['firstname']}" id="firstname" title="First name" required="true"
+                                     label="First name" size="30" immediate="true" requiredMessage="Value is required" alt="First name"
+                                     styleClass="trigger" validator="inputTextValidator" >
+                            <rich:ajaxValidator event="onblur" reRender="firstname" />
+                        </h:inputText>
+                    </div>
+                    </div>
+                    </td>
+                    <td>
+                        <div class="bubbleInfo">
+                            <table class="popup" cellpadding="0" cellspacing="0">
+                                <tbody>
+                                    <tr>
+                                        <td id="topleft" class="corner"></td>
+                                        <td class="top"></td>
+                                        <td id="topright" class="corner"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="left"></td>
+                                        <td>
+                                            <table class="popup-contents"  cellpadding="0" cellspacing="0">
+                                                <tbody>
+                                                    <tr id="release-notes">
+                                                        <th>&#160;</th>
+                                                        <td>
+                                                <rich:message for="lastname" errorClass="error" infoClass="success" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                    </td>
+                    <td class="right"></td>
+                    </tr>
+
+                    <tr>
+                        <td class="corner" id="bottomleft"></td>
+                        <td class="bottom">
+                            <img src="#{facesContext.externalContext.requestContextPath}/images/bubble/bubble-bottom-middle.png" width="30" height="29" alt="popup tail" />
+                        </td>
+                        <td id="bottomright" class="corner"></td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    <br/>
+                    <div>
+
+                        <h:inputText value="#{registerBean.data['lastname']}" id="lastname" title="Last name" required="true"
+                                     label="Last name" size="30" immediate="true" requiredMessage="Value is required" alt="Last name"
+                                     styleClass="trigger" validator="inputTextValidator">
+                            <rich:ajaxValidator event="onblur" reRender="lastname" />
+                        </h:inputText>
+                    </div>
+                    </div>
+
+                    </td>
+                    </tr>
+                    </tbody>
+                    </table>
+
+
+
+
+
+
+                    <br />
                     <h:panelGrid columns="2" cellpadding="5" cellspacing="5" width="60%" >
 
 
-
-                        <rich:panel id="firstname-panel" style="border: 0px">
-                            <h:inputText id="firstname-input" title="First name" required="false"
-                                         label="First name" size="30"  requiredMessage="Value is required" alt="First name"
-                                         styleClass="textfield_effect" validator="inputTextValidator">
-
-                                <gtn:bubbleInfo  id="firstname-bubble-info" for="firstname-input"/>
-                                <rich:ajaxValidator event="onblur" reRender="firstname-panel" />
-                            </h:inputText>
-                        </rich:panel>
-
-                        <h:panelGroup>                            
-                            <h:inputText value="#{registerBean.data['firstname']}" id="firstname" title="First name" required="true"
-                                         label="First name" size="30" immediate="true" requiredMessage="Value is required" alt="First name"
-                                         styleClass="textfield_effect">
-                                <f:validateLength minimum="1" />
-                                <rich:ajaxValidator event="onblur" reRender="firstname-bubbleInfo">
-                                    <f:param name="clientId" value="#{rich:clientId('firstname-bubbleInfo')}"/>
-                                </rich:ajaxValidator>
-                            </h:inputText>
-                        </h:panelGroup>
-                        <h:panelGroup>
-                            <h:inputText value="#{registerBean.data['lastname']}" id="lastname" title="First name" required="true"
-                                         label="Last name" size="30" immediate="true" requiredMessage="Value is required" alt="Last name"
-                                         styleClass="textfield_effect">
-                                <f:validateLength minimum="1" />
-                                <rich:ajaxValidator event="onblur" reRender="lastname-bubbleInfo"/>
-                            </h:inputText>
-                        </h:panelGroup>
-
                         <h:inputText value="#{registerBean.data['email']}" id="email" required="true" size="30" requiredMessage="Value is required"
-                                     label="Email" styleClass="textfield_effect" validator="emailValidator" >
+                                     label="Email"  validator="emailValidator" >
                             <rich:ajaxValidator event="onblur"/>
                         </h:inputText>
-                        <h:inputText value="#{registerBean.data['username']}" id="username" required="true" label="User name" size="30" 
-                                     requiredMessage="Value is required" styleClass="textfield_effect">
+                        <h:inputText value="#{registerBean.data['username']}" id="username" required="true" label="User name" size="30"
+                                     requiredMessage="Value is required">
                             <rich:ajaxValidator event="onblur"/>
                         </h:inputText>
-                        <rich:message for="email" style="color:#FF0000"/>
-                        <rich:message for="username" style="color:#FF0000"/>
 
+                        <rich:message for="email" errorClass="error" infoClass="success" />
+                        <rich:message for="username" errorClass="error" infoClass="success" />
 
                         <h:inputSecret value="#{registerBean.data['password']}" id="password" required="true" size="30" requiredMessage="Value is required"
-                                       label="Password" styleClass="textfield_effect">
+                                       label="Password" >
                             <rich:ajaxValidator event="onblur"/>
                         </h:inputSecret>
                         <h:inputSecret value="#{registerBean.data['confirmPassword']}" id="confirmPassword" required="true" size="30" requiredMessage="Value is required"
-                                       label="Confirm password" validator="passwordValidator" styleClass="textfield_effect">
+                                       label="Confirm password" validator="passwordValidator">
                             <rich:ajaxValidator event="onblur">
                                 <f:param name="password" value="#{rich:findComponent('register:password').value}" />
                             </rich:ajaxValidator>
                         </h:inputSecret>
 
-                        <rich:message for="password" style="color:#FF0000"/>
-                        <rich:message for="confirmPassword" style="color:#FF0000"/>
+                        <rich:message for="password" errorClass="error" infoClass="success" />
+                        <rich:message for="confirmPassword" errorClass="error" infoClass="success" />
 
-                        <h:inputText value="#{registerBean.data['answer']}" id="answer" required="true"
-                                     requiredMessage="Value is required" label="Code" size="30" styleClass="textfield_effect" validator="captchaValidator">
+                        <h:inputText value="#{registerBean.data['captcha.answer']}" id="answer" required="true"
+                                     requiredMessage="Value is required" label="Code" size="30" validator="captchaValidator">
                             <rich:ajaxValidator event="onblur"/>
                         </h:inputText>
 
-                        <rich:message for="answer" style="color:#FF0000" />
+                        <rich:message for="answer" errorClass="error" infoClass="success" />
                     </h:panelGrid>
                 </fieldset>
 
@@ -139,7 +221,7 @@ and open the template in the editor.
                             <h:inputText value="#{registerBean.data['twitter']}" size="30" />
 
                             <h:panelGroup>
-                                <h:inputText id="zipCode" value="#{registerBean.data['address.zipCode']}" size="8" 
+                                <h:inputText id="zipCode" value="#{registerBean.data['address.zipCode']}" size="8"
                                              converterMessage="The input must be an Integer" validatorMessage="The input value must be between {0} {1}">
                                     <f:converter id="javax.faces.Integer" converterId="javax.faces.Integer"/>
                                     <f:validateLongRange minimum="1" maximum="1000000" />
@@ -149,7 +231,7 @@ and open the template in the editor.
                             </h:panelGroup>
                             <h:inputText value="#{registerBean.data['skype']}" size="30" />
 
-                            <rich:message for="zipCode" style="color: #FF0000" />
+                            <rich:message for="zipCode" errorClass="error" infoClass="success" />
                             <rich:spacer />
 
                             <h:inputText value="#{registerBean.data['address.state']}" size="30" />
@@ -221,4 +303,5 @@ and open the template in the editor.
         </script>
 
     </ui:define>
+
 </ui:decorate>

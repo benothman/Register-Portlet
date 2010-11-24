@@ -20,6 +20,7 @@ package org.jboss.gatein.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -36,7 +37,7 @@ import javax.faces.model.SelectItem;
 public class ApplicationBean implements Serializable {
 
     private List<SelectItem> counties;
-    public static String[] CountryList = new String[]{"Abkhazia", "Afghanistan", "Akrotiri and Dhekelia",
+    public static final String[] COUNTRY_LIST = new String[]{"Abkhazia", "Afghanistan", "Akrotiri and Dhekelia",
         "≈land Islands", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla",
         "Antigua and Barbuda", "Argentina ", "Armenia ", "Aruba", "Ascension Island",
         "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados",
@@ -80,23 +81,37 @@ public class ApplicationBean implements Serializable {
     }
 
     /**
+     * 
+     * @return
+     */
+    private List<String> getSortedList() {
+        List<String> list = new ArrayList<String>();
+        list.addAll(Arrays.asList(COUNTRY_LIST));
+        Collections.sort(list);
+        
+        return list;
+    }
+
+    /**
      * Retrieve the list of all available countries and fill the list of select
      * items
      */
     private void fillCountries() {
-        Locale[] locales = Locale.getAvailableLocales();
-        String country = null;
-        List<String> tmp = new ArrayList<String>();
+        //Locale[] locales = Locale.getAvailableLocales();
+        //String country = null;
+        List<String> tmp = getSortedList();
 
-        for (Locale locale : locales) {
-            country = locale.getDisplayCountry();
+        //for (Locale locale : locales) {
+        /*
+        for (String country : COUNTRY_LIST) {
+            //country = locale.getDisplayCountry();
             if (!country.equals("") && !tmp.contains(country)) {
                 tmp.add(country);
             }
         }
-
+        */
         // need to sort the list to get a sorted list of countries
-        Collections.sort(tmp);
+        //Collections.sort(tmp);
         // add the list of available coutries to the list of select items
         for (String str : tmp) {
             this.counties.add(new SelectItem(str, str));

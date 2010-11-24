@@ -6,15 +6,12 @@
         Purpose of the stylesheet follows.
 */
 
-
 .bubbleInfo {
-    z-index: 999;
     position: relative;
-    display: none;
-
     /*top: 150px;
-    left: 100px;
-    width: 500px; */
+    left: 100px;*/
+    width:200px;
+    height: 20px;
 }
 .trigger {
     position: absolute;
@@ -24,7 +21,7 @@
 
 .popup {
     position: absolute;
-    display:block;
+    display: none;
     z-index: 50;
     border-collapse: collapse;
 }

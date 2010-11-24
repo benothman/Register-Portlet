@@ -8,7 +8,6 @@
     margin: 0px 0px 0px 0px;
 }
 
-
 #body_content {
     margin: 110px 0px 0px 0px;
     padding: 10px;
@@ -134,8 +133,8 @@ input:focus {
     height: 15px;
 }
 
-/*we are now going to style how the textfield will look when we
-hover over it and when we actually have it selected*/
+/* we are now going to style how the textfield will look when we
+hover over it and when we actually have it selected */
 
 .textfield_effect:hover    {
     border-color: #64acd8;
@@ -147,7 +146,7 @@ hover over it and when we actually have it selected*/
     border-width: 1px;
 }
 
-/*you may also like to add some styles for the rest of the form*/
+/* you may also like to add some styles for the rest of the form */
 
 fieldset {
     -moz-border-radius: 3px;
@@ -158,7 +157,7 @@ fieldset {
     border-color: #036399;
     margin-left: auto;
     margin-right: auto;
-    background-color: #F5F5F5;
+    /*background-color: #F5F5F5;*/
 }
 fieldset:hover    {
     border-color: #0ca0ff;
@@ -168,4 +167,30 @@ legend    {
     font-size: 18px;
     color: #097bc3;
     font-weight: bold;
+}
+
+
+.focusField {
+    border:solid 2px #73A6FF;
+    background:#EFF5FF;
+    color:#000;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+.idleField {
+    background-color:#FFFFFF;
+    background:#FFFFFF;
+    color: #6F6F6F;
+    border: solid 2px #DFDFDF;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+#status {
+    width:50%;
+    padding:10px;
+    height:42px;
+    outline:none;
 }

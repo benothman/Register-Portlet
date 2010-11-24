@@ -18,7 +18,6 @@
  */
 package org.jboss.gatein.jsf.validator;
 
-import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlInputText;
@@ -27,8 +26,6 @@ import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import org.gatein.common.logging.Logger;
 import org.gatein.common.logging.LoggerFactory;
-import org.jboss.gatein.jsf.component.UIBubbleInfo;
-import org.jboss.gatein.jsf.html.GateInHtmlInputText;
 
 /**
  * {@code GateInInputTextValidator}
@@ -62,48 +59,28 @@ public class GateInInputTextValidator implements Validator {
                 logger.error("Illegal argument exception : " + o);
                 throw new IllegalArgumentException("The value must be a String");
             }
-            String value = (String) o;
+            // remove spaces at the begining and the end of the string value
+            String value = ((String) o).trim();
             HtmlInputText inputText = (HtmlInputText) uic;
-
-            //GateInHtmlInputText inputText = (GateInHtmlInputText) uic;
-            //UIBubbleInfo bubbleInfo = inputText.getBubbleInfo();
-            UIBubbleInfo bubbleInfo = null;
-            //List<UIComponent> children = inputText.getChildren();
-            List<UIComponent> children = inputText.getChildren();
-
-            for (UIComponent child : children) {
-                if (child instanceof UIBubbleInfo) {
-                    bubbleInfo = (UIBubbleInfo) child;
-                    break;
-                }
-            }
 
             if (value.matches("\\s*")) {
                 logger.error("value is required");
-                if (bubbleInfo != null) {
-                    inputText.setStyle("background-color: #FF0000;");
-                    bubbleInfo.setMessage("Value is required!");
-                    bubbleInfo.setStyle("display:block;");
-                }
+                //inputText.setStyle("background-color: #FF0000;");
                 throw new ValidatorException(new FacesMessage("Value is required!"));
             }
 
             String label = inputText.getLabel();
             if (value.equalsIgnoreCase(label)) {
                 logger.error("Invalid input value");
-                if (bubbleInfo != null) {
-                    inputText.setStyle("background-color: #FF0000;");
-                    bubbleInfo.setMessage("Invalid input value!");
-                    bubbleInfo.setStyle("display:block;");
-                }
-                throw new ValidatorException(new FacesMessage("Invalid input value!"));
+                //inputText.setStyle("background-color: #FF0000;");
+                throw new ValidatorException(new FacesMessage("The introduced value is not valid!"));
             }
             // if validation passes with success, hide bubble info
-            if (bubbleInfo != null) {
-                bubbleInfo.setMessage("");
-                bubbleInfo.setStyle("display:none;");
-            }
+            //inputText.setStyle("background-color: #FFFFFF;");
         }
+
+        FacesMessage message =  new FacesMessage(FacesMessage.SEVERITY_INFO, "The introduced value is accpeted", "");
+        fc.addMessage(uic.getClientId(fc), message);
         logger.info("validation of HtmlInputText value passed with succes");
     }
 }

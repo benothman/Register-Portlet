@@ -20,7 +20,6 @@ package org.jboss.gatein.jsf.validator;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
-import javax.faces.component.html.HtmlInputSecret;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
@@ -65,8 +64,10 @@ public class CaptchaValidator implements Validator {
             System.out.println("input : " + value + ", answer : " + answer);
 
             if (!value.equals(answer)) {
-                throw new ValidatorException(new FacesMessage("Wrong input value!"));
+                throw new ValidatorException(new FacesMessage("The answer is not correct!"));
             }
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct answer", "");
+            fc.addMessage(uic.getClientId(fc), message);
         }
     }
 }

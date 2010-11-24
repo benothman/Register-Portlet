@@ -34,6 +34,10 @@ a:link:hover, a:visited:hover  {
     color: #FF0000;
 }
 
+.success {
+    color: #00FF00;
+}
+
 .ecol1 {
     vertical-align: top;
     padding-right : 25px;
@@ -83,12 +87,12 @@ a:link:hover, a:visited:hover  {
 }
 
 div.arrondi {
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
-	/* background-color: #D3F3F3; */
-	/* background-color: #D5D8D9; */
-	/* padding: 10px; */
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    /* background-color: #D3F3F3; */
+    /* background-color: #D5D8D9; */
+    /* padding: 10px; */
 }
 
 .viewsourcediv pre {

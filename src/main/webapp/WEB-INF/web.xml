@@ -79,6 +79,7 @@
         <param-name>org.ajax4jsf.RESOURCE_URI_PREFIX</param-name>
         <param-value>rfRes</param-value>
     </context-param>
+
     <!--context-param>
         <param-name>org.ajax4jsf.handleViewExpiredOnClient</param-name>
         <param-value>true</param-value>

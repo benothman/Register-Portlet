@@ -83,14 +83,16 @@ public class EmailValidator implements Validator {
             String value = (String) o;
             /*
             if (value.matches("\\s*")) {
-                logger.error("Email value cannot be empty");
-                throw new ValidatorException(new FacesMessage("Email value cannot be empty!"));
+            logger.error("Email value cannot be empty");
+            throw new ValidatorException(new FacesMessage("Email value cannot be empty!"));
             }
              */
             if (!isValid(value)) {
                 logger.error("Invalid email format : " + value);
                 throw new ValidatorException(new FacesMessage("Invalid email format!"));
             }
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "E-mail address well formed", "");
+            fc.addMessage(uic.getClientId(fc), message);
         }
     }
 

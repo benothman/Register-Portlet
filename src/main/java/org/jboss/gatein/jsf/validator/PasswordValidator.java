@@ -54,7 +54,7 @@ public class PasswordValidator implements Validator {
             if (!(o instanceof String)) {
                 throw new IllegalArgumentException("The value must be a String");
             }
-            String value = (String) o;
+            String value = ((String) o).trim();
             if (value.matches("\\s*")) {
                 throw new ValidatorException(new FacesMessage("Value is required!"));
             }
@@ -73,11 +73,13 @@ public class PasswordValidator implements Validator {
                 }
             }
 
-            HtmlInputSecret hInputText = (HtmlInputSecret) uic;
-            String label = hInputText.getLabel();
+            HtmlInputSecret hInputSec = (HtmlInputSecret) uic;
+            String label = hInputSec.getLabel();
             if (value.equalsIgnoreCase(label)) {
                 throw new ValidatorException(new FacesMessage("Invalid input value!"));
             }
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "The input value is valid", "");
+            fc.addMessage(uic.getClientId(fc), message);
         }
 
     }

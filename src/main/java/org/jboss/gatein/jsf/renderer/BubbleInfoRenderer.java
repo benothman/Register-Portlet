@@ -19,8 +19,6 @@
 package org.jboss.gatein.jsf.renderer;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -61,18 +59,22 @@ public class BubbleInfoRenderer extends Renderer {
         UIBubbleInfo bubbleInfo = (UIBubbleInfo) component;
 
         writer.startElement("div", bubbleInfo);
+        
+        writer.writeAttribute("id", bubbleInfo.getId(), "id");
         writer.writeAttribute("class", "bubbleInfo", "class");
         if (bubbleInfo.getStyle() != null && bubbleInfo.getStyle().length() != 0) {
             logger.info("BubbleInfo style : " + bubbleInfo.getStyle());
             writer.writeAttribute("style", bubbleInfo.getStyle(), "style");
         }
 
+        /*
         Map<String, Object> attrs = bubbleInfo.getAttributes();
         Collection<String> keys = attrs.keySet();
 
         for (String attr : keys) {
             writer.writeAttribute(attr, attrs.get(attr), attr);
         }
+        */
 
         writer.startElement("table", null);
         writer.writeAttribute("id", component.getId() + ":" + "dpopd", "id");

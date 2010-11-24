@@ -25,6 +25,8 @@ import java.util.Map;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import nl.captcha.CaptchaBean;
+import org.gatein.common.logging.Logger;
+import org.gatein.common.logging.LoggerFactory;
 
 /**
  * {@code RegisterBean}
@@ -39,6 +41,7 @@ public class RegisterBean implements Serializable {
     /*
      * TODO complete implementation
      */
+    private static final Logger logger = LoggerFactory.getLogger(RegisterBean.class);
     public static final String SUCCESS = "success";
     public static final String FAILURE = "failure";
     private CalendarBean calendarBean;
@@ -57,6 +60,34 @@ public class RegisterBean implements Serializable {
         this.captcha = this.captchaBean.getImage();
         this.data.put("captcha", this.captcha);
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("answer", this.captchaBean.getAnswer());
+
+        fillDefaultValues();
+
+    }
+
+    /**
+     * 
+     */
+    private void fillDefaultValues() {
+        data.put("firstname", "First name");
+        data.put("lastname", "Last name");
+        data.put("username", "User name");
+        data.put("email", "Email");
+        data.put("password", "Password");
+        data.put("confirmPassword", "Password");
+        data.put("captcha.answer", "Answer");
+        data.put("phone", "Phone number");
+        data.put("address.line1", "Address line 1");
+        data.put("address.line2", "Address line 2");
+        data.put("address.zipCode", "Zip code");
+        data.put("address.city", "City");
+        data.put("address.state", "State");
+        data.put("address.country", "Country");
+        data.put("skype", "Skype");
+        data.put("msn", "MSN");
+        data.put("icq", "ICQ");
+        data.put("twitter", "twitter");
+        data.put("linkedIn", "LinkedIn");
     }
 
     /**
@@ -65,7 +96,8 @@ public class RegisterBean implements Serializable {
      * @return
      */
     public String save(ActionEvent event) {
-
+        logger.info("Starting saving values");
+        
         // TODO
         return SUCCESS;
     }

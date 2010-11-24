@@ -6,9 +6,11 @@
                 xmlns:a4j="http://richfaces.org/a4j"
                 xmlns:rich="http://richfaces.org/rich">
 
+
     <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/default.css" media="screen"/>
     <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/cssLayout.css" media="screen"/>
     <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/bubble.css" media="screen"/>
+    <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/scripts.js" />
 
     <f:view>
 
@@ -20,7 +22,7 @@
                 <ui:insert name="content">Content</ui:insert>
             </div>
         </center>
-        
+
         <center>
             <div id="bottom" class="arrondi">
                 <ui:insert name="bottom">
@@ -44,5 +46,74 @@
                 }
             }
         </script>
+
+
+
+
+        <script type="text/javascript">
+<!--
+
+$(function () {
+    $('.bubbleInfo').each(function () {
+        var distance = 10;
+        var time = 250;
+        var hideDelay = 500;
+
+        var hideDelayTimer = null;
+
+        var beingShown = false;
+        var shown = false;
+        var trigger = $('.trigger', this);
+        var info = $('.popup', this).css('opacity', 0);
+
+
+        $([trigger.get(0), info.get(0)]).mouseover(function () {
+            if (hideDelayTimer) clearTimeout(hideDelayTimer);
+            if (beingShown || shown) {
+                // don't trigger the animation again
+                return;
+            } else {
+                // reset position of info box
+                beingShown = true;
+
+                info.css({
+                    top: -33,
+                    left: -23,
+                    display: 'block'
+                }).animate({
+                    top: '-=' + distance + 'px',
+                    opacity: 1
+                }, time, 'swing', function() {
+                    beingShown = false;
+                    shown = true;
+                });
+            }
+
+            return false;
+        }).mouseout(function () {
+            if (hideDelayTimer) clearTimeout(hideDelayTimer);
+            hideDelayTimer = setTimeout(function () {
+                hideDelayTimer = null;
+                info.animate({
+                    top: '-=' + distance + 'px',
+                    opacity: 0
+                }, time, 'swing', function () {
+                    shown = false;
+                    info.css('display', 'none');
+                });
+
+            }, hideDelay);
+
+            return false;
+        });
+    });
+});
+
+//-->
+        </script> 
+
+
+
+
     </f:view>
 </ui:composition>

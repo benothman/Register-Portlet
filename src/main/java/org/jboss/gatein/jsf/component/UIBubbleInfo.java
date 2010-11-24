@@ -121,6 +121,7 @@ public class UIBubbleInfo extends UIOutput implements Serializable {
         _stateValues[0] = super.saveState(context);
         _stateValues[1] = this._for;
         _stateValues[2] = this.message;
+        logger.info("saveState -> message : " + this.message);
         _stateValues[3] = this.lang;
         _stateValues[4] = this.title;
         _stateValues[5] = this.style;
@@ -143,6 +144,7 @@ public class UIBubbleInfo extends UIOutput implements Serializable {
         super.restoreState(context, _stateValues[0]);
 
         this._for = (String) _stateValues[1];
+        logger.info("restoreState -> message : " + this.message);
         this.message = (String) _stateValues[2];
         this.lang = (String) _stateValues[3];
         this.title = (String) _stateValues[4];
