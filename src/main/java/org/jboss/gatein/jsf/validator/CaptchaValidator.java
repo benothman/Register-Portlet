@@ -55,7 +55,7 @@ public class CaptchaValidator implements Validator {
             }
             String value = (String) o;
             if (value.matches("\\s*")) {
-                throw new ValidatorException(new FacesMessage("Value is required!"));
+                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Value is required!", "Value is required!"));
             }
 
             ExternalContext exCtx = FacesContext.getCurrentInstance().getExternalContext();
@@ -64,9 +64,9 @@ public class CaptchaValidator implements Validator {
             System.out.println("input : " + value + ", answer : " + answer);
 
             if (!value.equals(answer)) {
-                throw new ValidatorException(new FacesMessage("The answer is not correct!"));
+                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "The answer is not correct!", "The answer is not correct!"));
             }
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct answer", "");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct answer", "Correct answer");
             fc.addMessage(uic.getClientId(fc), message);
         }
     }

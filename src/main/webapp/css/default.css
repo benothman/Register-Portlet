@@ -38,6 +38,10 @@ a:link:hover, a:visited:hover  {
     color: #00FF00;
 }
 
+.warning {
+    color:orange;
+}
+
 .ecol1 {
     vertical-align: top;
     padding-right : 25px;

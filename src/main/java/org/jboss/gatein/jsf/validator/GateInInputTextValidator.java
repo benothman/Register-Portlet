@@ -65,21 +65,23 @@ public class GateInInputTextValidator implements Validator {
 
             if (value.matches("\\s*")) {
                 logger.error("value is required");
-                //inputText.setStyle("background-color: #FF0000;");
-                throw new ValidatorException(new FacesMessage("Value is required!"));
+                throw new ValidatorException(
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Value is required!",
+                        "The input value connot be empty"));
             }
 
             String label = inputText.getLabel();
             if (value.equalsIgnoreCase(label)) {
                 logger.error("Invalid input value");
-                //inputText.setStyle("background-color: #FF0000;");
-                throw new ValidatorException(new FacesMessage("The introduced value is not valid!"));
+                throw new ValidatorException(
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "The introduced value is not valid!",
+                        "The value " + value + " is not accepted!"));
             }
             // if validation passes with success, hide bubble info
             //inputText.setStyle("background-color: #FFFFFF;");
         }
 
-        FacesMessage message =  new FacesMessage(FacesMessage.SEVERITY_INFO, "The introduced value is accpeted", "");
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "The introduced value is accpeted", "The introduced value is accpeted");
         fc.addMessage(uic.getClientId(fc), message);
         logger.info("validation of HtmlInputText value passed with succes");
     }

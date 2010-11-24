@@ -89,9 +89,9 @@ public class EmailValidator implements Validator {
              */
             if (!isValid(value)) {
                 logger.error("Invalid email format : " + value);
-                throw new ValidatorException(new FacesMessage("Invalid email format!"));
+                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid email format!", "Invalid email format!"));
             }
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "E-mail address well formed", "");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "E-mail address well formed", "E-mail address well formed");
             fc.addMessage(uic.getClientId(fc), message);
         }
     }

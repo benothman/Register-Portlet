@@ -155,8 +155,8 @@ and open the template in the editor.
                                          requiredMessage="Value is required">
                                 <rich:ajaxValidator event="onblur"/>
                             </h:inputText>
-                            <rich:message for="email" errorClass="error" infoClass="success" />
-                            <rich:message for="username" errorClass="error" infoClass="success" />
+                            <rich:message for="email" errorClass="error" fatalClass="error" infoClass="success" />
+                            <rich:message for="username" errorClass="error" fatalClass="error" infoClass="success" />
 
                             <h:inputSecret value="#{registerBean.data['password']}" id="password" required="true" size="30" requiredMessage="Value is required"
                                            label="Password">

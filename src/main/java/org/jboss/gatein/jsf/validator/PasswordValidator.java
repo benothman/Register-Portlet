@@ -56,7 +56,7 @@ public class PasswordValidator implements Validator {
             }
             String value = ((String) o).trim();
             if (value.matches("\\s*")) {
-                throw new ValidatorException(new FacesMessage("Value is required!"));
+                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Value is required!", "Value is required!"));
             }
 
             ResourceRequest request = (ResourceRequest) fc.getExternalContext().getRequest();
@@ -69,16 +69,18 @@ public class PasswordValidator implements Validator {
                 System.out.println("other value -> " + otherValue);
 
                 if (!value.equals(otherValue)) {
-                    throw new ValidatorException(new FacesMessage("Wrong input value!"));
+                    throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            "Wrong input value!", "Wrong input value!"));
                 }
             }
 
             HtmlInputSecret hInputSec = (HtmlInputSecret) uic;
             String label = hInputSec.getLabel();
             if (value.equalsIgnoreCase(label)) {
-                throw new ValidatorException(new FacesMessage("Invalid input value!"));
+                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        "Invalid input value!", "The value " + value + " is not accepted"));
             }
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "The input value is valid", "");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "The input value is valid", "The input value is valid");
             fc.addMessage(uic.getClientId(fc), message);
         }
 
