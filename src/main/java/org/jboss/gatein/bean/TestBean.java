@@ -18,14 +18,11 @@
  */
 package org.jboss.gatein.bean;
 
-import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.ImageIcon;
 import nl.captcha.CaptchaBean;
-import org.jboss.portletbridge.richfaces.PortletResourceBuilder;
 
 /**
  * {@code TestBean}
@@ -47,20 +44,11 @@ public class TestBean implements Serializable {
      * Create a new instance of {@code TestBean}
      */
     public TestBean() {
+
         this.data = new HashMap<String, Object>();
         this.captchaBean = new CaptchaBean(50, 20);
         this.captchaBean.build();
         this.icon = new ImageIcon(this.captchaBean.getImage());
-    }
-
-    /**
-     * 
-     * @param g2d
-     * @param obj
-     */
-    public void paint(Graphics2D g2d, Object obj) {
-
-        g2d.drawImage(this.icon.getImage(), new AffineTransform(), this.icon.getImageObserver());
     }
 
     /**

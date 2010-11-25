@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<ui:decorate template="template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:ui="http://java.sun.com/jsf/facelets"
+             xmlns:h="http://java.sun.com/jsf/html"
+             xmlns:f="http://java.sun.com/jsf/core"
+             xmlns:a4j="http://richfaces.org/a4j"
+             xmlns:gtn="http://www.jboss.org/gatein"
+             xmlns:rich="http://richfaces.org/rich">
+
+
+    <ui:define name="content">
+
+        <rich:panel style="width: 80%; text-align: center">
+            <f:facet name="header">
+                <h:outputText value="Registraton canceled" />
+            </f:facet>
+
+            <br/>
+            <br/>
+
+            <h:outputText value="You canceled the registration" />
+
+            <br/>
+            <h:outputText value="If you want to start again the regidtration, please click " />
+            <h:commandButton action="restart" value="Return" />
+            <br/>
+
+        </rich:panel>
+    </ui:define>
+</ui:decorate>

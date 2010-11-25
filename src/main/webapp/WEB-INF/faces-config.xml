@@ -8,6 +8,32 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
 
 
+    <navigation-rule>
+        <from-view-id>/WEB-INF/jsf/view.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/WEB-INF/jsf/success.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>/WEB-INF/jsf/cancel.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/WEB-INF/jsf/cancel.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>restart</from-outcome>
+            <to-view-id>/WEB-INF/jsf/view.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <managed-bean>
+        <managed-bean-name>resource</managed-bean-name>
+        <managed-bean-class>org.jboss.gatein.bean.ResourceBean</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+
     <managed-bean>
         <managed-bean-name>registerBean</managed-bean-name>
         <managed-bean-class>org.jboss.gatein.bean.RegisterBean</managed-bean-class>
@@ -16,10 +42,19 @@
             <property-name>calendarBean</property-name>
             <value>#{calendarBean}</value>
         </managed-property>
+        <managed-property>
+            <property-name>passwordValidationBean</property-name>
+            <value>#{passwordValidationBean}</value>
+        </managed-property>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>calendarBean</managed-bean-name>
         <managed-bean-class>org.jboss.gatein.bean.CalendarBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>passwordValidationBean</managed-bean-name>
+        <managed-bean-class>org.jboss.gatein.bean.PasswordValidationBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
     <managed-bean>

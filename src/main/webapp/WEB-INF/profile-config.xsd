@@ -14,6 +14,7 @@
                     <xs:complexType>
                         <xs:sequence>
                             <xs:element name="name" type="xs:string"/>
+                            <xs:element name="short-name" type="xs:string"/>
                             <xs:element name="type" type="xs:string"/>
                             <xs:element name="access-mode" type="xs:string"/>
                             <xs:element name="usage">

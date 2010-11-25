@@ -24,6 +24,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
+import javax.portlet.PortletSession;
 import javax.portlet.ResourceRequest;
 
 /**
@@ -59,9 +60,14 @@ public class CaptchaValidator implements Validator {
             }
 
             ExternalContext exCtx = FacesContext.getCurrentInstance().getExternalContext();
+            ResourceRequest request = (ResourceRequest) exCtx.getRequest();
+            PortletSession session = request.getPortletSession(true);
+            String answerValue = (String) session.getAttribute("answer", PortletSession.PORTLET_SCOPE);
+
             String answer = (String) exCtx.getSessionMap().get("answer");
 
             System.out.println("input : " + value + ", answer : " + answer);
+            System.out.println("input : " + value + ", answerValue : " + answerValue);
 
             if (!value.equals(answer)) {
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "The answer is not correct!", "The answer is not correct!"));

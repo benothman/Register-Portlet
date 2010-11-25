@@ -24,6 +24,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import javax.faces.model.SelectItem;
 
 /**
@@ -84,11 +86,11 @@ public class ApplicationBean implements Serializable {
      * 
      * @return
      */
-    private List<String> getSortedList() {
+    protected List<String> getSortedList() {
         List<String> list = new ArrayList<String>();
         list.addAll(Arrays.asList(COUNTRY_LIST));
         Collections.sort(list);
-        
+
         return list;
     }
 
@@ -97,23 +99,19 @@ public class ApplicationBean implements Serializable {
      * items
      */
     private void fillCountries() {
-        //Locale[] locales = Locale.getAvailableLocales();
-        //String country = null;
-        List<String> tmp = getSortedList();
-
-        //for (Locale locale : locales) {
-        /*
-        for (String country : COUNTRY_LIST) {
-            //country = locale.getDisplayCountry();
-            if (!country.equals("") && !tmp.contains(country)) {
-                tmp.add(country);
-            }
-        }
-        */
+        Locale[] locales = Locale.getAvailableLocales();
+        String country = null;
+        
         // need to sort the list to get a sorted list of countries
-        //Collections.sort(tmp);
+        SortedSet<String> sortedSet = new TreeSet<String>();
+
+        for (Locale locale : locales) {
+            country = locale.getDisplayCountry();
+            sortedSet.add(country);
+        }
+
         // add the list of available coutries to the list of select items
-        for (String str : tmp) {
+        for (String str : sortedSet) {
             this.counties.add(new SelectItem(str, str));
         }
     }

@@ -260,8 +260,10 @@ and open the template in the editor.
                     </table>
                     <br/>
                     <div>
-                        <h:inputSecret value="#{registerBean.data['password']}" id="password" required="true" size="30" requiredMessage="Value is required"
-                                       label="Password" styleClass="trigger">
+                        <h:inputSecret value="#{passwordValidationBean.password}" id="password" required="true" size="30" 
+                                       requiredMessage="Value is required" immediate="true"
+                                       label="Password" styleClass="trigger" validator="#{passwordValidationBean.validatePassword}">
+                            <f:validateLength minimum="7" maximum="21" />
                             <rich:ajaxValidator event="onblur" reRender="password" />
                         </h:inputSecret>
                     </div>
@@ -307,11 +309,10 @@ and open the template in the editor.
                     </table>
                     <br/>
                     <div>
-                        <h:inputSecret value="#{registerBean.data['confirmPassword']}" id="confirmPassword" required="true" size="30" requiredMessage="Value is required"
-                                       label="Confirm password" validator="passwordValidator" styleClass="trigger">
-                            <rich:ajaxValidator event="onblur" reRender="confirmPassword">
-                                <f:param name="password" value="#{rich:findComponent('register:password').value}" />
-                            </rich:ajaxValidator>
+                        <h:inputSecret value="#{passwordValidationBean.confirmPassword}" id="confirmPassword" 
+                                       required="true" size="30" requiredMessage="Value is required" immediate="true"
+                                       label="Confirm password" validator="#{passwordValidationBean.validate}" styleClass="trigger">
+                            <rich:ajaxValidator event="onblur" reRender="confirmPassword" />
                         </h:inputSecret>
                     </div>
                     </div>
@@ -367,8 +368,10 @@ and open the template in the editor.
                     <br/>
                     </td>
                     <td>
-                    <h:outputText value="The captcha goes here" />
-                    <br/>
+
+                        <img src="#{facesContext.externalContext.requestContextPath}/images/captcha.png" alt="captcha" width="100" height="40" />
+
+                        <br/>
                     </td>
                     </tr>
                     </tbody>
@@ -442,9 +445,12 @@ and open the template in the editor.
                             <h:inputText value="#{registerBean.data['address.state']}" size="30" />
                             <h:inputText value="#{registerBean.data['msn']}" size="30" />
 
-                            <h:selectOneMenu value="#{registerBean.data['address.country']}">
-                                <f:selectItems value="#{appBean.counties}" />
-                            </h:selectOneMenu>
+                            <h:panelGroup>
+                                <h:outputLabel for="address-country" value="Country : " />
+                                <h:selectOneMenu id="address-country" value="#{registerBean.data['address.country']}">
+                                    <f:selectItems value="#{appBean.counties}" />
+                                </h:selectOneMenu>
+                            </h:panelGroup>
                             <h:inputText value="#{registerBean.data['linkedIn']}" size="30" />
 
                             <h:inputText value="#{registerBean.data['phone']}" size="30" />
@@ -456,57 +462,10 @@ and open the template in the editor.
 
                 <br/>
                 <br/>
-                <a4j:commandButton value="Submit" />
-                <a4j:commandButton value="Cancel" />
+                <a4j:commandButton value="Submit" action="#{registerBean.save}" type="submit" />
+                <a4j:commandButton value="Cancel" action="cancel" type="button" />
             </rich:panel>
         </a4j:form>
-
-        <script type="text/javascript">
-
-            function showHide(divId) {
-                var element  = document.getElementById(divId);
-                var display = element.style.display;
-                if(display == "none") {
-                    display = "inline";
-                    document.getElementById("optionsId").innerHTML = "hide...";
-                } else {
-                    display = "none";
-                    document.getElementById("optionsId").innerHTML = "more...";
-                }
-
-                element.style.display = display;
-
-                return true;
-            }
-
-
-            function style(element) {
-                var alt = element.alt;
-                var value = element.value;
-                if(alt == value) {
-                    element.className = "inputClass1";
-                } else {
-                    element.className = "inputClass2";
-                }
-            }
-
-
-            function getFocus(inputId) {
-                var input = document.getElementById(inputId);
-                if(input.value == input.title) {
-                    input.value = "";
-                }
-            }
-
-            function lostFocus(inputId) {
-                var input = document.getElementById(inputId);
-                if(input.value == "") {
-                    input.value = input.title;
-                }
-            }
-
-        </script>
-
     </ui:define>
 
 </ui:decorate>
