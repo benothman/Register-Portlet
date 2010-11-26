@@ -37,29 +37,47 @@
     <managed-bean>
         <managed-bean-name>registerBean</managed-bean-name>
         <managed-bean-class>org.jboss.gatein.bean.RegisterBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
         <managed-property>
             <property-name>calendarBean</property-name>
             <value>#{calendarBean}</value>
         </managed-property>
-        <managed-property>
+        <!--managed-property>
             <property-name>passwordValidationBean</property-name>
             <value>#{passwordValidationBean}</value>
-        </managed-property>
+        </managed-property-->
     </managed-bean>
     <managed-bean>
         <managed-bean-name>calendarBean</managed-bean-name>
         <managed-bean-class>org.jboss.gatein.bean.CalendarBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>passwordValidationBean</managed-bean-name>
         <managed-bean-class>org.jboss.gatein.bean.PasswordValidationBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>registerBean</property-name>
+            <value>#{registerBean}</value>
+        </managed-property>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>captchaValidatorBean</managed-bean-name>
+        <managed-bean-class>org.jboss.gatein.bean.CaptchaValidatorBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>registerBean</property-name>
+            <value>#{registerBean}</value>
+        </managed-property>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>appBean</managed-bean-name>
         <managed-bean-class>org.jboss.gatein.bean.ApplicationBean</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>profileMappingBean</managed-bean-name>
+        <managed-bean-class>org.jboss.gatein.bean.ProfileMappingBean</managed-bean-class>
         <managed-bean-scope>application</managed-bean-scope>
     </managed-bean>
     <managed-bean>
@@ -79,10 +97,6 @@
     <validator>
         <validator-id>passwordValidator</validator-id>
         <validator-class>org.jboss.gatein.jsf.validator.PasswordValidator</validator-class>
-    </validator>
-    <validator>
-        <validator-id>captchaValidator</validator-id>
-        <validator-class>org.jboss.gatein.jsf.validator.CaptchaValidator</validator-class>
     </validator>
     <validator>
         <validator-id>emailValidator</validator-id>

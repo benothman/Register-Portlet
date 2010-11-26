@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : ui-components-config.xsd
+    Created on : November 11, 2010, 2:31 PM
+    Author     : Nabil Benothman
+    Description: Define the structure of the ui-components-config.xml
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element  name="ui-components" >
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ui-component"  minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:all>
+                            <xs:element name="property-ref" type="xs:string"/>
+                            <xs:element name="required" type="xs:boolean"/>
+                            <xs:element ref="values" minOccurs="0"/>
+                        </xs:all>
+                        <xs:attribute name="name" type="xs:string" use="required" />
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="values">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="value" minOccurs="1" maxOccurs="unbounded">
+                    <xs:complexType mixed="true">
+                        <xs:attribute name="key" type="xs:string" />
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

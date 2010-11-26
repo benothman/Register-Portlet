@@ -77,11 +77,9 @@ public class GateInInputTextValidator implements Validator {
                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "The introduced value is not valid!",
                         "The value " + value + " is not accepted!"));
             }
-            // if validation passes with success, hide bubble info
-            //inputText.setStyle("background-color: #FFFFFF;");
         }
 
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "The introduced value is accpeted", "The introduced value is accpeted");
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "The introduced value is accepted", "The introduced value is accepted");
         fc.addMessage(uic.getClientId(fc), message);
         logger.info("validation of HtmlInputText value passed with succes");
     }

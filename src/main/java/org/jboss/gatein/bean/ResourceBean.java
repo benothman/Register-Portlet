@@ -42,17 +42,33 @@ public class ResourceBean implements Map<String, String> {
         super();
     }
 
+    /*
+     * (non-Javadoc)
+     * @see java.util.Map.clear()
+     */
     public void clear() {
     }
 
+    /*
+     * (non-Javadoc)
+     * @see java.util.Map.containsKey(java.lang.Object)
+     */
     public boolean containsKey(Object key) {
         return true;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see java.util.Map.containsValue(java.lang.Object)
+     */
     public boolean containsValue(Object value) {
         return true;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see java.util.Map.entrySet()
+     */
     public Set<java.util.Map.Entry<String, String>> entrySet() {
         return Collections.emptySet();
     }
@@ -75,29 +91,57 @@ public class ResourceBean implements Map<String, String> {
         return url;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see java.util.Map.isEmpty()
+     */
     public boolean isEmpty() {
         return false;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see java.util.Map.keySet()
+     */
     public Set<String> keySet() {
         return Collections.emptySet();
     }
 
+    /*
+     * (non-Javadoc)
+     * @see java.util.Map.put(java.lang.Object, java.lang.Object)
+     */
     public String put(String key, String value) {
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see java.util.Map.putAll(java.util.Map)
+     */
     public void putAll(Map<? extends String, ? extends String> t) {
     }
 
+    /*
+     * (non-Javadoc)
+     * @see java.util.Map.remove(java.lang.Object)
+     */
     public String remove(Object key) {
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see java.util.Map.size()
+     */
     public int size() {
         return 0;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see java.util.Map.values()
+     */
     public Collection<String> values() {
         return Collections.emptySet();
     }

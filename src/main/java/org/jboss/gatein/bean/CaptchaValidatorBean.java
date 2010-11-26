@@ -16,16 +16,16 @@
  *  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  *  02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.gatein.jsf.validator;
+package org.jboss.gatein.bean;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
-import javax.portlet.PortletSession;
-import javax.portlet.ResourceRequest;
+import nl.captcha.Captcha;
+import org.gatein.common.logging.Logger;
+import org.gatein.common.logging.LoggerFactory;
 
 /**
  * {@code CaptchaValidator}
@@ -35,12 +35,15 @@ import javax.portlet.ResourceRequest;
  * @author Nabil Benothman
  * @version 1.0
  */
-public class CaptchaValidator implements Validator {
+public class CaptchaValidatorBean implements Validator {
+
+    private static final Logger logger = LoggerFactory.getLogger(CaptchaValidatorBean.class);
+    private RegisterBean registerBean;
 
     /**
      * Create a new instance of {@code CaptchaValidator}
      */
-    public CaptchaValidator() {
+    public CaptchaValidatorBean() {
         super();
     }
 
@@ -59,21 +62,31 @@ public class CaptchaValidator implements Validator {
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Value is required!", "Value is required!"));
             }
 
-            ExternalContext exCtx = FacesContext.getCurrentInstance().getExternalContext();
-            ResourceRequest request = (ResourceRequest) exCtx.getRequest();
-            PortletSession session = request.getPortletSession(true);
-            String answerValue = (String) session.getAttribute("answer", PortletSession.PORTLET_SCOPE);
+            Captcha captcha = this.registerBean.getCaptcha();
 
-            String answer = (String) exCtx.getSessionMap().get("answer");
+            logger.info("input : " + value + ", answer : " + captcha.getAnswer());
 
-            System.out.println("input : " + value + ", answer : " + answer);
-            System.out.println("input : " + value + ", answerValue : " + answerValue);
-
-            if (!value.equals(answer)) {
+            if (!captcha.isCorrect(value)) {
+                this.registerBean.initCaptcha();
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "The answer is not correct!", "The answer is not correct!"));
             }
+            this.registerBean.initCaptcha();
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct answer", "Correct answer");
             fc.addMessage(uic.getClientId(fc), message);
         }
+    }
+
+    /**
+     * @return the registerBean
+     */
+    public RegisterBean getRegisterBean() {
+        return registerBean;
+    }
+
+    /**
+     * @param registerBean the registerBean to set
+     */
+    public void setRegisterBean(RegisterBean registerBean) {
+        this.registerBean = registerBean;
     }
 }

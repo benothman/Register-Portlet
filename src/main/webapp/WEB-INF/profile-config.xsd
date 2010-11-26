@@ -1,49 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Document   : components.xsd
+    Document   : profile-config.xsd
     Created on : November 11, 2010, 2:31 PM
     Author     : Nabil Benothman
-    Description:
-        Purpose of the document follows.
+    Description: Define the structure of the profile-config.xml
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <xs:element name="properties">
+    <xs:element  name="properties" >
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="property">
+                <xs:element name="property"  minOccurs="0" maxOccurs="unbounded">
                     <xs:complexType>
-                        <xs:sequence>
+                        <xs:all>
                             <xs:element name="name" type="xs:string"/>
                             <xs:element name="short-name" type="xs:string"/>
                             <xs:element name="type" type="xs:string"/>
-                            <xs:element name="access-mode" type="xs:string"/>
-                            <xs:element name="usage">
-                                <xs:simpleType>
-                                    <xs:restriction base="xs:string">
-                                        <xs:enumeration value="required"/>
-                                        <xs:enumeration value="optionel"/>
-                                    </xs:restriction>
-                                </xs:simpleType>
-                            </xs:element>
-                            <xs:element name="display-name" type="xs:string">
-                                <xs:complexType>
-                                    <xs:attribute name="xml:lang" type="xs:string" use="required"/>
-                                </xs:complexType>
-                            </xs:element>
-                            <xs:element name="mapping">
-                                <xs:complexType>
-                                    <xs:sequence>
-                                        <xs:element name="database">
-                                            <xs:complexType>
-                                                <xs:sequence>
-                                                    <xs:element name="type" type="xs:string"/>
-                                                    <xs:element name="value" type="xs:string"/>
-                                                </xs:sequence>
-                                            </xs:complexType>
-                                        </xs:element>
-                                    </xs:sequence>
-                                </xs:complexType>
-                            </xs:element>
+                            <xs:element ref="access-mode"/>
+                            <xs:element ref="usage"/>
+                            <xs:element ref="display-name"/>
+                            <xs:element ref="description"/>
+                            <xs:element ref="mapping"/>
+                        </xs:all>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="access-mode">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="read-only"/>
+                <xs:enumeration value="write-only"/>
+                <xs:enumeration value="read-write"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+
+    <xs:element name="usage">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="required"/>
+                <xs:enumeration value="optionel"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="display-name">
+        <xs:complexType mixed="true">
+            <xs:attribute name="lang" type="xs:string" default="EN"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="description">
+        <xs:complexType mixed="true">
+            <xs:attribute name="lang" type="xs:string" default="EN"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="mapping">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="database">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="type" type="xs:string"/>
+                            <xs:element name="value" type="xs:string"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
@@ -51,4 +69,3 @@
         </xs:complexType>
     </xs:element>
 </xs:schema>
-

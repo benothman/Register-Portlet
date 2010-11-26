@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : ui-components-config.xml
+    Created on : November 11, 2010, 2:31 PM
+    Author     : Nabil Benothman
+    Description:
+-->
+
+<ui-components xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="ui-components-config.xsd">
+    
+    <ui-component name="firstname">
+        <property-ref>portal.user.firstname</property-ref>
+        <required>true</required>
+    </ui-component>
+
+    <ui-component name="lastname">
+        <property-ref>portal.user.lastname</property-ref>
+        <required>true</required>
+    </ui-component>
+
+    <ui-component name="email">
+        <property-ref>portal.user.email</property-ref>
+        <required>true</required>
+    </ui-component>
+
+    <ui-component name="username">
+        <property-ref>portal.user.username</property-ref>
+        <required>true</required>
+    </ui-component>
+
+    <ui-component name="password">
+        <property-ref>portal.user.password</property-ref>
+        <required>true</required>
+    </ui-component>
+
+    <ui-component name="confirmPassword">
+        <property-ref>portal.user.confirmPassword</property-ref>
+        <required>true</required>
+    </ui-component>
+
+    <ui-component name="captcha">
+        <property-ref>portal.user.captcha.answer</property-ref>
+        <required>true</required>
+    </ui-component>
+    
+    <ui-component name="gender">
+        <property-ref>portal.user.gender</property-ref>
+        <required>false</required>
+        <values>
+            <value key="male">Male</value>
+            <value key="female">Female</value>
+        </values>
+    </ui-component>
+    
+    <ui-component name="title">
+        <property-ref>portal.user.title</property-ref>
+        <required>false</required>
+        <values>
+            <value key="Mr">Mr</value>
+            <value key="Mrs">Mrs</value>
+            <value key="Ms">Ms</value>
+        </values>
+    </ui-component>
+    <ui-component name="birthday">
+        <property-ref>portal.user.birthday</property-ref>
+        <required>false</required>
+    </ui-component>
+    <ui-component name="address.line1">
+        <property-ref>portal.user.address.line1</property-ref>
+        <required>false</required>
+    </ui-component>
+    <ui-component name="address.line2">
+        <property-ref>portal.user.address.line2</property-ref>
+        <required>false</required>
+    </ui-component>
+</ui-components>

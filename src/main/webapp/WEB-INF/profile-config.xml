@@ -1,15 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-    Document   : components.xml
+    Document   : profile-config.xml
     Created on : November 11, 2010, 2:31 PM
     Author     : Nabil Benothman
-    Description:
-        Purpose of the document follows.
+    Description: Define the user properties
 -->
 
 <properties xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:noNamespaceSchemaLocation="profile-config.xsd">
 
-    
+    <property>
+        <name>toto</name>
+        <short-name>t</short-name>
+        <type>string</type>
+        <access-mode>read-write</access-mode>
+        <usage>optionel</usage>
+        <display-name lang="EN">asasdasd</display-name>
+        <description lang="EN">asdasd</description>
+        <mapping>
+            <database>
+                <type>adasd</type>
+                <value>asdas</value>
+            </database>
+        </mapping>
+    </property>
+    <property>
+        <name>toto</name>
+        <short-name>t</short-name>
+        <type>string</type>
+        <access-mode>read-write</access-mode>
+        <usage>optionel</usage>
+        <display-name lang="EN">asasdasd</display-name>
+        <description lang="EN">asdasd</description>
+        <mapping>
+            <database>
+                <type>adasd</type>
+                <value>asdas</value>
+            </database>
+        </mapping>
+    </property>
+
 </properties>

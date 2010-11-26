@@ -22,6 +22,7 @@ import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import org.gatein.common.logging.Logger;
 import org.gatein.common.logging.LoggerFactory;
@@ -34,11 +35,10 @@ import org.gatein.common.logging.LoggerFactory;
  * @author nabilbenothman
  * @version 1.0
  */
-public class PasswordValidationBean implements Serializable {
+public class PasswordValidationBean implements Serializable, Validator {
 
-    private String password;
-    private String confirmPassword;
     private static final Logger logger = LoggerFactory.getLogger(PasswordValidationBean.class.getName());
+    private RegisterBean registerBean;
 
     /**
      * Create a new instance of {@code PasswordValidationBean}
@@ -58,7 +58,7 @@ public class PasswordValidationBean implements Serializable {
         logger.info("validating password confirmation value");
 
         if (value != null) {
-            confirmPassword = (String) value;
+            String confirmPassword = (String) value;
             if (confirmPassword.matches("\\s*")) {
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
                         "Password cannot be null nor empty!", "Password connot be empty!"));
@@ -68,75 +68,35 @@ public class PasswordValidationBean implements Serializable {
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
                         "Password length must contain 7 characters at least", "Password must be 7 chars+ !"));
             }
-
+            String password = (String) this.registerBean.get("portal.user.password");
+            logger.info("input : " + confirmPassword + ", password : " + password);
             if (password == null) {
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        "Please fill the password field first", "Please fill the password field first"));
+                        "Please fill the password field first", "Fill the password field first"));
             }
 
             if (!password.equals(confirmPassword)) {
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Wrong input value",
                         "Password does not match!"));
             }
+            // if validation passes with success
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "The two values are identical and accepted!", "The two values are identical and accepted");
+            fc.addMessage(uic.getClientId(fc), message);
+            logger.info("validation of Password values passed with succes");
         }
-
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "The two values are identical and accepted!", "The two values are identical and accepted");
-        fc.addMessage(uic.getClientId(fc), message);
-        logger.info("validation of Password values passed with succes");
     }
 
     /**
-     * 
-     * @param fc
-     * @param uic
-     * @param o
+     * @return the registerBean
      */
-    public void validatePassword(FacesContext fc, UIComponent uic, Object o) {
-        logger.info("validating password value");
-        if (o != null) {
-            password = (String) o;
-
-            if (password.matches("\\s*")) {
-                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        "Password cannot be null nor empty!", "Password connot be empty!"));
-            }
-            // the password must have 7 characters at least
-            if (password.length() < 7) {
-                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        "Password length must contain 7 characters at least", "Password must be 7 chars+!"));
-            }
-        }
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
-                "Value accepted!", "The input value is accepted!");
-        fc.addMessage(uic.getClientId(fc), message);
-        logger.info("validation of Password values passed with succes");
+    public RegisterBean getRegisterBean() {
+        return registerBean;
     }
 
     /**
-     * @return the password
+     * @param registerBean the registerBean to set
      */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * @param password the password to set
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    /**
-     * @return the confirmPassword
-     */
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    /**
-     * @param confirmPassword the confirmPassword to set
-     */
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
+    public void setRegisterBean(RegisterBean registerBean) {
+        this.registerBean = registerBean;
     }
 }

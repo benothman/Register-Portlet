@@ -66,7 +66,7 @@ and open the template in the editor.
                     </table>
                     <br/>
                     <div>
-                        <h:inputText value="#{registerBean.data['firstname']}" id="firstname" title="First name" required="true"
+                        <h:inputText value="#{registerBean.data['portal.user.firstname']}" id="firstname" title="First name" required="true"
                                      label="First name" size="30" immediate="true" requiredMessage="Value is required" alt="First name"
                                      styleClass="trigger" validator="inputTextValidator" >
                             <rich:ajaxValidator event="onblur" reRender="firstname" />
@@ -114,7 +114,7 @@ and open the template in the editor.
                     <br/>
                     <div>
 
-                        <h:inputText value="#{registerBean.data['lastname']}" id="lastname" title="Last name" required="true"
+                        <h:inputText value="#{registerBean.data['portal.user.lastname']}" id="lastname" title="Last name" required="true"
                                      label="Last name" size="30" immediate="true" requiredMessage="Value is required" alt="Last name"
                                      styleClass="trigger" validator="inputTextValidator">
                             <rich:ajaxValidator event="onblur" reRender="lastname" />
@@ -163,7 +163,7 @@ and open the template in the editor.
                     </table>
                     <br/>
                     <div>
-                        <h:inputText value="#{registerBean.data['email']}" id="email" title="Email" required="true" size="30" requiredMessage="Value is required"
+                        <h:inputText value="#{registerBean.data['portal.user.email']}" id="email" title="Email" required="true" size="30" requiredMessage="Value is required"
                                      label="Email"  validator="emailValidator" immediate="true" alt="Email" styleClass="trigger" >
                             <rich:ajaxValidator event="onblur" reRender="email"/>
                         </h:inputText>
@@ -210,7 +210,7 @@ and open the template in the editor.
                     </table>
                     <br/>
                     <div>
-                        <h:inputText value="#{registerBean.data['username']}" id="username" title="User name" required="true" size="30" requiredMessage="Value is required"
+                        <h:inputText value="#{registerBean.data['portal.user.username']}" id="username" title="User name" required="true" size="30" requiredMessage="Value is required"
                                      label="User name" immediate="true" alt="User name" validator="inputTextValidator" styleClass="trigger" >
                             <rich:ajaxValidator event="onblur" reRender="username"/>
                         </h:inputText>
@@ -260,9 +260,9 @@ and open the template in the editor.
                     </table>
                     <br/>
                     <div>
-                        <h:inputSecret value="#{passwordValidationBean.password}" id="password" required="true" size="30" 
+                        <h:inputSecret value="#{registerBean.data['portal.user.password']}" id="password" required="true" size="30"
                                        requiredMessage="Value is required" immediate="true"
-                                       label="Password" styleClass="trigger" validator="#{passwordValidationBean.validatePassword}">
+                                       label="Password" styleClass="trigger" >
                             <f:validateLength minimum="7" maximum="21" />
                             <rich:ajaxValidator event="onblur" reRender="password" />
                         </h:inputSecret>
@@ -309,7 +309,8 @@ and open the template in the editor.
                     </table>
                     <br/>
                     <div>
-                        <h:inputSecret value="#{passwordValidationBean.confirmPassword}" id="confirmPassword" 
+
+                        <h:inputSecret value="#{registerBean.data['portal.user.confirmPassword']}" id="confirmPassword"
                                        required="true" size="30" requiredMessage="Value is required" immediate="true"
                                        label="Confirm password" validator="#{passwordValidationBean.validate}" styleClass="trigger">
                             <rich:ajaxValidator event="onblur" reRender="confirmPassword" />
@@ -359,19 +360,22 @@ and open the template in the editor.
                     </table>
                     <br/>
                     <div>
-                        <h:inputText value="#{registerBean.data['captcha.answer']}" id="answer" required="true" styleClass="trigger"
-                                     requiredMessage="Value is required" label="Code" size="30" validator="captchaValidator">
-                            <rich:ajaxValidator event="onblur" reRender="answer"/>
+                        <h:inputText value="#{registerBean.data['portal.user.captcha.answer']}" id="answer" 
+                                     required="true" styleClass="trigger" immediate="true" requiredMessage="Value is required"
+                                     label="Code" size="30" validator="#{captchaValidatorBean.validate}">
+                            <rich:ajaxValidator event="onblur" reRender="answer,captcha-panel"/>
                         </h:inputText>
                     </div>
                     </div>
                     <br/>
                     </td>
                     <td>
+                    <a4j:outputPanel ajaxRendered="true" dir="captcha-panel" >
+                        <a4j:mediaOutput id="captcha" element="img" cacheable="false" session="true"
+                                         createContent="#{registerBean.paint}" value="#{registerBean.paintData}" mimeType="image/jpeg" />
+                    </a4j:outputPanel>
 
-                        <img src="#{facesContext.externalContext.requestContextPath}/images/captcha.png" alt="captcha" width="100" height="40" />
-
-                        <br/>
+                    <br/>
                     </td>
                     </tr>
                     </tbody>
@@ -408,15 +412,21 @@ and open the template in the editor.
 
                             <h:panelGroup>
                                 <h:outputText value="Title : " />
-                                <h:selectOneMenu value="#{registerBean.data['title']}" id="title">
+                                <h:selectOneMenu value="#{registerBean.data['portal.user.title']}" id="title">
                                     <f:selectItem itemValue="Mr" itemLabel="Mr" />
                                     <f:selectItem itemValue="Mrs" itemLabel="Mrs" />
                                     <f:selectItem itemValue="Ms" itemLabel="Ms" />
                                 </h:selectOneMenu>
+                                <rich:spacer />
+                                <h:outputText value="Gender : " />
+                                <h:selectOneMenu value="#{registerBean.data['portal.user.gender']}" id="gender">
+                                    <f:selectItem itemValue="Male" itemLabel="Male" />
+                                    <f:selectItem itemValue="Female" itemLabel="Female" />
+                                </h:selectOneMenu>
                             </h:panelGroup>
 
                             <h:outputLabel for="calendar" value="Birthday" />
-                            <h:inputText value="#{registerBean.data['address.line1']}" size="30" />
+                            <h:inputText value="#{registerBean.data['portal.user.address.line1']}" size="30" />
                             <a4j:outputPanel id="calendar" layout="block">
                                 <rich:calendar value="#{calendarBean.selectedDate}"
                                                locale="#{calendarBean.locale}"
@@ -425,36 +435,36 @@ and open the template in the editor.
                                                showApplyButton="#{calendarBean.showApply}" cellWidth="24px" cellHeight="22px" style="width:220px"/>
                             </a4j:outputPanel>
 
-                            <h:inputText value="#{registerBean.data['address.line2']}" size="30" />
-                            <h:inputText value="#{registerBean.data['twitter']}" size="30" />
+                            <h:inputText value="#{registerBean.data['portal.user.address.line2']}" size="30" />
+                            <h:inputText value="#{registerBean.data['portal.user.twitter']}" size="30" />
 
                             <h:panelGroup>
-                                <h:inputText id="zipCode" value="#{registerBean.data['address.zipCode']}" size="8"
+                                <h:inputText id="zipCode" value="#{registerBean.data['portal.user.address.zipCode']}" size="8"
                                              converterMessage="The input must be an Integer" validatorMessage="The input value must be between {0} {1}">
                                     <f:converter id="javax.faces.Integer" converterId="javax.faces.Integer"/>
                                     <f:validateLongRange minimum="1" maximum="1000000" />
                                     <rich:ajaxValidator event="onblur"/>
                                 </h:inputText>
-                                <h:inputText value="#{registerBean.data['address.city']}" size="15" />
+                                <h:inputText value="#{registerBean.data['portal.user.address.city']}" size="15" />
                             </h:panelGroup>
-                            <h:inputText value="#{registerBean.data['skype']}" size="30" />
+                            <h:inputText value="#{registerBean.data['portal.user.skype']}" size="30" />
 
                             <rich:message for="zipCode"  errorClass="error" infoClass="success" fatalClass="error" warnClass="warning" />
                             <rich:spacer />
 
-                            <h:inputText value="#{registerBean.data['address.state']}" size="30" />
-                            <h:inputText value="#{registerBean.data['msn']}" size="30" />
+                            <h:inputText value="#{registerBean.data['portal.user.address.state']}" size="30" />
+                            <h:inputText value="#{registerBean.data['portal.user.msn']}" size="30" />
 
                             <h:panelGroup>
                                 <h:outputLabel for="address-country" value="Country : " />
-                                <h:selectOneMenu id="address-country" value="#{registerBean.data['address.country']}">
+                                <h:selectOneMenu id="address-country" value="#{registerBean.data['portal.user.address.country']}">
                                     <f:selectItems value="#{appBean.counties}" />
                                 </h:selectOneMenu>
                             </h:panelGroup>
-                            <h:inputText value="#{registerBean.data['linkedIn']}" size="30" />
+                            <h:inputText value="#{registerBean.data['portal.user.linkedIn']}" size="30" />
 
-                            <h:inputText value="#{registerBean.data['phone']}" size="30" />
-                            <h:inputText value="#{registerBean.data['icq']}" size="30" />
+                            <h:inputText value="#{registerBean.data['portal.user.phone']}" size="30" />
+                            <h:inputText value="#{registerBean.data['portal.user.icq']}" size="30" />
 
                         </h:panelGrid>
                     </fieldset>

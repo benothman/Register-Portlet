@@ -20,20 +20,22 @@ package org.jboss.gatein.bean;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
 import javax.portlet.PortletSession;
 import javax.portlet.ResourceRequest;
-import nl.captcha.CaptchaBean;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import nl.captcha.Captcha;
+import nl.captcha.backgrounds.GradiatedBackgroundProducer;
 import org.gatein.common.logging.Logger;
 import org.gatein.common.logging.LoggerFactory;
 
@@ -56,9 +58,8 @@ public class RegisterBean implements Serializable {
     public static final String CANCEL = "cancel";
     private CalendarBean calendarBean;
     private Map<String, Object> data;
-    private CaptchaBean captchaBean;
+    private Captcha captcha;
     private String answer;
-    private Image captcha;
     private PasswordValidationBean passwordValidationBean;
     private PaintData paintData;
 
@@ -66,24 +67,25 @@ public class RegisterBean implements Serializable {
      * Create a new instance of {@code RegisterBean}
      */
     public RegisterBean() {
+    }
+
+    @PostConstruct
+    public void init() {
+        logger.info("starting RegisterBean initialization");
         this.data = new HashMap<String, Object>();
-        this.captchaBean = new CaptchaBean(50, 20);
-        this.captchaBean.build();
-        this.captcha = this.captchaBean.getImage();
-        this.data.put("captcha", this.captcha);
+        initCaptcha();
         this.paintData = new PaintData();
-        ExternalContext extCtx = FacesContext.getCurrentInstance().getExternalContext();
-        extCtx.getSessionMap().put("answer", this.captchaBean.getAnswer());
-
-        try {
-            ResourceRequest request = (ResourceRequest) extCtx.getRequest();
-            PortletSession session = request.getPortletSession(true);
-            session.setAttribute("answer", this.captchaBean.getAnswer(), PortletSession.PORTLET_SCOPE);
-        } catch (Exception exp) {
-            logger.error(exp.getMessage());
-        }
-
         fillDefaultValues();
+        logger.info("finishing RegisterBean initialization");
+    }
+
+    /**
+     * 
+     */
+    public void initCaptcha() {
+        logger.info("init captcha");
+        this.captcha = new Captcha.Builder(200, 50).addText().addBackground(new GradiatedBackgroundProducer()).gimp().addNoise().addBorder().build();
+        logger.info("captcha answer is : " + captcha.getAnswer());
     }
 
     /**
@@ -97,41 +99,54 @@ public class RegisterBean implements Serializable {
 
         PaintData pData = (PaintData) data;
 
-        BufferedImage img = new BufferedImage(paintData.getWidth(), paintData.getHeight(), BufferedImage.TYPE_INT_RGB);
+        //BufferedImage img = new BufferedImage(this.captcha.getImage().getWidth(), this.captcha.getImage().getHeight(), BufferedImage.TYPE_INT_RGB);
+        BufferedImage img = this.captcha.getImage();
+        /*
         Graphics2D graphics2D = img.createGraphics();
         graphics2D.setBackground(paintData.getBackground());
         graphics2D.setColor(paintData.getDrawColor());
         graphics2D.clearRect(0, 0, paintData.getWidth(), paintData.getHeight());
         graphics2D.drawLine(5, 5, paintData.getWidth() - 5, paintData.getHeight() - 5);
-        graphics2D.drawChars(this.captchaBean.getAnswer().toCharArray(), 0, 9, 40, 15);
+        graphics2D.drawChars(this.captcha.getAnswer().toCharArray(), 0, 9, 40, 15);
         graphics2D.drawChars("mediaOutput".toCharArray(), 0, 11, 5, 45);
 
+         */
+
         ImageIO.write(img, "jpeg", out);
+    }
+
+    /**
+     * 
+     * @param key
+     * @return
+     */
+    public Object get(String key) {
+        return this.data.get(key);
     }
 
     /**
      * Fill default values in the data
      */
     private void fillDefaultValues() {
-        data.put("firstname", "First name");
-        data.put("lastname", "Last name");
-        data.put("username", "User name");
-        data.put("email", "Email");
-        data.put("password", "Password");
-        data.put("confirmPassword", "Password");
-        data.put("captcha.answer", "Answer");
-        data.put("phone", "Phone number");
-        data.put("address.line1", "Address line 1");
-        data.put("address.line2", "Address line 2");
-        data.put("address.zipCode", "Zip code");
-        data.put("address.city", "City");
-        data.put("address.state", "State");
-        data.put("address.country", "Country");
-        data.put("skype", "Skype");
-        data.put("msn", "MSN");
-        data.put("icq", "ICQ");
-        data.put("twitter", "twitter");
-        data.put("linkedIn", "LinkedIn");
+        data.put("portal.user.firstname", "First name");
+        data.put("portal.user.lastname", "Last name");
+        data.put("portal.user.username", "User name");
+        data.put("portal.user.email", "Email");
+        data.put("portal.user.password", "Password");
+        data.put("portal.user.confirmPassword", "Password");
+        data.put("portal.user.captcha.answer", "Answer");
+        data.put("portal.user.phone", "Phone number");
+        data.put("portal.user.address.line1", "Address line 1");
+        data.put("portal.user.address.line2", "Address line 2");
+        data.put("portal.user.address.zipCode", "Zip code");
+        data.put("portal.user.address.city", "City");
+        data.put("portal.user.address.state", "State");
+        data.put("portal.user.address.country", "Country");
+        data.put("portal.user.skype", "Skype");
+        data.put("portal.user.msn", "MSN");
+        data.put("portal.user.icq", "ICQ");
+        data.put("portal.user.twitter", "twitter");
+        data.put("portal.user.linkedIn", "LinkedIn");
     }
 
     /**
@@ -182,17 +197,17 @@ public class RegisterBean implements Serializable {
     }
 
     /**
-     * @return the captchaBean
+     * @return the captcha
      */
-    public CaptchaBean getCaptchaBean() {
-        return captchaBean;
+    public Captcha getCaptcha() {
+        return captcha;
     }
 
     /**
-     * @param captchaBean the captchaBean to set
+     * @param captcha the captcha to set
      */
-    public void setCaptchaBean(CaptchaBean captchaBean) {
-        this.captchaBean = captchaBean;
+    public void setCaptcha(Captcha captcha) {
+        this.captcha = captcha;
     }
 
     /**
@@ -207,20 +222,6 @@ public class RegisterBean implements Serializable {
      */
     public void setAnswer(String answer) {
         this.answer = answer;
-    }
-
-    /**
-     * @return the captcha
-     */
-    public Image getCaptcha() {
-        return captcha;
-    }
-
-    /**
-     * @param captcha the captcha to set
-     */
-    public void setCaptcha(Image captcha) {
-        this.captcha = captcha;
     }
 
     /**
