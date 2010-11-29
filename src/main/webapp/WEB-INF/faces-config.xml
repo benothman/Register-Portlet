@@ -42,10 +42,10 @@
             <property-name>calendarBean</property-name>
             <value>#{calendarBean}</value>
         </managed-property>
-        <!--managed-property>
-            <property-name>passwordValidationBean</property-name>
-            <value>#{passwordValidationBean}</value>
-        </managed-property-->
+        <managed-property>
+            <property-name>appBean</property-name>
+            <value>#{appBean}</value>
+        </managed-property>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>calendarBean</managed-bean-name>

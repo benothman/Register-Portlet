@@ -26,14 +26,9 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import javax.annotation.PostConstruct;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
-import javax.portlet.PortletSession;
-import javax.portlet.ResourceRequest;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import nl.captcha.Captcha;
 import nl.captcha.backgrounds.GradiatedBackgroundProducer;
 import org.gatein.common.logging.Logger;
@@ -57,6 +52,7 @@ public class RegisterBean implements Serializable {
     public static final String FAILURE = "failure";
     public static final String CANCEL = "cancel";
     private CalendarBean calendarBean;
+    private ApplicationBean appBean;
     private Map<String, Object> data;
     private Captcha captcha;
     private String answer;
@@ -128,25 +124,38 @@ public class RegisterBean implements Serializable {
      * Fill default values in the data
      */
     private void fillDefaultValues() {
-        data.put("portal.user.firstname", "First name");
-        data.put("portal.user.lastname", "Last name");
-        data.put("portal.user.username", "User name");
-        data.put("portal.user.email", "Email");
-        data.put("portal.user.password", "Password");
-        data.put("portal.user.confirmPassword", "Password");
-        data.put("portal.user.captcha.answer", "Answer");
-        data.put("portal.user.phone", "Phone number");
-        data.put("portal.user.address.line1", "Address line 1");
-        data.put("portal.user.address.line2", "Address line 2");
-        data.put("portal.user.address.zipCode", "Zip code");
-        data.put("portal.user.address.city", "City");
-        data.put("portal.user.address.state", "State");
-        data.put("portal.user.address.country", "Country");
-        data.put("portal.user.skype", "Skype");
-        data.put("portal.user.msn", "MSN");
-        data.put("portal.user.icq", "ICQ");
-        data.put("portal.user.twitter", "twitter");
-        data.put("portal.user.linkedIn", "LinkedIn");
+
+        if (this.appBean.getAppData() != null) {
+            Set<String> keys = this.appBean.getAppData().keySet();
+            Object value = null;
+            for (String key : keys) {
+                value = this.appBean.getAppData().get(key);
+                this.data.put(key, value);
+            }
+        }
+        /*
+        else {
+            data.put("portal.user.firstname", "First name");
+            data.put("portal.user.lastname", "Last name");
+            data.put("portal.user.username", "User name");
+            data.put("portal.user.email", "Email");
+            data.put("portal.user.password", "Password");
+            data.put("portal.user.confirmPassword", "Password");
+            data.put("portal.user.captcha.answer", "Answer");
+            data.put("portal.user.phone", "Phone number");
+            data.put("portal.user.address.line1", "Address line 1");
+            data.put("portal.user.address.line2", "Address line 2");
+            data.put("portal.user.address.zipCode", "Zip code");
+            data.put("portal.user.address.city", "City");
+            data.put("portal.user.address.state", "State");
+            data.put("portal.user.address.country", "Country");
+            data.put("portal.user.skype", "Skype");
+            data.put("portal.user.msn", "MSN");
+            data.put("portal.user.icq", "ICQ");
+            data.put("portal.user.twitter", "twitter");
+            data.put("portal.user.linkedIn", "LinkedIn");
+        }
+        */
     }
 
     /**
@@ -244,6 +253,20 @@ public class RegisterBean implements Serializable {
 
     public void setPaintData(PaintData paintData) {
         this.paintData = paintData;
+    }
+
+    /**
+     * @return the appBean
+     */
+    public ApplicationBean getAppBean() {
+        return appBean;
+    }
+
+    /**
+     * @param appBean the appBean to set
+     */
+    public void setAppBean(ApplicationBean appBean) {
+        this.appBean = appBean;
     }
 
     /**

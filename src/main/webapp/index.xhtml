@@ -405,7 +405,7 @@
                     <fieldset>
                         <legend align="left"> Optional Data </legend>
 
-                        <h:panelGrid columns="2" cellpadding="5" cellspacing="5" width="100%" border="1"  >
+                        <h:panelGrid columns="2" cellpadding="5" cellspacing="5" width="100%" border="0">
 
                             <h:panelGroup>
                                 <h:outputText value="Title : " />
@@ -455,7 +455,7 @@
                             <h:panelGroup>
                                 <h:outputLabel for="address-country" value="Country : " />
                                 <h:selectOneMenu id="address-country" value="#{registerBean.data['portal.user.address.country']}">
-                                    <f:selectItems value="#{appBean.counties}" />
+                                    <f:selectItems value="#{appBean.countries}" />
                                 </h:selectOneMenu>
                             </h:panelGroup>
                             <h:inputText value="#{registerBean.data['portal.user.linkedIn']}" size="30" />

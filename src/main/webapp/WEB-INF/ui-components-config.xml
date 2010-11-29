@@ -4,7 +4,7 @@
     Document   : ui-components-config.xml
     Created on : November 11, 2010, 2:31 PM
     Author     : Nabil Benothman
-    Description:
+    Description: file define the UI components that will be used to build JSF UI
 -->
 
 <ui-components xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -67,12 +67,51 @@ xsi:noNamespaceSchemaLocation="ui-components-config.xsd">
         <property-ref>portal.user.birthday</property-ref>
         <required>false</required>
     </ui-component>
+
     <ui-component name="address.line1">
         <property-ref>portal.user.address.line1</property-ref>
         <required>false</required>
     </ui-component>
     <ui-component name="address.line2">
         <property-ref>portal.user.address.line2</property-ref>
+        <required>false</required>
+    </ui-component>
+    <ui-component name="address.zipCode">
+        <property-ref>portal.user.address.zipCode</property-ref>
+        <required>false</required>
+    </ui-component>
+    <ui-component name="address.city">
+        <property-ref>portal.user.address.city</property-ref>
+        <required>false</required>
+    </ui-component>
+    <ui-component name="address.state">
+        <property-ref>portal.user.address.state</property-ref>
+        <required>false</required>
+    </ui-component>
+    <ui-component name="address.country">
+        <property-ref>portal.user.address.country</property-ref>
+        <required>false</required>
+    </ui-component>
+    
+    <ui-component name="phone">
+        <property-ref>portal.user.phone</property-ref>
+        <required>false</required>
+    </ui-component>
+
+    <ui-component name="skype">
+        <property-ref>portal.user.skype</property-ref>
+        <required>false</required>
+    </ui-component>
+    <ui-component name="linkedIn">
+        <property-ref>portal.user.linkedIn</property-ref>
+        <required>false</required>
+    </ui-component>
+    <ui-component name="twitter">
+        <property-ref>portal.user.twitter</property-ref>
+        <required>false</required>
+    </ui-component>
+    <ui-component name="msn">
+        <property-ref>portal.user.msn</property-ref>
         <required>false</required>
     </ui-component>
 </ui-components>

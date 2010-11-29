@@ -16,42 +16,60 @@
  *  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  *  02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.gatein.bean;
+package org.jboss.gatein.xml;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.Serializable;
-import javax.annotation.PostConstruct;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import org.jboss.gatein.xml.Properties;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * {@code ProfileMappingBean}
+ * {@code PropertyDatabase}
  *
- * Created on Nov 26, 2010, 3:56:14 PM
+ * Created on Nov 26, 2010, 11:53:49 PM
  *
  * @author nabilbenothman
  * @version 1.0
  */
-public class ProfileMappingBean implements Serializable {
+@XmlRootElement(name = "database")
+public class PropertyDatabase implements Serializable {
 
-    public static final String PROFILE_CONFIG_PATH = "/WEB-INF/profile-config.xml";
+    private String type;
+    private String value;
 
     /**
-     * Create a new instance of {@code ProfileMappingBean}
+     * Create a new instance of {@code PropertyDatabase}
      */
-    public ProfileMappingBean() {
+    public PropertyDatabase() {
         super();
     }
 
-    @PostConstruct
-    public void init() throws JAXBException, FileNotFoundException {
-        // TODO
-        JAXBContext jc = JAXBContext.newInstance( "org.jboss.gatein.util" );
-        Unmarshaller u = jc.createUnmarshaller();
-        Properties props = (Properties) u.unmarshal(new FileInputStream(PROFILE_CONFIG_PATH));
+    /**
+     * @return the type
+     */
+    @XmlElement(name = "type", required = true)
+    public String getType() {
+        return type;
+    }
 
+    /**
+     * @param type the type to set
+     */
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    /**
+     * @return the value
+     */
+    @XmlElement(name = "value", required = true)
+    public String getValue() {
+        return value;
+    }
+
+    /**
+     * @param value the value to set
+     */
+    public void setValue(String value) {
+        this.value = value;
     }
 }

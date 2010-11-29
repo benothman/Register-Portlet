@@ -11,34 +11,306 @@
 xsi:noNamespaceSchemaLocation="profile-config.xsd">
 
     <property>
-        <name>toto</name>
-        <short-name>t</short-name>
-        <type>string</type>
+        <name>portal.user.firstname</name>
+        <short-name>firstname</short-name>
+        <type>java.lang.String</type>
         <access-mode>read-write</access-mode>
-        <usage>optionel</usage>
-        <display-name lang="EN">asasdasd</display-name>
-        <description lang="EN">asdasd</description>
+        <usage>required</usage>
+        <display-name lang="EN">First name</display-name>
+        <description lang="EN">The user first name</description>
         <mapping>
             <database>
-                <type>adasd</type>
-                <value>asdas</value>
-            </database>
-        </mapping>
-    </property>
-    <property>
-        <name>toto</name>
-        <short-name>t</short-name>
-        <type>string</type>
-        <access-mode>read-write</access-mode>
-        <usage>optionel</usage>
-        <display-name lang="EN">asasdasd</display-name>
-        <description lang="EN">asdasd</description>
-        <mapping>
-            <database>
-                <type>adasd</type>
-                <value>asdas</value>
+                <type>dynamic</type>
+                <value>user.firstname</value>
             </database>
         </mapping>
     </property>
 
+    <property>
+        <name>portal.user.lastname</name>
+        <short-name>lastname</short-name>
+        <type>java.lang.String</type>
+        <access-mode>read-write</access-mode>
+        <usage>required</usage>
+        <display-name lang="EN">Last name</display-name>
+        <description lang="EN">The user last name</description>
+        <mapping>
+            <database>
+                <type>dynamic</type>
+                <value>user.lastname</value>
+            </database>
+        </mapping>
+    </property>
+
+    <property>
+        <name>portal.user.email</name>
+        <short-name>email</short-name>
+        <type>java.lang.String</type>
+        <access-mode>read-write</access-mode>
+        <usage>required</usage>
+        <display-name lang="EN">Email</display-name>
+        <description lang="EN">The user email address</description>
+        <mapping>
+            <database>
+                <type>dynamic</type>
+                <value>user.email</value>
+            </database>
+        </mapping>
+    </property>
+
+    <property>
+        <name>portal.user.username</name>
+        <short-name>username</short-name>
+        <type>java.lang.String</type>
+        <access-mode>read-write</access-mode>
+        <usage>required</usage>
+        <display-name lang="EN">Username</display-name>
+        <description lang="EN">The username</description>
+        <mapping>
+            <database>
+                <type>dynamic</type>
+                <value>user.username</value>
+            </database>
+        </mapping>
+    </property>
+
+    <property>
+        <name>portal.user.password</name>
+        <short-name>password</short-name>
+        <type>java.lang.String</type>
+        <access-mode>read-write</access-mode>
+        <usage>required</usage>
+        <display-name lang="EN">Password</display-name>
+        <description lang="EN">The user password</description>
+        <mapping>
+            <database>
+                <type>dynamic</type>
+                <value>user.password</value>
+            </database>
+        </mapping>
+    </property>
+
+    <property>
+        <name>portal.user.gender</name>
+        <short-name>gender</short-name>
+        <type>java.lang.String</type>
+        <access-mode>read-write</access-mode>
+        <usage>required</usage>
+        <display-name lang="EN">Gender</display-name>
+        <description lang="EN">The user gender</description>
+        <mapping>
+            <database>
+                <type>dynamic</type>
+                <value>user.gender</value>
+            </database>
+        </mapping>
+    </property>
+
+    <property>
+        <name>portal.user.title</name>
+        <short-name>title</short-name>
+        <type>java.lang.String</type>
+        <access-mode>read-write</access-mode>
+        <usage>required</usage>
+        <display-name lang="EN">Title</display-name>
+        <description lang="EN">The user title</description>
+        <mapping>
+            <database>
+                <type>dynamic</type>
+                <value>user.title</value>
+            </database>
+        </mapping>
+    </property>
+
+    <property>
+        <name>portal.user.birthday</name>
+        <short-name>birthday</short-name>
+        <type>java.util.Date</type>
+        <access-mode>read-write</access-mode>
+        <usage>required</usage>
+        <display-name lang="EN">Birthday</display-name>
+        <description lang="EN">The user birthday</description>
+        <mapping>
+            <database>
+                <type>dynamic</type>
+                <value>user.birthday</value>
+            </database>
+        </mapping>
+    </property>
+
+    <property>
+        <name>portal.user.address.line1</name>
+        <short-name>address.line1</short-name>
+        <type>java.lang.String</type>
+        <access-mode>read-write</access-mode>
+        <usage>required</usage>
+        <display-name lang="EN">Address line 1</display-name>
+        <description lang="EN">The user address line 1</description>
+        <mapping>
+            <database>
+                <type>dynamic</type>
+                <value>user.address.line1</value>
+            </database>
+        </mapping>
+    </property>
+
+    <property>
+        <name>portal.user.address.line2</name>
+        <short-name>address.line2</short-name>
+        <type>java.lang.String</type>
+        <access-mode>read-write</access-mode>
+        <usage>required</usage>
+        <display-name lang="EN">Address line 2</display-name>
+        <description lang="EN">The user address line 2</description>
+        <mapping>
+            <database>
+                <type>dynamic</type>
+                <value>user.address.line2</value>
+            </database>
+        </mapping>
+    </property>
+
+    <property>
+        <name>portal.user.address.zipCode</name>
+        <short-name>address.zipCode</short-name>
+        <type>java.lang.Integer</type>
+        <access-mode>read-write</access-mode>
+        <usage>required</usage>
+        <display-name lang="EN">Zip code</display-name>
+        <description lang="EN">The user address zip code</description>
+        <mapping>
+            <database>
+                <type>dynamic</type>
+                <value>user.address.zipCode</value>
+            </database>
+        </mapping>
+    </property>
+
+    <property>
+        <name>portal.user.address.city</name>
+        <short-name>address.city</short-name>
+        <type>java.lang.String</type>
+        <access-mode>read-write</access-mode>
+        <usage>required</usage>
+        <display-name lang="EN">City</display-name>
+        <description lang="EN">The user address city</description>
+        <mapping>
+            <database>
+                <type>dynamic</type>
+                <value>user.address.city</value>
+            </database>
+        </mapping>
+    </property>
+
+    <property>
+        <name>portal.user.address.state</name>
+        <short-name>address.state</short-name>
+        <type>java.lang.String</type>
+        <access-mode>read-write</access-mode>
+        <usage>required</usage>
+        <display-name lang="EN">State</display-name>
+        <description lang="EN">The user address state</description>
+        <mapping>
+            <database>
+                <type>dynamic</type>
+                <value>user.address.state</value>
+            </database>
+        </mapping>
+    </property>
+
+    <property>
+        <name>portal.user.address.country</name>
+        <short-name>address.country</short-name>
+        <type>java.lang.String</type>
+        <access-mode>read-write</access-mode>
+        <usage>required</usage>
+        <display-name lang="EN">Country</display-name>
+        <description lang="EN">The user address country</description>
+        <mapping>
+            <database>
+                <type>dynamic</type>
+                <value>user.address.country</value>
+            </database>
+        </mapping>
+    </property>
+
+    <property>
+        <name>portal.user.phone</name>
+        <short-name>phone</short-name>
+        <type>java.lang.String</type>
+        <access-mode>read-write</access-mode>
+        <usage>required</usage>
+        <display-name lang="EN">Phone</display-name>
+        <description lang="EN">The user phone number</description>
+        <mapping>
+            <database>
+                <type>dynamic</type>
+                <value>user.phone</value>
+            </database>
+        </mapping>
+    </property>
+
+    <property>
+        <name>portal.user.skype</name>
+        <short-name>skype</short-name>
+        <type>java.lang.String</type>
+        <access-mode>read-write</access-mode>
+        <usage>required</usage>
+        <display-name lang="EN">Skype</display-name>
+        <description lang="EN">The user skype account</description>
+        <mapping>
+            <database>
+                <type>dynamic</type>
+                <value>user.skype</value>
+            </database>
+        </mapping>
+    </property>
+
+    <property>
+        <name>portal.user.linkedIn</name>
+        <short-name>linkedIn</short-name>
+        <type>java.lang.String</type>
+        <access-mode>read-write</access-mode>
+        <usage>required</usage>
+        <display-name lang="EN">LinkedIn</display-name>
+        <description lang="EN">The user linkedIn account</description>
+        <mapping>
+            <database>
+                <type>dynamic</type>
+                <value>user.linkedIn</value>
+            </database>
+        </mapping>
+    </property>
+
+    <property>
+        <name>portal.user.twitter</name>
+        <short-name>twitter</short-name>
+        <type>java.lang.String</type>
+        <access-mode>read-write</access-mode>
+        <usage>required</usage>
+        <display-name lang="EN">twitter</display-name>
+        <description lang="EN">The user twitter account</description>
+        <mapping>
+            <database>
+                <type>dynamic</type>
+                <value>user.twitter</value>
+            </database>
+        </mapping>
+    </property>
+
+    <property>
+        <name>portal.user.msn</name>
+        <short-name>msn</short-name>
+        <type>java.lang.String</type>
+        <access-mode>read-write</access-mode>
+        <usage>required</usage>
+        <display-name lang="EN">MSN</display-name>
+        <description lang="EN">The user msn account</description>
+        <mapping>
+            <database>
+                <type>dynamic</type>
+                <value>user.msn</value>
+            </database>
+        </mapping>
+    </property>
 </properties>

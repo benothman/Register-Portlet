@@ -16,42 +16,61 @@
  *  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  *  02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.gatein.bean;
+package org.jboss.gatein.xml;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.Serializable;
-import javax.annotation.PostConstruct;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import org.jboss.gatein.xml.Properties;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlValue;
 
 /**
- * {@code ProfileMappingBean}
+ * {@code CompValue}
  *
- * Created on Nov 26, 2010, 3:56:14 PM
+ * Created on Nov 28, 2010, 12:23:42 PM
  *
  * @author nabilbenothman
  * @version 1.0
  */
-public class ProfileMappingBean implements Serializable {
+@XmlRootElement(name = "value")
+public class CompValue implements Serializable {
 
-    public static final String PROFILE_CONFIG_PATH = "/WEB-INF/profile-config.xml";
+    private String key;
+    private String text;
 
     /**
-     * Create a new instance of {@code ProfileMappingBean}
+     * Create a new instance of {@code CompValue}
      */
-    public ProfileMappingBean() {
+    public CompValue() {
         super();
     }
 
-    @PostConstruct
-    public void init() throws JAXBException, FileNotFoundException {
-        // TODO
-        JAXBContext jc = JAXBContext.newInstance( "org.jboss.gatein.util" );
-        Unmarshaller u = jc.createUnmarshaller();
-        Properties props = (Properties) u.unmarshal(new FileInputStream(PROFILE_CONFIG_PATH));
+    /**
+     * @return the key
+     */
+    @XmlAttribute(name = "key")
+    public String getKey() {
+        return key;
+    }
 
+    /**
+     * @param key the key to set
+     */
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    /**
+     * @return the text
+     */
+    @XmlValue
+    public String getText() {
+        return text;
+    }
+
+    /**
+     * @param text the text to set
+     */
+    public void setText(String text) {
+        this.text = text;
     }
 }

@@ -16,42 +16,46 @@
  *  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  *  02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.gatein.bean;
+package org.jboss.gatein.xml;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.Serializable;
-import javax.annotation.PostConstruct;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import org.jboss.gatein.xml.Properties;
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * {@code ProfileMappingBean}
+ * {@code UIComponents}
  *
- * Created on Nov 26, 2010, 3:56:14 PM
+ * Created on Nov 28, 2010, 12:19:08 PM
  *
  * @author nabilbenothman
  * @version 1.0
  */
-public class ProfileMappingBean implements Serializable {
+@XmlRootElement(name = "ui-components")
+public class UIComponents implements Serializable {
 
-    public static final String PROFILE_CONFIG_PATH = "/WEB-INF/profile-config.xml";
+    private List<UIComponent> components = new ArrayList<UIComponent>();
 
     /**
-     * Create a new instance of {@code ProfileMappingBean}
+     * Create a new instance of {@code UIComponents}
      */
-    public ProfileMappingBean() {
+    public UIComponents() {
         super();
     }
 
-    @PostConstruct
-    public void init() throws JAXBException, FileNotFoundException {
-        // TODO
-        JAXBContext jc = JAXBContext.newInstance( "org.jboss.gatein.util" );
-        Unmarshaller u = jc.createUnmarshaller();
-        Properties props = (Properties) u.unmarshal(new FileInputStream(PROFILE_CONFIG_PATH));
+    /**
+     * @return the components
+     */
+    @XmlElement(name = "ui-component")
+    public List<UIComponent> getComponents() {
+        return components;
+    }
 
+    /**
+     * @param components the components to set
+     */
+    public void setComponents(List<UIComponent> components) {
+        this.components = components;
     }
 }

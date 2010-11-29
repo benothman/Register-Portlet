@@ -46,12 +46,12 @@
     </xs:element>
     <xs:element name="display-name">
         <xs:complexType mixed="true">
-            <xs:attribute name="lang" type="xs:string" default="EN"/>
+            <xs:attribute name="lang" type="xs:string" use="optional" default="EN"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="description">
         <xs:complexType mixed="true">
-            <xs:attribute name="lang" type="xs:string" default="EN"/>
+            <xs:attribute name="lang" type="xs:string" use="optional" default="EN"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="mapping">
