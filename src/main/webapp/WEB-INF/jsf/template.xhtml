@@ -10,7 +10,8 @@
     <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/default.css" media="screen"/>
     <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/cssLayout.css" media="screen"/>
     <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/bubble.css" media="screen"/>
-    <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/scripts.js" />
+
+
 
     <f:view>
 
@@ -35,11 +36,11 @@
         <script type="text/javascript">
 
             A4J.AJAX.onError = function(req, status, message) {
-                window.alert("Custom onError handler " + message);
+                window.alert("An error occurs during request processing\n" + message);
             }
 
             A4J.AJAX.onExpired = function(loc, expiredMsg) {
-                if(window.confirm("Custom onExpired handler " + expiredMsg + " for a location: " + loc)) {
+                if(window.confirm("The view was expired (" + expiredMsg + ") for a location: " + loc)) {
                     return loc;
                 } else {
                     return false;

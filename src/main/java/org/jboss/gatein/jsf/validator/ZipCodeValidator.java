@@ -20,26 +20,30 @@ package org.jboss.gatein.jsf.validator;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
+import org.gatein.common.logging.Logger;
+import org.gatein.common.logging.LoggerFactory;
 
 /**
- * {@code GateInInputTextValidator}
+ * {@code ZipCodeValidator}
  *
- * Created on Nov 15, 2010, 11:58:02 AM
+ * Created on Nov 29, 2010, 2:11:21 PM
  *
- * @author Nabil Benothman
+ * @author nabilbenothman
  * @version 1.0
  */
-public class GateInInputTextValidator implements Validator {
+public class ZipCodeValidator implements Validator {
 
+    private static final Logger logger = LoggerFactory.getLogger(ZipCodeValidator.class);
 
     /**
-     * Create a new instance of {@code GateInInputTextValidator}
+     * Create a new instance of {@code ZipCodeValidator}
      */
-    public GateInInputTextValidator() {
+    public ZipCodeValidator() {
         super();
     }
 
@@ -49,30 +53,23 @@ public class GateInInputTextValidator implements Validator {
      *   javax.faces.component.UIComponent, java.lang.Object)
      */
     public void validate(FacesContext fc, UIComponent uic, Object o) throws ValidatorException {
-
         if (o != null) {
-            if (!(o instanceof String)) {
-                throw new IllegalArgumentException("The value must be a String");
-            }
-            // remove spaces at the begining and the end of the string value
             String value = ((String) o).trim();
-            HtmlInputText inputText = (HtmlInputText) uic;
-
-            if (value.matches("\\s*")) {
-                throw new ValidatorException(
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Value is required!",
-                        "The input value connot be empty"));
-            }
-
-            String label = inputText.getLabel();
-            if (value.equalsIgnoreCase(label)) {
-                throw new ValidatorException(
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "The introduced value is not valid!",
-                        "The value " + value + " is not accepted!"));
+            String label = ((HtmlInputText)uic).getLabel();
+            if (!value.matches("\\s*") && !value.equalsIgnoreCase(label)) {
+                try {
+                    int zipCode = Integer.parseInt(value);
+                    if (zipCode < 1 || zipCode > 500000) {
+                        logger.error("Value must be between 1 and 500000");
+                        throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Value must be between 1 and 500000!", "Value must be between 1 and 500000!"));
+                    }
+                } catch (NumberFormatException nfe) {
+                    throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            "Input must be an integer!", "Input must be an integer"));
+                }
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Value accepted", "Value accepted");
+                fc.addMessage(uic.getClientId(fc), message);
             }
         }
-
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "The introduced value is accepted", "The introduced value is accepted");
-        fc.addMessage(uic.getClientId(fc), message);
     }
 }

@@ -105,7 +105,6 @@ public class ApplicationBean implements Serializable {
      */
     public ApplicationBean() {
         super();
-        logger.info("Create a new instance of " + this.getClass().getName());
     }
 
     /**
@@ -113,7 +112,7 @@ public class ApplicationBean implements Serializable {
      */
     @PostConstruct
     public void init() {
-        logger.info("Init application");
+        logger.info("Init application bean");
         fillCountries();
     }
 
@@ -127,14 +126,16 @@ public class ApplicationBean implements Serializable {
                 ApplicationConfigLoader appConfigLoader = ApplicationConfigLoader.getInstance();
                 this.props = (Properties) appConfigLoader.xmlToObject(PROPS_PATH);
                 // check if the props were loaded correctly
-                //appConfigLoader.printXML(this.props);
                 for (Property prop : this.props.getProperties()) {
-                    this.appData.put(prop.getName(), prop.getDisplayName().getText());
+                    if (prop.getType().equals("java.util.Date")) {
+                        this.appData.put(prop.getName(), new java.util.Date());
+                    } else {
+                        this.appData.put(prop.getName(), prop.getDisplayName().getText());
+                    }
                 }
 
                 this.uicomponents = (UIComponents) appConfigLoader.xmlToObject(UI_COMP_PATH);
                 // check if the uicomponents were loaded correctly
-                //appConfigLoader.printXML(this.getUicomponents());
                 this.loaded = true;
             } catch (Exception exp) {
                 logger.error(exp.getMessage(), exp);

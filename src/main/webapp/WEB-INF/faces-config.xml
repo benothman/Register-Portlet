@@ -9,10 +9,14 @@
 
 
     <navigation-rule>
-        <from-view-id>/WEB-INF/jsf/view.xhtml</from-view-id>
+        <from-view-id>/WEB-INF/jsf/viewContent.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>success</from-outcome>
             <to-view-id>/WEB-INF/jsf/success.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>failure</from-outcome>
+            <to-view-id>/WEB-INF/jsf/error.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>cancel</from-outcome>
@@ -24,9 +28,71 @@
         <from-view-id>/WEB-INF/jsf/cancel.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>restart</from-outcome>
-            <to-view-id>/WEB-INF/jsf/view.xhtml</to-view-id>
+            <to-view-id>/WEB-INF/jsf/viewContent.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/WEB-INF/jsf/success.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>restart</from-outcome>
+            <to-view-id>/WEB-INF/jsf/viewContent.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/WEB-INF/jsf/error.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>return</from-outcome>
+            <to-view-id>/WEB-INF/jsf/viewContent.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+
+    <!-- start of to be removed block -->
+    <navigation-rule>
+        <from-view-id>/viewContent.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/success.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>failure</from-outcome>
+            <to-view-id>/error.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>/cancel.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/cancel.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>restart</from-outcome>
+            <to-view-id>/viewContent.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/success.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>restart</from-outcome>
+            <to-view-id>/viewContent.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/error.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>return</from-outcome>
+            <to-view-id>/viewContent.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+
+    <!-- end of to be removed block -->
+
 
     <managed-bean>
         <managed-bean-name>resource</managed-bean-name>
@@ -41,6 +107,10 @@
         <managed-property>
             <property-name>calendarBean</property-name>
             <value>#{calendarBean}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>mediaBean</property-name>
+            <value>#{mediaBean}</value>
         </managed-property>
         <managed-property>
             <property-name>appBean</property-name>
@@ -65,9 +135,17 @@
         <managed-bean-name>captchaValidatorBean</managed-bean-name>
         <managed-bean-class>org.jboss.gatein.bean.CaptchaValidatorBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
-        <managed-property>
+        <!--managed-property>
             <property-name>registerBean</property-name>
             <value>#{registerBean}</value>
+        </managed-property -->
+        <managed-property>
+            <property-name>mediaBean</property-name>
+            <value>#{mediaBean}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>paintBean</property-name>
+            <value>#{paintBean}</value>
         </managed-property>
     </managed-bean>
     <managed-bean>
@@ -80,16 +158,41 @@
         <managed-bean-class>org.jboss.gatein.bean.ProfileMappingBean</managed-bean-class>
         <managed-bean-scope>application</managed-bean-scope>
     </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>mediaBean</managed-bean-name>
+        <managed-bean-class>org.jboss.gatein.bean.MediaBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>statusBean</managed-bean-name>
+        <managed-bean-class>org.jboss.gatein.bean.StatusBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>mediaData</managed-bean-name>
+        <managed-bean-class>org.jboss.gatein.bean.MediaData</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>paintBean</managed-bean-name>
+        <managed-bean-class>org.jboss.gatein.bean.PaintBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>paintData</managed-bean-name>
+        <managed-bean-class>org.jboss.gatein.bean.PaintData</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
     <managed-bean>
         <managed-bean-name>testBean</managed-bean-name>
         <managed-bean-class>org.jboss.gatein.bean.TestBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
-        <managed-property>
-            <property-name>calendarBean</property-name>
-            <value>#{calendarBean}</value>
-        </managed-property>
     </managed-bean>
-    
+
     <validator>
         <validator-id>inputTextValidator</validator-id>
         <validator-class>org.jboss.gatein.jsf.validator.GateInInputTextValidator</validator-class>
@@ -99,8 +202,16 @@
         <validator-class>org.jboss.gatein.jsf.validator.PasswordValidator</validator-class>
     </validator>
     <validator>
+        <validator-id>userNameValidator</validator-id>
+        <validator-class>org.jboss.gatein.jsf.validator.UserNameValidator</validator-class>
+    </validator>
+    <validator>
         <validator-id>emailValidator</validator-id>
         <validator-class>org.jboss.gatein.jsf.validator.EmailValidator</validator-class>
+    </validator>
+    <validator>
+        <validator-id>zipCodeValidator</validator-id>
+        <validator-class>org.jboss.gatein.jsf.validator.ZipCodeValidator</validator-class>
     </validator>
 
     <component>

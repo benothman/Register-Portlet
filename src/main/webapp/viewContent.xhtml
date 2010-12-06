@@ -1,0 +1,594 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:rich="http://richfaces.org/rich">
+
+
+
+    <br/><br/>
+
+    <fieldset>
+        <legend align="left"> Required Data </legend>
+        <br/>
+        <a4j:outputPanel ajaxRendered="true" layout="inline">
+            <h:outputText value="#{statusBean.status}" styleClass="success" />
+            <h:outputText value="#{statusBean.error}" styleClass="error" />
+        </a4j:outputPanel>
+        <br/>
+        <br/>
+        <table cellpadding="5" cellspacing="5" width="60%">
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="bubbleInfo">
+                            <table class="popup" cellpadding="0" cellspacing="0">
+                                <tbody>
+                                    <tr>
+                                        <td id="topleft" class="corner"></td>
+                                        <td class="top"></td>
+                                        <td id="topright" class="corner"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="left"></td>
+                                        <td>
+                                            <table class="popup-contents"  cellpadding="0" cellspacing="0">
+                                                <tbody>
+                                                    <tr id="release-notes">
+                                                        <th>&#160;</th>
+                                                        <td>
+                                                <rich:message for="firstname" errorClass="error" infoClass="success" fatalClass="error" warnClass="warning" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                    </td>
+                    <td class="right"></td>
+                </tr>
+
+                <tr>
+                    <td class="corner" id="bottomleft"></td>
+                    <td class="bottom">
+                        <img src="#{facesContext.externalContext.requestContextPath}/images/bubble/bubble-bottom-middle.png" width="30" height="29" alt="popup tail" />
+                    </td>
+                    <td id="bottomright" class="corner"></td>
+                </tr>
+            </tbody>
+        </table>
+        <br/>
+        <div>
+            <h:inputText value="#{registerBean.data['portal.user.firstname']}" id="firstname" title="First name" required="true"
+                         label="First name" size="40" immediate="true" requiredMessage="Value is required" alt="First name"
+                         styleClass="trigger" validator="inputTextValidator" >
+                <rich:ajaxValidator event="onblur" reRender="firstname" />
+            </h:inputText>
+        </div>
+        </div>
+        <br/>
+        </td>
+        <td>
+            <div class="bubbleInfo">
+                <table class="popup" cellpadding="0" cellspacing="0">
+                    <tbody>
+                        <tr>
+                            <td id="topleft" class="corner"></td>
+                            <td class="top"></td>
+                            <td id="topright" class="corner"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="left"></td>
+                            <td>
+                                <table class="popup-contents"  cellpadding="0" cellspacing="0">
+                                    <tbody>
+                                        <tr id="release-notes">
+                                            <th>&#160;</th>
+                                            <td>
+                                    <rich:message for="lastname" errorClass="error" fatalClass="error" infoClass="success" warnClass="warning" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+        </td>
+        <td class="right"></td>
+        </tr>
+
+        <tr>
+            <td class="corner" id="bottomleft"></td>
+            <td class="bottom">
+                <img src="#{facesContext.externalContext.requestContextPath}/images/bubble/bubble-bottom-middle.png" width="30" height="29" alt="popup tail" />
+            </td>
+            <td id="bottomright" class="corner"></td>
+        </tr>
+        </tbody>
+        </table>
+        <br/>
+        <div>
+
+            <h:inputText value="#{registerBean.data['portal.user.lastname']}" id="lastname" title="Last name" required="true"
+                         label="Last name" size="40" immediate="true" requiredMessage="Value is required" alt="Last name"
+                         styleClass="trigger" validator="inputTextValidator">
+                <rich:ajaxValidator event="onblur" reRender="lastname" />
+            </h:inputText>
+        </div>
+        </div>
+        <br/>
+        </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="bubbleInfo">
+                    <table class="popup" cellpadding="0" cellspacing="0">
+                        <tbody>
+                            <tr>
+                                <td id="topleft" class="corner"></td>
+                                <td class="top"></td>
+                                <td id="topright" class="corner"></td>
+                            </tr>
+
+                            <tr>
+                                <td class="left"></td>
+                                <td>
+                                    <table class="popup-contents"  cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                            <tr id="release-notes">
+                                                <th>&#160;</th>
+                                                <td>
+                                        <rich:message for="email" errorClass="error" fatalClass="error" infoClass="success" warnClass="warning" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </td>
+            <td class="right"></td>
+        </tr>
+
+        <tr>
+            <td class="corner" id="bottomleft"></td>
+            <td class="bottom">
+                <img src="#{facesContext.externalContext.requestContextPath}/images/bubble/bubble-bottom-middle.png" width="30" height="29" alt="popup tail" />
+            </td>
+            <td id="bottomright" class="corner"></td>
+        </tr>
+        </tbody>
+        </table>
+        <br/>
+        <div>
+            <h:inputText value="#{registerBean.data['portal.user.email']}" id="email" title="Email" required="true" size="40" requiredMessage="Value is required"
+                         label="Email"  validator="emailValidator" immediate="true" alt="Email" styleClass="trigger" >
+                <rich:ajaxValidator event="onblur" reRender="email"/>
+            </h:inputText>
+        </div>
+        </div>
+        <br/>
+        </td>
+        <td>
+
+            <div class="bubbleInfo">
+                <table class="popup" cellpadding="0" cellspacing="0">
+                    <tbody>
+                        <tr>
+                            <td id="topleft" class="corner"></td>
+                            <td class="top"></td>
+                            <td id="topright" class="corner"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="left"></td>
+                            <td>
+                                <table class="popup-contents"  cellpadding="0" cellspacing="0">
+                                    <tbody>
+                                        <tr id="release-notes">
+                                            <th>&#160;</th>
+                                            <td>
+                                    <rich:message for="username" errorClass="error" fatalClass="error" infoClass="success" warnClass="warning" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+        </td>
+        <td class="right"></td>
+        </tr>
+
+        <tr>
+            <td class="corner" id="bottomleft"></td>
+            <td class="bottom">
+                <img src="#{facesContext.externalContext.requestContextPath}/images/bubble/bubble-bottom-middle.png" width="30" height="29" alt="popup tail" />
+            </td>
+            <td id="bottomright" class="corner"></td>
+        </tr>
+        </tbody>
+        </table>
+        <br/>
+        <div>
+            <h:inputText value="#{registerBean.data['portal.user.username']}" id="username" title="User name" required="true" size="40" requiredMessage="Value is required"
+                         label="User name" immediate="true" alt="User name" validator="inputTextValidator" styleClass="trigger" >
+                <rich:ajaxValidator event="onblur" reRender="username"/>
+            </h:inputText>
+        </div>
+        </div>
+        <br/>
+        </td>
+        </tr>
+
+        <tr>
+            <td>
+
+                <div class="bubbleInfo">
+                    <table class="popup" cellpadding="0" cellspacing="0">
+                        <tbody>
+                            <tr>
+                                <td id="topleft" class="corner"></td>
+                                <td class="top"></td>
+                                <td id="topright" class="corner"></td>
+                            </tr>
+
+                            <tr>
+                                <td class="left"></td>
+                                <td>
+                                    <table class="popup-contents"  cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                            <tr id="release-notes">
+                                                <th>&#160;</th>
+                                                <td>
+                                        <rich:message for="password" errorClass="error" fatalClass="error" infoClass="success" warnClass="warning" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </td>
+            <td class="right"></td>
+        </tr>
+
+        <tr>
+            <td class="corner" id="bottomleft"></td>
+            <td class="bottom">
+                <img src="#{facesContext.externalContext.requestContextPath}/images/bubble/bubble-bottom-middle.png" width="30" height="29" alt="popup tail" />
+            </td>
+            <td id="bottomright" class="corner"></td>
+        </tr>
+        </tbody>
+        </table>
+        <br/>
+        <div>
+            <h:inputSecret value="#{registerBean.data['portal.user.password']}" id="password" required="true" size="40"
+                           requiredMessage="Value is required" immediate="true" label="Password" styleClass="trigger"
+                           validator="#{passwordValidationBean.validate2}">
+                <f:validateLength minimum="7" maximum="21" />
+                <rich:ajaxValidator event="onblur" reRender="password" />
+            </h:inputSecret>
+        </div>
+        </div>
+        <br/>
+        </td>
+        <td>
+
+            <div class="bubbleInfo">
+                <table class="popup" cellpadding="0" cellspacing="0">
+                    <tbody>
+                        <tr>
+                            <td id="topleft" class="corner"></td>
+                            <td class="top"></td>
+                            <td id="topright" class="corner"></td>
+                        </tr>
+
+                        <tr>
+                            <td class="left"></td>
+                            <td>
+                                <table class="popup-contents"  cellpadding="0" cellspacing="0">
+                                    <tbody>
+                                        <tr id="release-notes">
+                                            <th>&#160;</th>
+                                            <td>
+                                    <rich:message for="confirmPassword" errorClass="error" fatalClass="error" infoClass="success" warnClass="warning" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+        </td>
+        <td class="right"></td>
+        </tr>
+
+        <tr>
+            <td class="corner" id="bottomleft"></td>
+            <td class="bottom">
+                <img src="#{facesContext.externalContext.requestContextPath}/images/bubble/bubble-bottom-middle.png" width="30" height="29" alt="popup tail" />
+            </td>
+            <td id="bottomright" class="corner"></td>
+        </tr>
+        </tbody>
+        </table>
+        <br/>
+        <div>
+
+            <h:inputSecret value="#{registerBean.data['portal.user.confirmPassword']}" id="confirmPassword"
+                           required="true" size="40" requiredMessage="Value is required" immediate="true"
+                           label="Confirm password" validator="#{passwordValidationBean.validate}" styleClass="trigger">
+                <rich:ajaxValidator event="onblur" reRender="confirmPassword" />
+            </h:inputSecret>
+        </div>
+        </div>
+        <br/>
+        </td>
+        </tr>
+        <tr>
+            <td>
+
+                <div class="bubbleInfo">
+                    <table class="popup" cellpadding="0" cellspacing="0">
+                        <tbody>
+                            <tr>
+                                <td id="topleft" class="corner"></td>
+                                <td class="top"></td>
+                                <td id="topright" class="corner"></td>
+                            </tr>
+
+                            <tr>
+                                <td class="left"></td>
+                                <td>
+                                    <table class="popup-contents"  cellpadding="0" cellspacing="0">
+                                        <tbody>
+                                            <tr id="release-notes">
+                                                <th>&#160;</th>
+                                                <td>
+                                        <rich:message for="answer" errorClass="error" fatalClass="error" infoClass="success" warnClass="warning" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </td>
+            <td class="right"></td>
+        </tr>
+
+        <tr>
+            <td class="corner" id="bottomleft"></td>
+            <td class="bottom">
+                <img src="#{facesContext.externalContext.requestContextPath}/images/bubble/bubble-bottom-middle.png" width="30" height="29" alt="popup tail" />
+            </td>
+            <td id="bottomright" class="corner"></td>
+        </tr>
+        </tbody>
+        </table>
+        <br/>
+        <div>
+
+            <h:inputText value="#{registerBean.data['portal.user.captcha.answer']}" id="answer"
+                         required="true" styleClass="trigger" immediate="true" requiredMessage="Value is required"
+                         label="Code" size="40"  validator="#{captchaValidatorBean.validate}">
+
+                <a4j:support event="onblur" reRender="captcha"/>
+            </h:inputText>
+
+        </div>
+        </div>
+        <br/>
+        </td>
+        <td>
+
+        <a4j:mediaOutput  id="captcha" session="false" element="img"
+                          cacheable="false"   mimeType="image/jpeg"
+                          createContent="#{mediaBean.paint}" value="#{mediaData}">
+            <f:param value="#{mediaBean.timeStamp}" name="time" />
+        </a4j:mediaOutput>
+
+        <br/>
+        </td>
+        </tr>
+        </tbody>
+        </table>
+
+        <br />
+    </fieldset>
+
+    <br/>
+    <br/>
+
+    <a4j:outputPanel id="hide" styleClass="viewsourcelooklink" style="display:none; float: left;">
+        <rich:effect for="hide" event="onclick" type="BlindUp" targetId="moreOptionsPanel" params="id:'moreOptionsPanel', duration:1.0" />
+        <rich:effect for="hide" event="onclick" type="Appear" targetId="look" params="delay:1.5, duration:0.5" />
+        <rich:effect for="hide" event="onclick" type="Fade" targetId="hide" params="delay:0.0, duration:0.1" />
+        <h:outputText escape="false" style="color: #045491;font-weight : bold;" value="Hide..."/>
+    </a4j:outputPanel>
+    <a4j:outputPanel styleClass="viewsourcelooklink" id="look" style="float: left">
+        <rich:effect for="look" event="onclick" type="Fade" params="delay:0.0, duration:0.1" disableDefault="true"/>
+        <rich:effect for="look" event="onclick" type="BlindDown" targetId="moreOptionsPanel" params="delay:0.1,duration:1.0,from:0.0,to:1.0"/>
+        <rich:effect for="look" event="onclick" type="Appear"  targetId="moreOptionsPanel"  params="delay:0.1,duration:0.5,from:0.0,to:1.0" />
+        <rich:effect for="look" event="onclick" type="Appear"  targetId="hide"  params="delay:1.5,duration:1.0,from:0.0,to:1.0" />
+        <h:outputText escape="false" style="color: #045491;font-weight : bold;" value="More..."/>
+    </a4j:outputPanel>
+
+    <br/>
+    <br/>
+
+    <rich:panel id="moreOptionsPanel" style="display:none">
+        <fieldset>
+            <legend align="left"> Optional Data </legend>
+
+            <h:panelGrid columns="2" cellpadding="5" cellspacing="5" width="100%">
+
+                <h:panelGroup>
+                    <h:outputText value="Title : " />
+                    <h:selectOneMenu value="#{registerBean.data['portal.user.title']}" id="title">
+                        <f:selectItem itemValue="Mr" itemLabel="Mr" />
+                        <f:selectItem itemValue="Mrs" itemLabel="Mrs" />
+                        <f:selectItem itemValue="Ms" itemLabel="Ms" />
+                    </h:selectOneMenu>
+                    <rich:spacer />
+                    <h:outputText value="Gender : " />
+                    <h:selectOneMenu value="#{registerBean.data['portal.user.gender']}" id="gender">
+                        <f:selectItem itemValue="Male" itemLabel="Male" />
+                        <f:selectItem itemValue="Female" itemLabel="Female" />
+                    </h:selectOneMenu>
+                </h:panelGroup>
+
+                <h:outputLabel for="calendar" value="Birthday" />
+                <h:inputText value="#{registerBean.data['portal.user.address.line1']}" size="40" />
+                <a4j:outputPanel id="calendar" layout="block">
+                    <rich:calendar value="#{calendarBean.selectedDate}"
+                                   locale="#{calendarBean.locale}"
+                                   popup="#{calendarBean.popup}"
+                                   datePattern="#{calendarBean.pattern}"
+                                   showApplyButton="#{calendarBean.showApply}" cellWidth="24px" cellHeight="22px" style="width:220px"/>
+                </a4j:outputPanel>
+
+                <h:inputText value="#{registerBean.data['portal.user.address.line2']}" size="40" />
+                <h:inputText value="#{registerBean.data['portal.user.twitter']}" size="40" />
+
+                <h:panelGroup>
+                    <h:inputText id="zipCode" value="#{registerBean.data['portal.user.address.zipCode']}" size="10"
+                                 converterMessage="The input must be an Integer" validator="zipCodeValidator">
+                        <rich:ajaxValidator event="onblur"/>
+                    </h:inputText>
+                    <h:inputText value="#{registerBean.data['portal.user.address.city']}" size="23" />
+                </h:panelGroup>
+                <h:inputText value="#{registerBean.data['portal.user.skype']}" size="40" />
+
+                <rich:message for="zipCode"  errorClass="error" infoClass="success" fatalClass="error" warnClass="warning" />
+                <rich:spacer />
+
+                <h:inputText value="#{registerBean.data['portal.user.address.state']}" size="40" />
+                <h:inputText value="#{registerBean.data['portal.user.msn']}" size="40" />
+
+                <h:panelGroup>
+                    <h:outputLabel for="address-country" value="Country : " />
+                    <h:selectOneMenu id="address-country" value="#{registerBean.data['portal.user.address.country']}">
+                        <f:selectItems value="#{appBean.countries}" />
+                    </h:selectOneMenu>
+                </h:panelGroup>
+                <h:inputText value="#{registerBean.data['portal.user.linkedIn']}" size="40" />
+
+                <h:inputText value="#{registerBean.data['portal.user.phone']}" size="40" />
+                <h:inputText value="#{registerBean.data['portal.user.icq']}" size="40" />
+
+            </h:panelGrid>
+        </fieldset>
+    </rich:panel>
+
+
+
+
+
+    <script type="text/javascript">
+
+$j = jQuery.noConflict();
+
+$j(function () {
+$j('.bubbleInfo').each(function () {
+var distance = 10;
+var time = 250;
+var hideDelay = 500;
+
+var hideDelayTimer = null;
+
+var beingShown = false;
+var shown = false;
+var trigger = $j('.trigger', this);
+var info = $j('.popup', this).css('opacity', 0);
+
+
+$j([trigger.get(0), info.get(0)]).focus(function () {
+    if (hideDelayTimer) {
+        clearTimeout(hideDelayTimer);
+    }
+    if (beingShown || shown) {
+        // don't trigger the animation again
+        return;
+    } else {
+        // reset position of info box
+        beingShown = true;
+
+        info.css({
+            top: -33,
+            left: -0,
+            display: 'block'
+        }).animate({
+            top: '-=' + distance + 'px',
+            opacity: 1
+        }, time, 'swing', function() {
+            beingShown = false;
+            shown = true;
+        });
+    }
+
+    return false;
+}).blur(function () {
+    if (hideDelayTimer) {
+        clearTimeout(hideDelayTimer);
+    }
+    hideDelayTimer = setTimeout(function () {
+        hideDelayTimer = null;
+        info.animate({
+            top: '-=' + distance + 'px',
+            opacity: 0
+        }, time, 'swing', function () {
+            shown = false;
+            info.css('display', 'none');
+        });
+
+    }, hideDelay);
+
+    return false;
+});
+});
+});
+
+$j(document).ready(function() {
+$j('input[type="text"]').addClass("idleField");
+$j('input[type="password"]').addClass("idleField");
+
+// Remove idleField class and adding focusField class to the input type
+// text and password when the input aquire focus
+$j('input[type="text"]').focus(function() {
+$j(this).removeClass("idleField").addClass("focusField");
+if ($j.trim(this.value) == this.defaultValue){
+    this.value = '';
+}
+if(this.value != this.defaultValue){
+    this.select();
+}
+});
+$j('input[type="password"]').focus(function() {
+$j(this).removeClass("idleField").addClass("focusField");
+if ($j.trim(this.value) == this.defaultValue){
+    this.value = '';
+}
+if(this.value != this.defaultValue){
+    this.select();
+}
+});
+
+// Remove focusField class and adding idleField class to the input type
+// text and password when the input loses the focus
+$j('input[type="text"]').blur(function() {
+$j(this).removeClass("focusField").addClass("idleField");
+if ($j.trim(this.value) == ''){
+    this.value = (this.defaultValue ? this.defaultValue : '');
+}
+});
+$j('input[type="password"]').blur(function() {
+$j(this).removeClass("focusField").addClass("idleField");
+if ($j.trim(this.value) == ''){
+    this.value = (this.defaultValue ? this.defaultValue : '');
+}
+});
+
+});
+
+
+    </script>
+
+    <br/>
+    <br/>
+    <a4j:commandButton value="Submit" action="#{registerBean.save2}"/>
+    <rich:spacer />
+    <a4j:commandButton value="Cancel" action="#{registerBean.cancel}" immediate="true" />
+
+</ui:composition>

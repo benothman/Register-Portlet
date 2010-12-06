@@ -24,22 +24,25 @@ import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
+import org.exoplatform.container.ExoContainer;
+import org.exoplatform.container.ExoContainerContext;
+import org.exoplatform.services.organization.OrganizationService;
+import org.exoplatform.services.organization.UserHandler;
 
 /**
- * {@code GateInInputTextValidator}
+ * {@code UserNameValidator}
  *
- * Created on Nov 15, 2010, 11:58:02 AM
+ * Created on Dec 6, 2010, 10:05:03 AM
  *
- * @author Nabil Benothman
+ * @author nabilbenothman
  * @version 1.0
  */
-public class GateInInputTextValidator implements Validator {
-
+public class UserNameValidator implements Validator {
 
     /**
-     * Create a new instance of {@code GateInInputTextValidator}
+     * Create a new instance of {@code UserNameValidator}
      */
-    public GateInInputTextValidator() {
+    public UserNameValidator() {
         super();
     }
 
@@ -49,19 +52,16 @@ public class GateInInputTextValidator implements Validator {
      *   javax.faces.component.UIComponent, java.lang.Object)
      */
     public void validate(FacesContext fc, UIComponent uic, Object o) throws ValidatorException {
-
         if (o != null) {
             if (!(o instanceof String)) {
                 throw new IllegalArgumentException("The value must be a String");
             }
-            // remove spaces at the begining and the end of the string value
             String value = ((String) o).trim();
             HtmlInputText inputText = (HtmlInputText) uic;
-
             if (value.matches("\\s*")) {
                 throw new ValidatorException(
                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Value is required!",
-                        "The input value connot be empty"));
+                        "The username connot be empty"));
             }
 
             String label = inputText.getLabel();
@@ -70,9 +70,23 @@ public class GateInInputTextValidator implements Validator {
                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "The introduced value is not valid!",
                         "The value " + value + " is not accepted!"));
             }
-        }
 
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "The introduced value is accepted", "The introduced value is accepted");
-        fc.addMessage(uic.getClientId(fc), message);
+            ExoContainer container = ExoContainerContext.getContainerByName("portal");
+            OrganizationService orgService = (OrganizationService) container.getComponentInstanceOfType(OrganizationService.class);
+            UserHandler userHandler = orgService.getUserHandler();
+
+
+            try {
+                if (userHandler.findUserByName(value) != null) {
+                    throw new ValidatorException(
+                            new FacesMessage(FacesMessage.SEVERITY_ERROR, "Username already exist", "The username is already used!"));
+                }
+            } catch (Exception exp) {
+                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error while accessing database", exp.getMessage()));
+            }
+
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "The username is accepted", "The username is accepted");
+            fc.addMessage(uic.getClientId(fc), message);
+        }
     }
 }

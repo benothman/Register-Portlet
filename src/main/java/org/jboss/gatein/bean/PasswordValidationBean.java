@@ -24,8 +24,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
-import org.gatein.common.logging.Logger;
-import org.gatein.common.logging.LoggerFactory;
 
 /**
  * {@code PasswordValidationBean}
@@ -37,7 +35,6 @@ import org.gatein.common.logging.LoggerFactory;
  */
 public class PasswordValidationBean implements Serializable, Validator {
 
-    private static final Logger logger = LoggerFactory.getLogger(PasswordValidationBean.class.getName());
     private RegisterBean registerBean;
 
     /**
@@ -45,17 +42,14 @@ public class PasswordValidationBean implements Serializable, Validator {
      */
     public PasswordValidationBean() {
         super();
-        logger.info("Create a new instance of " + getClass().getName());
     }
 
-    /**
-     * 
-     * @param fc
-     * @param uic
-     * @param value
+    /*
+     * (non-Javadoc)
+     * @see javax.faces.validator.Validator.validate(javax.faces.context.FacesContext,
+     *   javax.faces.component.UIComponent, java.lang.Object)
      */
     public void validate(FacesContext fc, UIComponent uic, Object value) {
-        logger.info("validating password confirmation value");
 
         if (value != null) {
             String confirmPassword = (String) value;
@@ -69,7 +63,7 @@ public class PasswordValidationBean implements Serializable, Validator {
                         "Password length must contain 7 characters at least", "Password must be 7 chars+ !"));
             }
             String password = (String) this.registerBean.get("portal.user.password");
-            logger.info("input : " + confirmPassword + ", password : " + password);
+
             if (password == null) {
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
                         "Please fill the password field first", "Fill the password field first"));
@@ -82,7 +76,19 @@ public class PasswordValidationBean implements Serializable, Validator {
             // if validation passes with success
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "The two values are identical and accepted!", "The two values are identical and accepted");
             fc.addMessage(uic.getClientId(fc), message);
-            logger.info("validation of Password values passed with succes");
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see javax.faces.validator.Validator.validate(javax.faces.context.FacesContext,
+     *   javax.faces.component.UIComponent, java.lang.Object)
+     */
+    public void validate2(FacesContext fc, UIComponent uic, Object value) {
+        if (value != null) {
+            this.registerBean.put("portal.user.password", value);
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Password accepted!", "Password value accepted");
+            fc.addMessage(uic.getClientId(fc), message);
         }
     }
 

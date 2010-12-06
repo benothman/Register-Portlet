@@ -60,14 +60,12 @@ public class PasswordValidator implements Validator {
             }
 
             ResourceRequest request = (ResourceRequest) fc.getExternalContext().getRequest();
-            System.out.println("value -> " + value);
             String otherValue = null;
             if (request != null) {
                 ExternalContext exCtx = fc.getExternalContext();
 
                 otherValue = request.getParameter("password");
-                System.out.println("other value -> " + otherValue);
-
+         
                 if (!value.equals(otherValue)) {
                     throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
                             "Wrong input value!", "Wrong input value!"));

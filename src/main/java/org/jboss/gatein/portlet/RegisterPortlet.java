@@ -97,54 +97,65 @@ public class RegisterPortlet extends GenericFacesPortlet {
         helpPage = config.getInitParameter("HelpPage");
          */
         errorPage = config.getInitParameter("ErrorPage");
+
+    }
+
+    @Override
+    protected void doHeaders(RenderRequest request, RenderResponse response) {
+        super.doHeaders(request, response);
+        
+
     }
 
     /*
      * (non-Javadoc)
      * @see javax.portlet.GenericPortlet.doEdit(javax.portlet.RenderRequest, javax.portlet.RenderResponse)
-     */
+     *
     @Override
     public void doEdit(RenderRequest request, RenderResponse response) throws IOException, PortletException {
-        logger.info("Display Register Portlet edit page");
-        if (editPage == null) {
-            PortletConfig config = getPortletConfig();
-            editPage = config.getInitParameter("javax.portlet.faces.defaultViewId.edit");
-        }
+    logger.info("Display Register Portlet edit page");
+    if (editPage == null) {
+    PortletConfig config = getPortletConfig();
+    editPage = config.getInitParameter("javax.portlet.faces.defaultViewId.edit");
+    }
 
-        forward(request, response, editPage);
+    forward(request, response, editPage);
     }
 
     /*
      * (non-Javadoc)
      * @see javax.portlet.GenericPortlet.doView(javax.portlet.RenderRequest, javax.portlet.RenderResponse)
-     */
+     *
     @Override
     public void doView(RenderRequest request, RenderResponse response) throws IOException, PortletException {
-        logger.info("Display Register Portlet view page");
-        forward(request, response, viewPage);
+    logger.info("Display Register Portlet view page");
+    forward(request, response, viewPage);
     }
 
     /*
      * (non-Javadoc)
      * @see javax.portlet.GenericPortlet.doHelp(javax.portlet.RenderRequest, javax.portlet.RenderResponse)
-     */
+     *
     @Override
     public void doHelp(RenderRequest request, RenderResponse response) throws IOException, PortletException {
-        logger.info("Display Register Portlet help page");
-        forward(request, response, helpPage);
+    logger.info("Display Register Portlet help page");
+    forward(request, response, helpPage);
     }
+
+
+
 
     /*
      * (non-Javadoc)
      * @see javax.portlet.GenericPortlet.processAction(javax.portlet.ActionRequest, javax.portlet.ActionResponse)
-     */
+     *
     @Override
     public void processAction(ActionRequest request, ActionResponse response) throws PortletException, IOException {
 
-        logger.info("Process user action");
+    logger.info("Process user action");
 
-        PortletSession session = request.getPortletSession(true);
-        // TODO
+    PortletSession session = request.getPortletSession(true);
+    // TODO
 
 
     }

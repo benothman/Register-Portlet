@@ -26,7 +26,6 @@
         <param-name>facelets.LIBRARIES</param-name>
         <param-value>/WEB-INF/facelets/bubbleInfo.taglib.xml</param-value>
     </context-param>
-
     <!-- Faces Servlet config -->
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
@@ -45,10 +44,6 @@
     <context-param>
         <param-name>org.richfaces.CONTROL_SKINNING</param-name>
         <param-value>enable</param-value>
-    </context-param>
-    <context-param>
-        <param-name>org.jboss.portletbridge.WRAP_SCRIPTS</param-name>
-        <param-value>true</param-value>
     </context-param>
     <!-- Portlet Bridge setup -->
     <context-param>
@@ -73,17 +68,29 @@
     </context-param>
     <context-param>
         <param-name>org.richfaces.LoadScriptStrategy</param-name>
-        <param-value>DEFAULT</param-value>
+        <param-value>ALL</param-value>
     </context-param>
     <context-param>
         <param-name>org.ajax4jsf.RESOURCE_URI_PREFIX</param-name>
         <param-value>rfRes</param-value>
     </context-param>
-
     <!--context-param>
+        <description>Defines the order in which particular filter types are used for pages code correction</description>
+        <param-name>org.ajax4jsf.xmlparser.ORDER</param-name>
+        <param-value>NONE,NEKO,TIDY</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.ajax4jsf.xmlparser.NEKO</param-name>
+        <param-value>/WEB-INF/jsf\.xhtml</param-value>
+    </context-param-->
+    <context-param>
         <param-name>org.ajax4jsf.handleViewExpiredOnClient</param-name>
         <param-value>true</param-value>
-    </context-param-->
+    </context-param>
+    <context-param>
+        <param-name>facelets.BUILD_BEFORE_RESTORE</param-name>
+        <param-value>false</param-value>
+    </context-param>
     <filter>
         <display-name>Ajax4jsf Filter</display-name>
         <filter-name>ajax4jsf</filter-name>
@@ -118,7 +125,6 @@
             <taglib-location>/WEB-INF/bubbleInfo.tld</taglib-location>
         </taglib>
     </jsp-config>
-    
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>

@@ -11,7 +11,7 @@
 xsi:noNamespaceSchemaLocation="profile-config.xsd">
 
     <property>
-        <name>portal.user.firstname</name>
+        <name>user.name.given</name>
         <short-name>firstname</short-name>
         <type>java.lang.String</type>
         <access-mode>read-write</access-mode>
@@ -21,13 +21,13 @@ xsi:noNamespaceSchemaLocation="profile-config.xsd">
         <mapping>
             <database>
                 <type>dynamic</type>
-                <value>user.firstname</value>
+                <value>user.name.given</value>
             </database>
         </mapping>
     </property>
 
     <property>
-        <name>portal.user.lastname</name>
+        <name>user.name.family</name>
         <short-name>lastname</short-name>
         <type>java.lang.String</type>
         <access-mode>read-write</access-mode>
@@ -37,45 +37,45 @@ xsi:noNamespaceSchemaLocation="profile-config.xsd">
         <mapping>
             <database>
                 <type>dynamic</type>
-                <value>user.lastname</value>
+                <value>user.name.family</value>
             </database>
         </mapping>
     </property>
 
     <property>
-        <name>portal.user.email</name>
+        <name>user.home-info.online.email</name>
         <short-name>email</short-name>
         <type>java.lang.String</type>
         <access-mode>read-write</access-mode>
         <usage>required</usage>
-        <display-name lang="EN">Email</display-name>
+        <display-name lang="EN">Email address</display-name>
         <description lang="EN">The user email address</description>
         <mapping>
             <database>
                 <type>dynamic</type>
-                <value>user.email</value>
+                <value>user.home-info.online.email</value>
             </database>
         </mapping>
     </property>
 
     <property>
-        <name>portal.user.username</name>
+        <name>user.login.id</name>
         <short-name>username</short-name>
         <type>java.lang.String</type>
         <access-mode>read-write</access-mode>
         <usage>required</usage>
-        <display-name lang="EN">Username</display-name>
+        <display-name lang="EN">User name</display-name>
         <description lang="EN">The username</description>
         <mapping>
             <database>
                 <type>dynamic</type>
-                <value>user.username</value>
+                <value>user.login.id</value>
             </database>
         </mapping>
     </property>
 
     <property>
-        <name>portal.user.password</name>
+        <name>gatein.user.password</name>
         <short-name>password</short-name>
         <type>java.lang.String</type>
         <access-mode>read-write</access-mode>
@@ -91,7 +91,7 @@ xsi:noNamespaceSchemaLocation="profile-config.xsd">
     </property>
 
     <property>
-        <name>portal.user.gender</name>
+        <name>user.gender</name>
         <short-name>gender</short-name>
         <type>java.lang.String</type>
         <access-mode>read-write</access-mode>
@@ -107,7 +107,7 @@ xsi:noNamespaceSchemaLocation="profile-config.xsd">
     </property>
 
     <property>
-        <name>portal.user.title</name>
+        <name>gatein.user.title</name>
         <short-name>title</short-name>
         <type>java.lang.String</type>
         <access-mode>read-write</access-mode>
@@ -117,13 +117,13 @@ xsi:noNamespaceSchemaLocation="profile-config.xsd">
         <mapping>
             <database>
                 <type>dynamic</type>
-                <value>user.title</value>
+                <value>gatein.user.title</value>
             </database>
         </mapping>
     </property>
 
     <property>
-        <name>portal.user.birthday</name>
+        <name>user.bdate</name>
         <short-name>birthday</short-name>
         <type>java.util.Date</type>
         <access-mode>read-write</access-mode>
@@ -133,61 +133,45 @@ xsi:noNamespaceSchemaLocation="profile-config.xsd">
         <mapping>
             <database>
                 <type>dynamic</type>
-                <value>user.birthday</value>
+                <value>user.bdate</value>
             </database>
         </mapping>
     </property>
 
     <property>
-        <name>portal.user.address.line1</name>
-        <short-name>address.line1</short-name>
+        <name>user.home-info.postal.street</name>
+        <short-name>address.street</short-name>
         <type>java.lang.String</type>
         <access-mode>read-write</access-mode>
         <usage>required</usage>
-        <display-name lang="EN">Address line 1</display-name>
-        <description lang="EN">The user address line 1</description>
+        <display-name lang="EN">Street</display-name>
+        <description lang="EN">The user address street</description>
         <mapping>
             <database>
                 <type>dynamic</type>
-                <value>user.address.line1</value>
+                <value>user.home-info.postal.street</value>
             </database>
         </mapping>
     </property>
 
     <property>
-        <name>portal.user.address.line2</name>
-        <short-name>address.line2</short-name>
-        <type>java.lang.String</type>
-        <access-mode>read-write</access-mode>
-        <usage>required</usage>
-        <display-name lang="EN">Address line 2</display-name>
-        <description lang="EN">The user address line 2</description>
-        <mapping>
-            <database>
-                <type>dynamic</type>
-                <value>user.address.line2</value>
-            </database>
-        </mapping>
-    </property>
-
-    <property>
-        <name>portal.user.address.zipCode</name>
+        <name>user.home-info.postal.postalcode</name>
         <short-name>address.zipCode</short-name>
         <type>java.lang.Integer</type>
         <access-mode>read-write</access-mode>
         <usage>required</usage>
-        <display-name lang="EN">Zip code</display-name>
-        <description lang="EN">The user address zip code</description>
+        <display-name lang="EN">Postal code</display-name>
+        <description lang="EN">The user home address postal code</description>
         <mapping>
             <database>
                 <type>dynamic</type>
-                <value>user.address.zipCode</value>
+                <value>user.home-info.postal.postalcode</value>
             </database>
         </mapping>
     </property>
 
     <property>
-        <name>portal.user.address.city</name>
+        <name>user.home-info.postal.city</name>
         <short-name>address.city</short-name>
         <type>java.lang.String</type>
         <access-mode>read-write</access-mode>
@@ -197,13 +181,13 @@ xsi:noNamespaceSchemaLocation="profile-config.xsd">
         <mapping>
             <database>
                 <type>dynamic</type>
-                <value>user.address.city</value>
+                <value>user.home-info.postal.city</value>
             </database>
         </mapping>
     </property>
 
     <property>
-        <name>portal.user.address.state</name>
+        <name>user.home-info.postal.stateprov</name>
         <short-name>address.state</short-name>
         <type>java.lang.String</type>
         <access-mode>read-write</access-mode>
@@ -213,13 +197,13 @@ xsi:noNamespaceSchemaLocation="profile-config.xsd">
         <mapping>
             <database>
                 <type>dynamic</type>
-                <value>user.address.state</value>
+                <value>user.home-info.postal.stateprov</value>
             </database>
         </mapping>
     </property>
 
     <property>
-        <name>portal.user.address.country</name>
+        <name>user.home-info.postal.country</name>
         <short-name>address.country</short-name>
         <type>java.lang.String</type>
         <access-mode>read-write</access-mode>
@@ -229,29 +213,44 @@ xsi:noNamespaceSchemaLocation="profile-config.xsd">
         <mapping>
             <database>
                 <type>dynamic</type>
-                <value>user.address.country</value>
+                <value>user.home-info.postal.country</value>
             </database>
         </mapping>
     </property>
 
     <property>
-        <name>portal.user.phone</name>
+        <name>user.home-info.telecom.telephone.number</name>
         <short-name>phone</short-name>
         <type>java.lang.String</type>
         <access-mode>read-write</access-mode>
         <usage>required</usage>
-        <display-name lang="EN">Phone</display-name>
+        <display-name lang="EN">Phone number</display-name>
         <description lang="EN">The user phone number</description>
         <mapping>
             <database>
                 <type>dynamic</type>
-                <value>user.phone</value>
+                <value>user.home-info.telecom.telephone.number</value>
+            </database>
+        </mapping>
+    </property>
+    <property>
+        <name>user.home-info.telecom.mobile.number</name>
+        <short-name>Mobil phone</short-name>
+        <type>java.lang.String</type>
+        <access-mode>read-write</access-mode>
+        <usage>required</usage>
+        <display-name lang="EN">Mobile number</display-name>
+        <description lang="EN">The user phone number</description>
+        <mapping>
+            <database>
+                <type>dynamic</type>
+                <value>user.home-info.telecom.mobile.number</value>
             </database>
         </mapping>
     </property>
 
     <property>
-        <name>portal.user.skype</name>
+        <name>gatein.user.skype</name>
         <short-name>skype</short-name>
         <type>java.lang.String</type>
         <access-mode>read-write</access-mode>
@@ -261,13 +260,13 @@ xsi:noNamespaceSchemaLocation="profile-config.xsd">
         <mapping>
             <database>
                 <type>dynamic</type>
-                <value>user.skype</value>
+                <value>gatein.user.skype</value>
             </database>
         </mapping>
     </property>
 
     <property>
-        <name>portal.user.linkedIn</name>
+        <name>gatein.user.linkedIn</name>
         <short-name>linkedIn</short-name>
         <type>java.lang.String</type>
         <access-mode>read-write</access-mode>
@@ -277,13 +276,13 @@ xsi:noNamespaceSchemaLocation="profile-config.xsd">
         <mapping>
             <database>
                 <type>dynamic</type>
-                <value>user.linkedIn</value>
+                <value>gatein.user.linkedIn</value>
             </database>
         </mapping>
     </property>
 
     <property>
-        <name>portal.user.twitter</name>
+        <name>gatein.user.twitter</name>
         <short-name>twitter</short-name>
         <type>java.lang.String</type>
         <access-mode>read-write</access-mode>
@@ -293,13 +292,13 @@ xsi:noNamespaceSchemaLocation="profile-config.xsd">
         <mapping>
             <database>
                 <type>dynamic</type>
-                <value>user.twitter</value>
+                <value>gatein.user.twitter</value>
             </database>
         </mapping>
     </property>
 
     <property>
-        <name>portal.user.msn</name>
+        <name>gatein.user.msn</name>
         <short-name>msn</short-name>
         <type>java.lang.String</type>
         <access-mode>read-write</access-mode>
@@ -309,7 +308,22 @@ xsi:noNamespaceSchemaLocation="profile-config.xsd">
         <mapping>
             <database>
                 <type>dynamic</type>
-                <value>user.msn</value>
+                <value>gatein.user.msn</value>
+            </database>
+        </mapping>
+    </property>
+    <property>
+        <name>gatein.user.icq</name>
+        <short-name>icq</short-name>
+        <type>java.lang.String</type>
+        <access-mode>read-write</access-mode>
+        <usage>required</usage>
+        <display-name lang="EN">ICQ</display-name>
+        <description lang="EN">The user ICQ account</description>
+        <mapping>
+            <database>
+                <type>dynamic</type>
+                <value>gatein.user.icq</value>
             </database>
         </mapping>
     </property>

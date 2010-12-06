@@ -63,13 +63,9 @@ $j(function () {
             return false;
         });
     });
-});
 
 
-$j(document).ready(function() {
-    $j('input[type="text"]').addClass("idleField");
-    $j('input[type="password"]').addClass("idleField");
-    
+
     // Remove idleField class and adding focusField class to the input type
     // text and password when the input aquire focus
     $j('input[type="text"]').focus(function() {
@@ -105,4 +101,20 @@ $j(document).ready(function() {
             this.value = (this.defaultValue ? this.defaultValue : '');
         }
     });
+
+
+
+
+
 });
+
+
+$j(document).ready(function() {
+    $j('input[type="text"]').addClass("idleField");
+    $j('input[type="password"]').addClass("idleField");
+    
+    
+});
+
+
+

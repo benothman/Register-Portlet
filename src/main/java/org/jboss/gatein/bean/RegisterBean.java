@@ -18,19 +18,27 @@
  */
 package org.jboss.gatein.bean;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.annotation.PostConstruct;
-import javax.imageio.ImageIO;
-import nl.captcha.Captcha;
-import nl.captcha.backgrounds.GradiatedBackgroundProducer;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.portlet.PortletSession;
+import javax.portlet.ResourceRequest;
+import org.exoplatform.container.ExoContainer;
+import org.exoplatform.container.ExoContainerContext;
+import org.exoplatform.services.organization.User;
+import org.exoplatform.services.organization.OrganizationService;
+import org.exoplatform.services.organization.UserHandler;
+import org.exoplatform.services.organization.UserProfile;
+import org.exoplatform.services.organization.UserProfileHandler;
 import org.gatein.common.logging.Logger;
 import org.gatein.common.logging.LoggerFactory;
 
@@ -44,71 +52,32 @@ import org.gatein.common.logging.LoggerFactory;
  */
 public class RegisterBean implements Serializable {
 
-    /*
-     * TODO complete implementation
-     */
     private static final Logger logger = LoggerFactory.getLogger(RegisterBean.class);
     public static final String SUCCESS = "success";
     public static final String FAILURE = "failure";
     public static final String CANCEL = "cancel";
+    public static final String RESTART = "restart";
+    public static final String RETURN = "return";
     private CalendarBean calendarBean;
     private ApplicationBean appBean;
     private Map<String, Object> data;
-    private Captcha captcha;
-    private String answer;
-    private PasswordValidationBean passwordValidationBean;
-    private PaintData paintData;
+    private MediaBean mediaBean;
 
     /**
      * Create a new instance of {@code RegisterBean}
      */
     public RegisterBean() {
+        super();
     }
 
+    /**
+     * Initialize the managed bean once created
+     */
     @PostConstruct
     public void init() {
-        logger.info("starting RegisterBean initialization");
         this.data = new HashMap<String, Object>();
-        initCaptcha();
-        this.paintData = new PaintData();
         fillDefaultValues();
-        logger.info("finishing RegisterBean initialization");
-    }
-
-    /**
-     * 
-     */
-    public void initCaptcha() {
-        logger.info("init captcha");
-        this.captcha = new Captcha.Builder(200, 50).addText().addBackground(new GradiatedBackgroundProducer()).gimp().addNoise().addBorder().build();
-        logger.info("captcha answer is : " + captcha.getAnswer());
-    }
-
-    /**
-     * 
-     * @param out
-     * @param data
-     * @throws IOException
-     */
-    public void paint(OutputStream out, Object data) throws IOException {
-
-
-        PaintData pData = (PaintData) data;
-
-        //BufferedImage img = new BufferedImage(this.captcha.getImage().getWidth(), this.captcha.getImage().getHeight(), BufferedImage.TYPE_INT_RGB);
-        BufferedImage img = this.captcha.getImage();
-        /*
-        Graphics2D graphics2D = img.createGraphics();
-        graphics2D.setBackground(paintData.getBackground());
-        graphics2D.setColor(paintData.getDrawColor());
-        graphics2D.clearRect(0, 0, paintData.getWidth(), paintData.getHeight());
-        graphics2D.drawLine(5, 5, paintData.getWidth() - 5, paintData.getHeight() - 5);
-        graphics2D.drawChars(this.captcha.getAnswer().toCharArray(), 0, 9, 40, 15);
-        graphics2D.drawChars("mediaOutput".toCharArray(), 0, 11, 5, 45);
-
-         */
-
-        ImageIO.write(img, "jpeg", out);
+        this.mediaBean.initCaptcha();
     }
 
     /**
@@ -118,6 +87,16 @@ public class RegisterBean implements Serializable {
      */
     public Object get(String key) {
         return this.data.get(key);
+    }
+
+    /**
+     * 
+     * @param key
+     * @param value
+     * @return
+     */
+    public Object put(String key, Object value) {
+        return this.data.put(key, value);
     }
 
     /**
@@ -133,49 +112,211 @@ public class RegisterBean implements Serializable {
                 this.data.put(key, value);
             }
         }
-        /*
-        else {
-            data.put("portal.user.firstname", "First name");
-            data.put("portal.user.lastname", "Last name");
-            data.put("portal.user.username", "User name");
-            data.put("portal.user.email", "Email");
-            data.put("portal.user.password", "Password");
-            data.put("portal.user.confirmPassword", "Password");
-            data.put("portal.user.captcha.answer", "Answer");
-            data.put("portal.user.phone", "Phone number");
-            data.put("portal.user.address.line1", "Address line 1");
-            data.put("portal.user.address.line2", "Address line 2");
-            data.put("portal.user.address.zipCode", "Zip code");
-            data.put("portal.user.address.city", "City");
-            data.put("portal.user.address.state", "State");
-            data.put("portal.user.address.country", "Country");
-            data.put("portal.user.skype", "Skype");
-            data.put("portal.user.msn", "MSN");
-            data.put("portal.user.icq", "ICQ");
-            data.put("portal.user.twitter", "twitter");
-            data.put("portal.user.linkedIn", "LinkedIn");
-        }
-        */
     }
 
     /**
      * Process the user registration according to the introduced values
+     * 
      * @return <i>success</i> if the registration finish with success else <i>failure</i>
      */
     public String save() {
         logger.info("Starting saving values");
 
-        // TODO
+        FacesContext fc = FacesContext.getCurrentInstance();
+
+        ExternalContext exCtx = fc.getExternalContext();
+        exCtx.getRequest();
+        ResourceRequest request = (ResourceRequest) exCtx.getRequest();
+        PortletSession session = request.getPortletSession(true);
+        String message = "";
+        ExoContainer container = ExoContainerContext.getContainerByName("portal");
+        OrganizationService orgService = (OrganizationService) container.getComponentInstanceOfType(OrganizationService.class);
+
+        UserHandler userHandler = orgService.getUserHandler();
+        UserProfileHandler userProfileHandler = orgService.getUserProfileHandler();
+
+        Set<String> props = this.data.keySet();
+        List<String> usedKeys = new ArrayList<String>();
+
+        String usernameKey = "user.login.id";
+        String username = null;
+        usedKeys.add(usernameKey);
+
+        if (this.data.containsKey(usernameKey) && this.data.get(usernameKey) != null) {
+            username = (String) this.data.get(usernameKey);
+            logger.info("setting user username -> " + username);
+        } else {
+            // normally this case shouldn't happens
+            fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "The user name is required!", "The username is required"));
+            return FAILURE;
+        }
+
+
+        // to be removed
+        try {
+            if (userHandler.findUserByName(username) != null) {
+                logger.error("Username already used !");
+                fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Username already exist", "The username is already used!"));
+                return FAILURE;
+            }
+        } catch (Exception exp) {
+            logger.error("An error occurs while looking for user : " + exp.getMessage());
+            fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Username already exist", exp.getMessage()));
+            return FAILURE;
+        }
+
+        User user = userHandler.createUserInstance(username);
+        UserProfile userProfile = userProfileHandler.createUserProfileInstance(username);
+
+        logger.info("User : " + user);
+        logger.info("User profile : " + userProfile);
+
+
+        // retrieving main properties (according to JSR 286)
+
+        // setting password (if any)
+        String passwordKey = "gatein.user.password";
+        if (this.data.get(passwordKey) != null) {
+            String password = (String) this.data.get(passwordKey);
+            String confirmPassword = (String) this.data.get("gatein.user.confirmPassword");
+            usedKeys.add("gatein.user.confirmPassword");
+            if (!password.equals(confirmPassword)) {
+                fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        "The passwords should be equals!", "The passwords should be equals!"));
+                return FAILURE;
+            }
+            user.setPassword(password);
+        }
+        usedKeys.add(passwordKey);
+
+        // setting firstName (if any)
+        String firstnameKey = "user.name.given";
+        if (this.data.get(firstnameKey) != null) {
+            String firstname = (String) this.data.get(firstnameKey);
+            user.setFirstName(firstname);
+            userProfile.setAttribute(firstnameKey, firstname);
+        }
+        usedKeys.add(firstnameKey);
+
+        // setting lastName (if any)
+        String lastnameKey = "user.name.family";
+        if (this.data.get(lastnameKey) != null) {
+            String lastname = (String) this.data.get(lastnameKey);
+            user.setLastName(lastname);
+            userProfile.setAttribute(lastnameKey, lastname);
+        }
+        usedKeys.add(lastnameKey);
+
+        // setting e-mail (if any)
+        String emailKey = "user.home-info.online.email";
+        if (this.data.get(emailKey) != null) {
+            String email = (String) this.data.get(emailKey);
+            user.setEmail(email);
+            userProfile.setAttribute(emailKey, email);
+        }
+        usedKeys.add(emailKey);
+
+        // remove all used keys to avoid duplication or re-writing the same value twice
+        for (String key : usedKeys) {
+            props.remove(key);
+        }
+
+        // setting all other properties
+        Object value = null;
+        for (String key : props) {
+            value = this.data.get(key);
+            if (value != null) {
+                // if the property is a date (including date of birth)
+                if (value instanceof java.util.Date) {
+                    logger.info("Saving java.util.Date type [" + key + ", " + value + "]");
+                    Date date = (Date) value;
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(date);
+                    // retrieve the year
+                    Integer year = calendar.get(Calendar.YEAR);
+                    userProfile.setAttribute(key + ".ymd.year", year.toString());
+                    // retrieve the month
+                    Integer month = calendar.get(Calendar.MONTH);
+                    userProfile.setAttribute(key + ".ymd.month", month.toString());
+                    // retrieve the day
+                    Integer day = calendar.get(Calendar.DAY_OF_MONTH);
+                    userProfile.setAttribute(key + ".ymd.day", day.toString());
+                } else {
+                    userProfile.setAttribute(key, (String) value);
+                }
+            }
+        }
+
+        // reset the register bean (captcha, default values, etc.)
+        this.init();
+
+        // save user and user profile
+        try {
+            userHandler.createUser(user, true);
+            userProfileHandler.saveUserProfile(userProfile, true);
+        } catch (Exception exp) {
+            logger.error("an error occurs while saving user and/or user profile : " + exp.getMessage());
+            fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Saving data error!", "An error occurs while saving user and/or user profile : " + exp.getMessage()));
+
+            return FAILURE;
+        }
+
         return SUCCESS;
     }
 
     /**
+     * 
+     * @return
+     */
+    public String save2() {
+
+        logger.info("Starting saving values");
+
+
+
+        ExternalContext exCtx = FacesContext.getCurrentInstance().getExternalContext();
+
+        exCtx.getRequest();
+        //ResourceRequest request = (ResourceRequest) exCtx.getRequest();
+        //PortletSession session = request.getPortletSession(true);
+
+        // TODO
+
+        // reset captcha and default values, useful to the reuse of the same captcha mutiple times
+        this.init();
+        return SUCCESS;
+
+    }
+
+    /**
      * Cancel the registration
-     * @return <i>CANCEL</i> value
+     * @return <i>CANCEL</i> field value
      */
     public String cancel() {
+        this.init();
         return CANCEL;
     }
+
+    /**
+     * Cancel the registration
+     * @return <i>RESTART</i> field value
+     */
+    public String restart() {
+        this.mediaBean.initCaptcha();
+        return RESTART;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public String returnTo() {
+       this.mediaBean.initCaptcha();
+        return RETURN;
+    }
+
 
     /**
      * @return the calendarBean
@@ -206,56 +347,6 @@ public class RegisterBean implements Serializable {
     }
 
     /**
-     * @return the captcha
-     */
-    public Captcha getCaptcha() {
-        return captcha;
-    }
-
-    /**
-     * @param captcha the captcha to set
-     */
-    public void setCaptcha(Captcha captcha) {
-        this.captcha = captcha;
-    }
-
-    /**
-     * @return the answer
-     */
-    public String getAnswer() {
-        return answer;
-    }
-
-    /**
-     * @param answer the answer to set
-     */
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
-
-    /**
-     * @return the passwordValidationBean
-     */
-    public PasswordValidationBean getPasswordValidationBean() {
-        return passwordValidationBean;
-    }
-
-    /**
-     * @param passwordValidationBean the passwordValidationBean to set
-     */
-    public void setPasswordValidationBean(PasswordValidationBean passwordValidationBean) {
-        this.passwordValidationBean = passwordValidationBean;
-    }
-
-    public PaintData getPaintData() {
-        return this.paintData;
-    }
-
-    public void setPaintData(PaintData paintData) {
-        this.paintData = paintData;
-    }
-
-    /**
      * @return the appBean
      */
     public ApplicationBean getAppBean() {
@@ -270,85 +361,16 @@ public class RegisterBean implements Serializable {
     }
 
     /**
-     * 
+     * @return the mediaBean
      */
-    public class PaintData implements Serializable {
+    public MediaBean getMediaBean() {
+        return mediaBean;
+    }
 
-        private static final long serialVersionUID = 1L;
-        private Integer Width = 110;
-        private Integer Height = 50;
-        private Color Background = new Color(190, 214, 248);
-        private Color DrawColor = new Color(0, 0, 0);
-        private Font font = new Font("Serif", Font.TRUETYPE_FONT, 30);
-
-        /**
-         * @return the Width
-         */
-        public Integer getWidth() {
-            return Width;
-        }
-
-        /**
-         * @param Width the Width to set
-         */
-        public void setWidth(Integer Width) {
-            this.Width = Width;
-        }
-
-        /**
-         * @return the Height
-         */
-        public Integer getHeight() {
-            return Height;
-        }
-
-        /**
-         * @param Height the Height to set
-         */
-        public void setHeight(Integer Height) {
-            this.Height = Height;
-        }
-
-        /**
-         * @return the Background
-         */
-        public Color getBackground() {
-            return Background;
-        }
-
-        /**
-         * @param Background the Background to set
-         */
-        public void setBackground(Color Background) {
-            this.Background = Background;
-        }
-
-        /**
-         * @return the DrawColor
-         */
-        public Color getDrawColor() {
-            return DrawColor;
-        }
-
-        /**
-         * @param DrawColor the DrawColor to set
-         */
-        public void setDrawColor(Color DrawColor) {
-            this.DrawColor = DrawColor;
-        }
-
-        /**
-         * @return the font
-         */
-        public Font getFont() {
-            return font;
-        }
-
-        /**
-         * @param font the font to set
-         */
-        public void setFont(Font font) {
-            this.font = font;
-        }
+    /**
+     * @param mediaBean the mediaBean to set
+     */
+    public void setMediaBean(MediaBean mediaBean) {
+        this.mediaBean = mediaBean;
     }
 }

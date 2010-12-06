@@ -1,0 +1,123 @@
+/*
+body {
+    background: url(../images/bodybg.gif) repeat-x;
+    background-color: #ffffff;
+    font-size: 12px;
+    font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    color: #000000;  
+    margin: 10px;
+}
+*/
+h1 {
+    font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    border-bottom: 1px solid #AFAFAF; 
+    font-size:  16px;
+    font-weight: bold;
+    margin: 0px;
+    padding: 0px;
+    color: #D20005;
+}
+
+a:link, a:visited {
+    color: #045491;
+    font-weight : bold;
+    text-decoration: none;
+}
+
+a:link:hover, a:visited:hover  {
+    color: #045491;
+    font-weight : bold;
+    text-decoration : underline;
+}
+
+.error {
+    color: #FF0000;
+}
+
+.success {
+    color: #00FF00;
+}
+
+.warning {
+    color:orange;
+}
+
+.ecol1 {
+    vertical-align: top;
+    padding-right : 25px;
+}
+
+.ecol2 {
+    vertical-align: top;
+    border-left: #ACBECE 1px solid;
+    padding-left : 10px;
+}
+
+.rich-calendar-tool-btn{
+    font-family: Arial, Verdana;
+}
+
+.viewsourcepanel {
+    border : 0px;
+    padding: 0px;
+    margin :  2px 0px 0px 0px;
+    overflow: auto;
+    width: 100%;
+    background-color: #F3F7FB;
+}
+
+.viewsourcebody {
+    padding-right: 0px;
+    padding-left: 0px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.viewsourceheader {
+    border: 0px; 
+    padding: 0px;
+    height: 6px;
+    background-color: #E1E7ED;
+    background-image:none;
+}
+
+.viewsourcediv {
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    padding-top: 5px;
+    border-top : 2px solid #FFFFFF;
+    border-bottom : 2px solid #FFFFFF;
+}
+
+div.arrondi {
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    /* background-color: #D3F3F3; */
+    /* background-color: #D5D8D9; */
+    /* padding: 10px; */
+}
+
+.viewsourcediv pre {
+    margin: 0px
+}
+
+.viewsourcelooklink {
+    padding-left: 0px;
+    font-size: 11px;
+    cursor: pointer;
+    color: #7795AF;
+    font-family: Verdana;
+    text-decoration: underline
+}
+
+.viewsourcehidelink {
+    display: block; 
+    color: #7795AF;
+    cursor: pointer;
+    background-color: #E1E7ED;
+    text-align: right;
+    text-decoration: none;
+    padding : 2px
+}

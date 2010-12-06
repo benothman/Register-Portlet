@@ -37,14 +37,16 @@ import org.gatein.common.logging.LoggerFactory;
  */
 public class CaptchaValidatorBean implements Validator {
 
-    private static final Logger logger = LoggerFactory.getLogger(CaptchaValidatorBean.class);
-    private RegisterBean registerBean;
+    private MediaBean mediaBean;
+    private PaintBean paintBean;
+    private static final Logger logger = LoggerFactory.getLogger(MediaBean.class);
 
     /**
      * Create a new instance of {@code CaptchaValidator}
      */
     public CaptchaValidatorBean() {
         super();
+        logger.info("******* create a new instance of " + getClass().getName() + " *******");
     }
 
     /*
@@ -57,36 +59,48 @@ public class CaptchaValidatorBean implements Validator {
             if (!(o instanceof String)) {
                 throw new IllegalArgumentException("The value must be a String");
             }
-            String value = (String) o;
+            String value = ((String) o).trim();
             if (value.matches("\\s*")) {
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Value is required!", "Value is required!"));
             }
 
-            Captcha captcha = this.registerBean.getCaptcha();
-
-            logger.info("input : " + value + ", answer : " + captcha.getAnswer());
+            Captcha captcha = this.mediaBean.getCaptcha();
 
             if (!captcha.isCorrect(value)) {
-                this.registerBean.initCaptcha();
+                this.mediaBean.initCaptcha();
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "The answer is not correct!", "The answer is not correct!"));
             }
-            this.registerBean.initCaptcha();
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct answer", "Correct answer");
+
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct answer", "The answer is correct");
             fc.addMessage(uic.getClientId(fc), message);
         }
     }
 
     /**
-     * @return the registerBean
+     * @return the mediaBean
      */
-    public RegisterBean getRegisterBean() {
-        return registerBean;
+    public MediaBean getMediaBean() {
+        return mediaBean;
     }
 
     /**
-     * @param registerBean the registerBean to set
+     * @param mediaBean the mediaBean to set
      */
-    public void setRegisterBean(RegisterBean registerBean) {
-        this.registerBean = registerBean;
+    public void setMediaBean(MediaBean mediaBean) {
+        this.mediaBean = mediaBean;
+    }
+
+    /**
+     * @return the paintBean
+     */
+    public PaintBean getPaintBean() {
+        return paintBean;
+    }
+
+    /**
+     * @param paintBean the paintBean to set
+     */
+    public void setPaintBean(PaintBean paintBean) {
+        this.paintBean = paintBean;
     }
 }

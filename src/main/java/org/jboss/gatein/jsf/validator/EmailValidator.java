@@ -66,7 +66,6 @@ public class EmailValidator implements Validator {
      */
     public EmailValidator() {
         super();
-        logger.info("Create new instance of " + getClass().getName());
     }
 
     /*
@@ -77,7 +76,6 @@ public class EmailValidator implements Validator {
     public void validate(FacesContext fc, UIComponent uic, Object o) throws ValidatorException {
         if (o != null) {
             if (!(o instanceof String)) {
-                logger.error("Illegal Argument Exception : " + o);
                 throw new IllegalArgumentException("The value must be a String");
             }
             String value = (String) o;
@@ -88,7 +86,6 @@ public class EmailValidator implements Validator {
             }
              */
             if (!isValid(value)) {
-                logger.error("Invalid email format : " + value);
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid email format!", "Invalid email format!"));
             }
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "E-mail address well formed", "E-mail address well formed");

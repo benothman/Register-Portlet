@@ -1,0 +1,93 @@
+/* 
+    Document   : bubble
+    Created on : Nov 18, 2010, 1:44:40 PM
+    Author     : nabilbenothman
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.bubbleInfo {
+    position: relative;
+    /*top: 150px;
+    left: 100px;*/
+    width:200px;
+    height: 20px;
+}
+.trigger {
+    position: absolute;
+}
+
+/* Bubble pop-up */
+
+.popup {
+    position: absolute;
+    display: none;
+    z-index: 50;
+    border-collapse: collapse;
+}
+
+.popup td.corner {
+    height: 15px;
+    width: 19px;
+}
+
+.popup td#topleft { background-image: url(../../images/bubble/bubble-top-left.png); }
+.popup td.top { background-image: url(../../images/bubble/bubble-top-line.png); }
+.popup td#topright { background-image: url(../../images/bubble/bubble-top-right.png); }
+.popup td.left { background-image: url(../../images/bubble/bubble-left.png); }
+.popup td.right { background-image: url(../../images/bubble/bubble-right.png); }
+.popup td#bottomleft { background-image: url(../../images/bubble/bubble-bottom-left.png); }
+.popup td.bottom { background-image: url(../../images/bubble/bubble-bottom-line.png); text-align: center;}
+.popup td.bottom img {
+    display: block;
+    margin: 0 auto;
+    text-align:center
+}
+
+
+.popup td#bottomright { background-image: url(../../images/bubble/bubble-bottom-right.png); }
+
+.popup table.popup-contents {
+    font-size: 12px;
+    line-height: 1.2em;
+    background-color: #fff;
+    color: #666;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif;
+}
+
+table.popup-contents th {
+    text-align: right;
+    text-transform: lowercase;
+}
+
+table.popup-contents td {
+    text-align: left;
+}
+
+tr#release-notes th {
+    text-align: left;
+    text-indent: -9999px;
+    background: url(../../images/warning-starburst.gif) no-repeat top left;
+    height: 17px;
+    width: 17px;
+}
+
+tr#release-notes td.head {
+    text-align: left;
+    text-indent: -9999px;
+    background: url(../../images/warning-starburst.gif) no-repeat top left;
+    height: 17px;
+    width:17px;
+}
+
+tr#release-notes td a {
+    color: #333;
+}
+
+tr#release-notes td.error {
+    color: #FF0000;
+}
+
+tr#release-notes td.ok {
+    color: #00FF00;
+}

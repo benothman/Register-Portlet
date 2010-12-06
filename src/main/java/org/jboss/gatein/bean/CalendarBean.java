@@ -24,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import javax.annotation.PostConstruct;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
@@ -52,8 +53,12 @@ public class CalendarBean implements Serializable {
      * Creates a new instance of {@code CalendarBean}
      */
     public CalendarBean() {
+        super();
+    }
+
+    @PostConstruct
+    public void init() {
         this.popup = true;
-        //this.pattern = "MMM d, yyyy";
         cal = Calendar.getInstance();
         this.selectedDate = cal.getTime();
         ExternalContext exCtx = FacesContext.getCurrentInstance().getExternalContext();

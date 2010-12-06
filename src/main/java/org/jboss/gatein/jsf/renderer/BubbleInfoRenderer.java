@@ -20,12 +20,14 @@ package org.jboss.gatein.jsf.renderer;
 
 import java.io.IOException;
 import javax.faces.component.UIComponent;
+import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
 import org.gatein.common.logging.Logger;
 import org.gatein.common.logging.LoggerFactory;
 import org.jboss.gatein.jsf.component.UIBubbleInfo;
+import org.richfaces.component.UIRichMessage;
 
 /**
  * {@code BubbleInfoRenderer}
@@ -49,14 +51,14 @@ public class BubbleInfoRenderer extends Renderer {
     }
 
     @Override
-    public void encodeBegin(FacesContext ctx, UIComponent component) throws IOException {
+    public void encodeBegin(FacesContext fc, UIComponent uic) throws IOException {
 
         logger.info(" -> start encodeBegin()");
 
-        assertValidOutput(ctx, component);
-        ResponseWriter writer = ctx.getResponseWriter();
+        assertValidOutput(fc, uic);
+        ResponseWriter writer = fc.getResponseWriter();
         String reqCtxPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
-        UIBubbleInfo bubbleInfo = (UIBubbleInfo) component;
+        UIBubbleInfo bubbleInfo = (UIBubbleInfo) uic;
 
         writer.startElement("div", bubbleInfo);
         
@@ -67,17 +69,15 @@ public class BubbleInfoRenderer extends Renderer {
             writer.writeAttribute("style", bubbleInfo.getStyle(), "style");
         }
 
-        /*
-        Map<String, Object> attrs = bubbleInfo.getAttributes();
-        Collection<String> keys = attrs.keySet();
+        UIRichMessage richMessage =  bubbleInfo.getHtmlMessgae();
+        HtmlInputText inputText = bubbleInfo.getInputText();
+        richMessage.setFor(inputText.getId());
 
-        for (String attr : keys) {
-            writer.writeAttribute(attr, attrs.get(attr), attr);
-        }
-        */
+        
+
 
         writer.startElement("table", null);
-        writer.writeAttribute("id", component.getId() + ":" + "dpopd", "id");
+        writer.writeAttribute("id", uic.getId() + ":" + "dpopd", "id");
         writer.writeAttribute("class", "popup", "class");
         writer.writeAttribute("border", "0", "border");
         writer.writeAttribute("cellpadding", "0", "cellpadding");

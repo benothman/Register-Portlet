@@ -1,4 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
@@ -6,19 +11,19 @@
                 xmlns:a4j="http://richfaces.org/a4j"
                 xmlns:rich="http://richfaces.org/rich">
 
+
     <br/>
     <br/>
 
     <rich:panel style="border:0;width:90%;text-align:center">
         <rich:panel>
             <f:facet name="header">
-                <h:outputText value="Registraton canceled" />
+                <h:outputText value="Registration error" />
             </f:facet>
-            <h:outputText value="You canceled the registration" style="font-weight:bold;color:#FF0000;"/>
+            <h:outputText value="An error occurs when processing action!" style="font-weight:bold;color:#FF0000;"/>
             <br/>
-            <a4j:commandButton action="#{registerBean.restart}" value="Restart"/>
+            <a4j:commandButton action="return" value="Return"/>
         </rich:panel>
     </rich:panel>
     <br/>
-
 </ui:composition>

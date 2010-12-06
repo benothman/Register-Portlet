@@ -18,45 +18,59 @@
  */
 package org.jboss.gatein.bean;
 
-import java.util.Date;
+import javax.annotation.PostConstruct;
 
 /**
- * {@code TestBean}
+ * {@code StatusBean}
  *
- * Created on Dec 2, 2010, 9:48:32 AM
+ * Created on Dec 3, 2010, 9:31:33 AM
  *
  * @author nabilbenothman
  * @version 1.0
  */
-public class TestBean {
+public class StatusBean {
 
-    private String answer;
+    private String status;
+    private String error;
 
     /**
-     * Create a new instance of {@code TestBean}
+     * Create a new instance of {@code StatusBean}
      */
-    public TestBean() {
+    public StatusBean() {
         super();
     }
 
-    /**
-     * @return the answer
-     */
-    public String getAnswer() {
-        return answer;
+    @PostConstruct
+    public void init() {
+        this.status = "";
+        this.error = "";
     }
 
     /**
-     * @param answer the answer to set
+     * @return the status
      */
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public String getStatus() {
+        return status;
     }
 
-    public Date getExpires() {
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-        Date date = new Date();
+    /**
+     * @return the error
+     */
+    public String getError() {
+        return error;
+    }
 
-        return date;
+    /**
+     * @param error the error to set
+     */
+    public void setError(String error) {
+        this.error = error;
     }
 }

@@ -57,17 +57,18 @@ public class ApplicationConfigLoader {
     }
 
     /**
-     * 
-     * @param path
-     * @return
+     * Read and parse a XML file
+     *
+     * @param path the XML file path
+     * @return The root element of the XML file as object
      * @throws Exception
      */
     public Object xmlToObject(String path) throws Exception {
         logger.info("Loading file " + path);
+
         InputStream inputStream = null;
         ExternalContext extCtx = FacesContext.getCurrentInstance().getExternalContext();
         inputStream = extCtx.getResourceAsStream(path);
-        //inputStream = this.getClass().getResourceAsStream(path);
         String packageName = ObjectFactory.class.getPackage().getName();
         JAXBContext jc = JAXBContext.newInstance(packageName);
         Unmarshaller u = jc.createUnmarshaller();
@@ -79,9 +80,10 @@ public class ApplicationConfigLoader {
     }
 
     /**
-     * 
-     * @param o
-     * @param jc
+     * Print out the XML content of the given element
+     *
+     * @param o the element to print out
+     * @param jc the <code>JAXBContext</code>
      * @throws Exception
      */
     public void printXML(Object o) throws Exception {

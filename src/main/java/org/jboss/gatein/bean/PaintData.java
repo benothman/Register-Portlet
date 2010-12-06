@@ -18,45 +18,50 @@
  */
 package org.jboss.gatein.bean;
 
-import java.util.Date;
+import java.io.Serializable;
 
 /**
- * {@code TestBean}
+ * {@code PaintData}
  *
- * Created on Dec 2, 2010, 9:48:32 AM
+ * Created on Dec 1, 2010, 3:26:55 PM
  *
  * @author nabilbenothman
  * @version 1.0
  */
-public class TestBean {
+public class PaintData implements Serializable {
 
-    private String answer;
+    String text = "hello world";
+    int color;
+    float scale;
 
     /**
-     * Create a new instance of {@code TestBean}
+     * Create a new instance of {@code PaintData}
      */
-    public TestBean() {
+    public PaintData() {
         super();
     }
 
-    /**
-     * @return the answer
-     */
-    public String getAnswer() {
-        return answer;
+    public int getColor() {
+        return color;
     }
 
-    /**
-     * @param answer the answer to set
-     */
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public void setColor(int color) {
+        this.color = color;
     }
 
-    public Date getExpires() {
+    public float getScale() {
+        return scale;
+    }
 
-        Date date = new Date();
+    public void setScale(float scale) {
+        this.scale = scale;
+    }
 
-        return date;
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }
