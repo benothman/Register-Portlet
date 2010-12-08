@@ -20,10 +20,7 @@ and open the template in the editor.
             <f:facet name="header">
                 <h:outputText value="Registration error" />
             </f:facet>
-
-            <rich:messages errorClass="error" infoClass="success" warnClass="warning" /> <br/>
-
-            <h:outputText value="An error occurs when processing action!" style="font-weight:bold;color:#FF0000;"/>
+            <h:outputText value="#{statusBean.error}" style="font-weight:bold;color:#FF0000;"/>
             <br/>
             <a4j:commandButton action="#{registerBean.restart}" value="Return"/>
         </rich:panel>

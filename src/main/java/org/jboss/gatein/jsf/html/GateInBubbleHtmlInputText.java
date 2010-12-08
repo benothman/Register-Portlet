@@ -16,65 +16,60 @@
  *  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  *  02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.gatein.jsf.renderer;
+package org.jboss.gatein.jsf.html;
 
 import java.io.IOException;
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.render.Renderer;
 import org.gatein.common.logging.Logger;
 import org.gatein.common.logging.LoggerFactory;
-import org.jboss.gatein.jsf.component.UIBubbleInfo;
+import org.richfaces.component.html.HtmlRichMessage;
 
 /**
- * {@code BubbleInfoRenderer}
+ * {@code GateInBubbleHtmlInputText}
  *
- * Created on Nov 18, 2010, 3:13:00 PM
+ * Created on Dec 6, 2010, 6:31:16 PM
  *
  * @author nabilbenothman
  * @version 1.0
  */
-public class BubbleInfoRenderer extends Renderer {
+public class GateInBubbleHtmlInputText extends GateInHtmlInputText {
 
-    public static final String RENDER_TYPE = "BUBBLE_INFO_RENDERER";
-    private static final Logger logger = LoggerFactory.getLogger(BubbleInfoRenderer.class.getName());
+    public static final String UI_BUBBLE_INFO_FAMILY = "BIFAMILY";
+    public static final String COMPONENT_TYPE = "org.jboss.gatein.jsf.html.GateInBubbleHtmlInputText";
+    private static final Logger logger = LoggerFactory.getLogger(GateInBubbleHtmlInputText.class.getName());
+    private HtmlRichMessage htmlMessgae;
 
     /**
-     * Create a new instance of {@code BubbleInfoRenderer}
+     * Create a new instance of {@code GateInBubbleHtmlInputText}
      */
-    public BubbleInfoRenderer() {
+    public GateInBubbleHtmlInputText() {
         super();
-        logger.info("Creating a new instance of " + getClass().getName());
+        this.htmlMessgae = new HtmlRichMessage();
     }
 
     @Override
-    public void encodeBegin(FacesContext fc, UIComponent uic) throws IOException {
-
-        logger.info(" -> start encodeBegin()");
-
-        assertValidOutput(fc, uic);
+    public void encodeBegin(FacesContext fc) throws IOException {
         ResponseWriter writer = fc.getResponseWriter();
         String reqCtxPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
-        UIBubbleInfo bubbleInfo = (UIBubbleInfo) uic;
 
-        writer.startElement("div", bubbleInfo);
-        
-        writer.writeAttribute("id", bubbleInfo.getId(), "id");
-        writer.writeAttribute("class", "bubbleInfo", "class");
-        if (bubbleInfo.getStyle() != null && bubbleInfo.getStyle().length() != 0) {
-            logger.info("BubbleInfo style : " + bubbleInfo.getStyle());
-            writer.writeAttribute("style", bubbleInfo.getStyle(), "style");
+        if (this.getParent() != null) {
+            this.getParent().getChildren().add(this.getHtmlMessgae());
         }
 
+        this.getHtmlMessgae().setFor(this.getId());
+
+        writer.startElement("div", null);
+        writer.writeAttribute("class", "bubbleInfo", "class");
+
         writer.startElement("table", null);
-        writer.writeAttribute("id", uic.getId() + ":" + "dpopd", "id");
+
+        writer.writeAttribute("id", getId() + ":" + "dpopd", "id");
         writer.writeAttribute("class", "popup", "class");
         writer.writeAttribute("border", "0", "border");
         writer.writeAttribute("cellpadding", "0", "cellpadding");
         writer.writeAttribute("cellspacing", "0", "cellspacing");
         writer.startElement("tbody", null);
-
         writer.startElement("tr", null);
 
         writer.startElement("td", null);
@@ -97,45 +92,42 @@ public class BubbleInfoRenderer extends Renderer {
         writer.startElement("td", null);
         writer.writeAttribute("class", "left", "class");
         writer.endElement("td");
-
         writer.startElement("td", null);
+
         writer.startElement("table", null);
         writer.writeAttribute("class", "popup-contents", "class");
+        writer.writeAttribute("border", "0", "border");
+        writer.writeAttribute("bgcolor", "#FFFFFF", "bgcolor");
+        writer.writeAttribute("cellpadding", "0", "cellpadding");
+        writer.writeAttribute("cellspacing", "0", "cellspacing");
+
         writer.startElement("tbody", null);
+
         writer.startElement("tr", null);
         writer.writeAttribute("id", "release-notes", "id");
-        writer.startElement("td", null);
-        writer.writeAttribute("class", "head", "class");
+
+        writer.startElement("th", null);
         writer.write("&#160;");
-        writer.endElement("td");
+        writer.endElement("th");
+
         writer.startElement("td", null);
-        writer.writeAttribute("class", "error", "class");
-        writer.startElement("span", null);
-        writer.writeAttribute("id", bubbleInfo.getId() + ":" + "dpopd:" + "bubble-content", "id");
-
-        // verify that the message is not null nor empty
-        if (bubbleInfo.getMessage() != null && !bubbleInfo.getMessage().matches("\\s*")) {
-            writer.writeText(bubbleInfo.getMessage(), "message");
-        } else {
-            writer.write("&#160;&#160;&#160;");
-        }
-
-        writer.endElement("span");
+        this.getHtmlMessgae().encodeAll(fc);
         writer.endElement("td");
+
         writer.endElement("tr");
         writer.endElement("tbody");
         writer.endElement("table");
         writer.endElement("td");
+
         writer.startElement("td", null);
         writer.writeAttribute("class", "right", "class");
         writer.endElement("td");
         writer.endElement("tr");
 
         writer.startElement("tr", null);
-
         writer.startElement("td", null);
-        writer.writeAttribute("id", "bottomleft", "id");
         writer.writeAttribute("class", "corner", "class");
+        writer.writeAttribute("id", "bottomleft", "id");
         writer.endElement("td");
 
         writer.startElement("td", null);
@@ -151,39 +143,112 @@ public class BubbleInfoRenderer extends Renderer {
         writer.endElement("td");
 
         writer.startElement("td", null);
-        writer.writeAttribute("id", "bottomright", "id");
         writer.writeAttribute("class", "corner", "class");
+        writer.writeAttribute("id", "bottomright", "id");
         writer.endElement("td");
-
         writer.endElement("tr");
         writer.endElement("tbody");
         writer.endElement("table");
-        logger.info(" -> end encodeBegin()");
+
+        writer.startElement("br", null);
+        writer.endElement("br");
+
+        writer.startElement("div", null);
+        super.encodeBegin(fc);
+
     }
 
     @Override
-    public void encodeEnd(FacesContext ctx, UIComponent component) throws IOException {
-        logger.info(" -> start encodeEnd()");
-        assertValidOutput(ctx, component);
-        ResponseWriter writer = ctx.getResponseWriter();
+    public void encodeAll(FacesContext fc) throws IOException {
+        logger.info("GateInHtmlInputText.encodeAll(FacesContext) : start");
+        super.encodeAll(fc);
+        logger.info("GateInHtmlInputText.encodeAll(FacesContext) : end");
+    }
+
+    @Override
+    public void encodeEnd(FacesContext fc) throws IOException {
+        ResponseWriter writer = fc.getResponseWriter();
+        super.encodeEnd(fc);
         writer.endElement("div");
-        logger.info(" -> end encodeEnd()");
+        writer.endElement("div");
     }
 
     /**
-     * 
-     * @param context
-     * @param component
+     * Getter for the error class style
+     *
+     * @return The error class style
      */
-    private void assertValidOutput(FacesContext context, UIComponent component) {
-        if (context == null) {
-            throw new NullPointerException(
-                    "context should not be null");
-        } else if (component == null) {
-            throw new NullPointerException(
-                    "component should not be null");
-        } else if (!(component instanceof UIBubbleInfo)) {
-            throw new IllegalArgumentException("Cannot render component of type " + component.getClass().getName());
-        }
+    public String getErrorClass() {
+        return this.getHtmlMessgae().getErrorClass();
+    }
+
+    /**
+     * Setter for the error class style
+     *
+     * @param _errorClass the error class style to set
+     */
+    public void setErrorClass(String _errorClass) {
+        this.getHtmlMessgae().setErrorClass(_errorClass);
+    }
+
+    /**
+     * Getter for the fatal class style
+     *
+     * @return The fatal class style
+     */
+    public String getFatalClass() {
+        return this.getHtmlMessgae().getFatalClass();
+    }
+
+    /**
+     * Setter for the fatal class style
+     *
+     * @param _fatalClass the fatal class style to set
+     */
+    public void setFatalClass(String _fatalClass) {
+        this.getHtmlMessgae().setFatalClass(_fatalClass);
+    }
+
+    /**
+     * Getter for the info class style
+     *
+     * @return The info class style
+     */
+    public String getInfoClass() {
+        return this.getHtmlMessgae().getInfoClass();
+    }
+
+    /**
+     * Setter for the info class style
+     *
+     * @param _infoClass the info class style to set
+     */
+    public void setInfoClass(String _infoClass) {
+        this.getHtmlMessgae().setInfoClass(_infoClass);
+    }
+
+    /**
+     * Getter for the warning class style
+     * 
+     * @return The warning class style
+     */
+    public String getWarnClass() {
+        return this.getHtmlMessgae().getWarnClass();
+    }
+
+    /**
+     * Setter for the warning class style
+     *
+     * @param _warnClass the warning class style to set
+     */
+    public void setWarnClass(String _warnClass) {
+        this.getHtmlMessgae().setWarnClass(_warnClass);
+    }
+
+    /**
+     * @return the htmlMessgae
+     */
+    public HtmlRichMessage getHtmlMessgae() {
+        return htmlMessgae;
     }
 }

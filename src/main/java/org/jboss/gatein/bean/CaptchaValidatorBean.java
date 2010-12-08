@@ -37,8 +37,8 @@ import org.gatein.common.logging.LoggerFactory;
  */
 public class CaptchaValidatorBean implements Validator {
 
+    private RegisterBean registerBean;
     private MediaBean mediaBean;
-    private PaintBean paintBean;
     private static final Logger logger = LoggerFactory.getLogger(MediaBean.class);
 
     /**
@@ -60,7 +60,10 @@ public class CaptchaValidatorBean implements Validator {
                 throw new IllegalArgumentException("The value must be a String");
             }
             String value = ((String) o).trim();
+            this.registerBean.getStatusBean().setStatus(null);
+            this.registerBean.getStatusBean().setError(null);
             if (value.matches("\\s*")) {
+                this.registerBean.getStatusBean().setError("You must provide the captcha answer!");
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Value is required!", "Value is required!"));
             }
 
@@ -68,9 +71,10 @@ public class CaptchaValidatorBean implements Validator {
 
             if (!captcha.isCorrect(value)) {
                 this.mediaBean.initCaptcha();
+                this.registerBean.getStatusBean().setError("The captcha answer is not correct!");
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "The answer is not correct!", "The answer is not correct!"));
             }
-
+            
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct answer", "The answer is correct");
             fc.addMessage(uic.getClientId(fc), message);
         }
@@ -91,16 +95,16 @@ public class CaptchaValidatorBean implements Validator {
     }
 
     /**
-     * @return the paintBean
+     * @return the registerBean
      */
-    public PaintBean getPaintBean() {
-        return paintBean;
+    public RegisterBean getRegisterBean() {
+        return registerBean;
     }
 
     /**
-     * @param paintBean the paintBean to set
+     * @param registerBean the registerBean to set
      */
-    public void setPaintBean(PaintBean paintBean) {
-        this.paintBean = paintBean;
+    public void setRegisterBean(RegisterBean registerBean) {
+        this.registerBean = registerBean;
     }
 }

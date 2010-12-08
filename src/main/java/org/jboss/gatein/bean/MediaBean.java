@@ -25,8 +25,6 @@ import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
 import nl.captcha.Captcha;
 import nl.captcha.backgrounds.GradiatedBackgroundProducer;
-import org.gatein.common.logging.Logger;
-import org.gatein.common.logging.LoggerFactory;
 
 /**
  * {@code MediaBean}
@@ -39,20 +37,17 @@ import org.gatein.common.logging.LoggerFactory;
 public class MediaBean {
 
     private Captcha captcha;
-    private static final Logger logger = LoggerFactory.getLogger(MediaBean.class);
 
     /**
      * Create a new instance of {@code MediaBean}
      */
     public MediaBean() {
         super();
-        logger.info("***** Create a new instance of " + getClass().getName() + " *****");
     }
 
     @PostConstruct
     public void initCaptcha() {
         this.captcha = new Captcha.Builder(200, 50).addText().addBackground(new GradiatedBackgroundProducer()).gimp().addNoise().addBorder().build();
-        logger.info("init captcha -> answer : " + this.getCaptcha().getAnswer());
     }
 
     /**

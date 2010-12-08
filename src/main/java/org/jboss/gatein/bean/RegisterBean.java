@@ -27,11 +27,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.portlet.PortletSession;
-import javax.portlet.ResourceRequest;
 import org.exoplatform.container.ExoContainer;
 import org.exoplatform.container.ExoContainerContext;
 import org.exoplatform.services.organization.User;
@@ -62,6 +59,7 @@ public class RegisterBean implements Serializable {
     private ApplicationBean appBean;
     private Map<String, Object> data;
     private MediaBean mediaBean;
+    private StatusBean statusBean;
 
     /**
      * Create a new instance of {@code RegisterBean}
@@ -76,7 +74,7 @@ public class RegisterBean implements Serializable {
     @PostConstruct
     public void init() {
         this.data = new HashMap<String, Object>();
-        fillDefaultValues();
+        //fillDefaultValues();
         this.mediaBean.initCaptcha();
     }
 
@@ -122,13 +120,12 @@ public class RegisterBean implements Serializable {
     public String save() {
         logger.info("Starting saving values");
 
-        FacesContext fc = FacesContext.getCurrentInstance();
+        this.statusBean.setStatus(null);
+        this.statusBean.setError(null);
 
+        FacesContext fc = FacesContext.getCurrentInstance();
         ExternalContext exCtx = fc.getExternalContext();
         exCtx.getRequest();
-        ResourceRequest request = (ResourceRequest) exCtx.getRequest();
-        PortletSession session = request.getPortletSession(true);
-        String message = "";
         ExoContainer container = ExoContainerContext.getContainerByName("portal");
         OrganizationService orgService = (OrganizationService) container.getComponentInstanceOfType(OrganizationService.class);
 
@@ -147,31 +144,29 @@ public class RegisterBean implements Serializable {
             logger.info("setting user username -> " + username);
         } else {
             // normally this case shouldn't happens
-            fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "The user name is required!", "The username is required"));
+            this.statusBean.setStatus(null);
+            this.statusBean.setError("The username is required!");
+
             return FAILURE;
         }
 
 
-        // to be removed
+        // to be removed because it is already done by the validator
         try {
             if (userHandler.findUserByName(username) != null) {
                 logger.error("Username already used !");
-                fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Username already exist", "The username is already used!"));
+                this.statusBean.setError("The username is already used!");
                 return FAILURE;
             }
         } catch (Exception exp) {
             logger.error("An error occurs while looking for user : " + exp.getMessage());
-            fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Username already exist", exp.getMessage()));
+            this.statusBean.setError(exp.getMessage());
+
             return FAILURE;
         }
 
         User user = userHandler.createUserInstance(username);
         UserProfile userProfile = userProfileHandler.createUserProfileInstance(username);
-
-        logger.info("User : " + user);
-        logger.info("User profile : " + userProfile);
-
 
         // retrieving main properties (according to JSR 286)
 
@@ -179,13 +174,7 @@ public class RegisterBean implements Serializable {
         String passwordKey = "gatein.user.password";
         if (this.data.get(passwordKey) != null) {
             String password = (String) this.data.get(passwordKey);
-            String confirmPassword = (String) this.data.get("gatein.user.confirmPassword");
             usedKeys.add("gatein.user.confirmPassword");
-            if (!password.equals(confirmPassword)) {
-                fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        "The passwords should be equals!", "The passwords should be equals!"));
-                return FAILURE;
-            }
             user.setPassword(password);
         }
         usedKeys.add(passwordKey);
@@ -226,10 +215,12 @@ public class RegisterBean implements Serializable {
         Object value = null;
         for (String key : props) {
             value = this.data.get(key);
+
+            logger.info("adding property " + key + ", value : " + value);
+
             if (value != null) {
                 // if the property is a date (including date of birth)
                 if (value instanceof java.util.Date) {
-                    logger.info("Saving java.util.Date type [" + key + ", " + value + "]");
                     Date date = (Date) value;
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(date);
@@ -243,7 +234,10 @@ public class RegisterBean implements Serializable {
                     Integer day = calendar.get(Calendar.DAY_OF_MONTH);
                     userProfile.setAttribute(key + ".ymd.day", day.toString());
                 } else {
-                    userProfile.setAttribute(key, (String) value);
+                    String stringVal = (String) value;
+                    if (!stringVal.trim().matches("\\s*")) {
+                        userProfile.setAttribute(key, stringVal);
+                    }
                 }
             }
         }
@@ -257,11 +251,12 @@ public class RegisterBean implements Serializable {
             userProfileHandler.saveUserProfile(userProfile, true);
         } catch (Exception exp) {
             logger.error("an error occurs while saving user and/or user profile : " + exp.getMessage());
-            fc.addMessage("", new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Saving data error!", "An error occurs while saving user and/or user profile : " + exp.getMessage()));
+            this.statusBean.setError("An error occurs while saving user and/or user profile : " + exp.getMessage());
 
             return FAILURE;
         }
+
+        this.statusBean.setStatus("The registration is finished with success!");
 
         return SUCCESS;
     }
@@ -305,6 +300,8 @@ public class RegisterBean implements Serializable {
      */
     public String restart() {
         this.mediaBean.initCaptcha();
+        this.statusBean.setError(null);
+        this.statusBean.setStatus(null);
         return RESTART;
     }
 
@@ -313,10 +310,10 @@ public class RegisterBean implements Serializable {
      * @return
      */
     public String returnTo() {
-       this.mediaBean.initCaptcha();
+        this.mediaBean.initCaptcha();
+        this.statusBean.setStatus(null);
         return RETURN;
     }
-
 
     /**
      * @return the calendarBean
@@ -372,5 +369,19 @@ public class RegisterBean implements Serializable {
      */
     public void setMediaBean(MediaBean mediaBean) {
         this.mediaBean = mediaBean;
+    }
+
+    /**
+     * @return the statusBean
+     */
+    public StatusBean getStatusBean() {
+        return statusBean;
+    }
+
+    /**
+     * @param statusBean the statusBean to set
+     */
+    public void setStatusBean(StatusBean statusBean) {
+        this.statusBean = statusBean;
     }
 }

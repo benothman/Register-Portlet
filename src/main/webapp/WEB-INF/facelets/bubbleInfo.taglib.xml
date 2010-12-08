@@ -14,63 +14,24 @@
     <namespace>http://www.jboss.org/gatein</namespace>
 
     <tag>
-        <tag-name>bubbleInfo</tag-name>
-        <!--handler-class>org.jboss.gatein.jsf.handler.UIBubbleInfoTagHandler</handler-class-->
-
+        <tag-name>inputText</tag-name>
         <component>
-            <component-type>org.jboss.gatein.jsf.component.UIBubbleInfo</component-type>
-            <renderer-type>BUBBLE_INFO_RENDERER</renderer-type>
+            <component-type>org.jboss.gatein.jsf.html.GateInHtmlInputText</component-type>
         </component>
-
-        <!--attribute>
-            <name>id</name>
-        </attribute>
-        <attribute>
-            <name>for</name>
-        </attribute>
-        <attribute>
-            <name>style</name>
-        </attribute>
-        <attribute>
-            <name>lang</name>
-        </attribute>
-        <attribute>
-            <name>title</name>
-        </attribute>
-        <attribute>
-            <name>styleClass</name>
-        </attribute>
-        <attribute>
-            <name>infoClass</name>
-        </attribute>
-        <attribute>
-            <name>infoStyle</name>
-        </attribute>
-        <attribute>
-            <name>errorClass</name>
-        </attribute>
-        <attribute>
-            <name>errorStyle</name>
-        </attribute>
-        <attribute>
-            <name>fatalClass</name>
-        </attribute>
-        <attribute>
-            <name>fatalStyle</name>
-        </attribute>
-        <attribute>
-            <name>warnClass</name>
-        </attribute>
-        <attribute>
-            <name>warnStyle</name>
-        </attribute -->
+    </tag>
+    
+    <tag>
+        <tag-name>inputSecret</tag-name>
+        <component>
+            <component-type>org.jboss.gatein.jsf.html.GateInBubbleHtmlInputSecret</component-type>
+        </component>
     </tag>
 
     <tag>
         <tag-name>bubbleInputText</tag-name>
         <component>
-            <component-type>org.jboss.gatein.jsf.html.GateInHtmlInputText</component-type>
-            <!--renderer-type>BUBBLE_INFO_RENDERER</renderer-type-->
+            <component-type>org.jboss.gatein.jsf.html.GateInBubbleHtmlInputText</component-type>
+            <!--renderer-type>INPUT_TEXT_BUBBLE_INFO_RENDERER</renderer-type-->
         </component>
     </tag>
 

@@ -20,13 +20,10 @@ package org.jboss.gatein.jsf.validator;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
-import org.gatein.common.logging.Logger;
-import org.gatein.common.logging.LoggerFactory;
 
 /**
  * {@code ZipCodeValidator}
@@ -38,7 +35,6 @@ import org.gatein.common.logging.LoggerFactory;
  */
 public class ZipCodeValidator implements Validator {
 
-    private static final Logger logger = LoggerFactory.getLogger(ZipCodeValidator.class);
 
     /**
      * Create a new instance of {@code ZipCodeValidator}
@@ -60,7 +56,6 @@ public class ZipCodeValidator implements Validator {
                 try {
                     int zipCode = Integer.parseInt(value);
                     if (zipCode < 1 || zipCode > 500000) {
-                        logger.error("Value must be between 1 and 500000");
                         throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Value must be between 1 and 500000!", "Value must be between 1 and 500000!"));
                     }
                 } catch (NumberFormatException nfe) {

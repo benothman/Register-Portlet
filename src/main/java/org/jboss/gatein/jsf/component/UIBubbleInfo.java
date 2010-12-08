@@ -24,12 +24,9 @@ import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
-import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
 import org.gatein.common.logging.Logger;
 import org.gatein.common.logging.LoggerFactory;
-import org.richfaces.component.UIRichMessage;
-import org.richfaces.component.html.HtmlRichMessage;
 
 /**
  * {@code BubbleInfo}
@@ -59,8 +56,6 @@ public class UIBubbleInfo extends UIOutput implements Serializable {
     private String lang;
     private String title;
     private Object[] _stateValues;
-    private UIRichMessage htmlMessgae;
-    private HtmlInputText inputText;
 
     /**
      * Create a new instance of {@code BubbleInfo}
@@ -69,16 +64,6 @@ public class UIBubbleInfo extends UIOutput implements Serializable {
         super();
         setRendererType(org.jboss.gatein.jsf.renderer.BubbleInfoRenderer.RENDER_TYPE);
         logger.info("Creating a new instance of " + getClass().getName());
-        this.initChildren();
-    }
-
-    /**
-     * 
-     */
-    private void initChildren() {
-        this.htmlMessgae = new HtmlRichMessage();
-        this.inputText = new HtmlInputText();
-        // TODO
     }
 
     /**
@@ -511,33 +496,5 @@ public class UIBubbleInfo extends UIOutput implements Serializable {
      */
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    /**
-     * @return the htmlMessgae
-     */
-    public UIRichMessage getHtmlMessgae() {
-        return htmlMessgae;
-    }
-
-    /**
-     * @param htmlMessgae the htmlMessgae to set
-     */
-    public void setHtmlMessgae(UIRichMessage htmlMessgae) {
-        this.htmlMessgae = htmlMessgae;
-    }
-
-    /**
-     * @return the inputText
-     */
-    public HtmlInputText getInputText() {
-        return inputText;
-    }
-
-    /**
-     * @param inputText the inputText to set
-     */
-    public void setInputText(HtmlInputText inputText) {
-        this.inputText = inputText;
     }
 }

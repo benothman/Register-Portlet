@@ -24,8 +24,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
-import org.gatein.common.logging.Logger;
-import org.gatein.common.logging.LoggerFactory;
+import org.jboss.gatein.bean.RegisterBean;
 
 /**
  * {@code EmailValidator}
@@ -49,7 +48,7 @@ import org.gatein.common.logging.LoggerFactory;
  */
 public class EmailValidator implements Validator {
 
-    private static final Logger logger = LoggerFactory.getLogger(EmailValidator.class);
+
     private static final String ATOM = "[a-z0-9!#$%&'*+/=?^_`{|}~-]";
     private static final String DOMAIN = "(" + ATOM + "+(\\." + ATOM + "+)*";
     private static final String IP_DOMAIN = "\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\]";
@@ -79,12 +78,7 @@ public class EmailValidator implements Validator {
                 throw new IllegalArgumentException("The value must be a String");
             }
             String value = (String) o;
-            /*
-            if (value.matches("\\s*")) {
-            logger.error("Email value cannot be empty");
-            throw new ValidatorException(new FacesMessage("Email value cannot be empty!"));
-            }
-             */
+            
             if (!isValid(value)) {
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid email format!", "Invalid email format!"));
             }
@@ -105,4 +99,5 @@ public class EmailValidator implements Validator {
         Matcher m = pattern.matcher(value);
         return m.matches();
     }
-}
+
+   }

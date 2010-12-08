@@ -16,28 +16,44 @@
  *  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  *  02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.gatein.jsf.component;
+package org.jboss.gatein.jsf.validator;
 
-import javax.faces.component.html.HtmlInputText;
+import javax.faces.validator.Validator;
+import org.jboss.gatein.bean.RegisterBean;
 
 
 
 /**
- * {@code GateInHtmlInputText}
+ * {@code AbstractValidator}
  *
- * Created on Nov 20, 2010, 11:35:55 AM
+ * Created on Dec 6, 2010, 1:15:14 PM
  *
  * @author nabilbenothman
  * @version 1.0
  */
-public class GateInHtmlInputText extends HtmlInputText {
+public abstract class AbstractValidator implements Validator {
 
+    private RegisterBean registerBean;
 
     /**
-     * Create a new instance of {@code GateInHtmlInputText}
+     * Create a new instance of {@code AbstractValidator}
      */
-    public GateInHtmlInputText() {
+    public AbstractValidator() {
         super();
+    }
+
+    /**
+     * @return the registerBean
+     */
+    public RegisterBean getRegisterBean() {
+        return registerBean;
+    }
+
+    /**
+     * @param registerBean the registerBean to set
+     */
+    public void setRegisterBean(RegisterBean registerBean) {
+        this.registerBean = registerBean;
     }
 
 }

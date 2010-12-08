@@ -20,8 +20,6 @@ package org.jboss.gatein.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -112,11 +110,10 @@ public class ApplicationBean implements Serializable {
      */
     @PostConstruct
     public void init() {
-        logger.info("Init application bean");
         fillCountries();
     }
 
-    @PostConstruct
+    //@PostConstruct
     public void initAppConfig() throws Exception {
 
         logger.info("init application config start");
@@ -151,18 +148,6 @@ public class ApplicationBean implements Serializable {
         this.props = null;
         this.uicomponents = null;
         this.countries = null;
-    }
-
-    /**
-     * 
-     * @return
-     */
-    protected List<String> getSortedList() {
-        List<String> list = new ArrayList<String>();
-        list.addAll(Arrays.asList(COUNTRY_LIST));
-        Collections.sort(list);
-
-        return list;
     }
 
     /**

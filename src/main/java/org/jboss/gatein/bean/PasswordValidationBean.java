@@ -53,23 +53,29 @@ public class PasswordValidationBean implements Serializable, Validator {
 
         if (value != null) {
             String confirmPassword = (String) value;
+            this.registerBean.getStatusBean().setStatus(null);
+            this.registerBean.getStatusBean().setError(null);
             if (confirmPassword.matches("\\s*")) {
+                this.registerBean.getStatusBean().setError("Password connot be empty!");
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
                         "Password cannot be null nor empty!", "Password connot be empty!"));
             }
             // the password must have 7 characters at least
             if (confirmPassword.length() < 7) {
+                this.registerBean.getStatusBean().setError("Password length must contain 7 characters at least!");
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
                         "Password length must contain 7 characters at least", "Password must be 7 chars+ !"));
             }
-            String password = (String) this.registerBean.get("portal.user.password");
+            String password = (String) this.registerBean.get("gatein.user.password");
 
             if (password == null) {
+                this.registerBean.getStatusBean().setError("Fill the password field first!");
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
                         "Please fill the password field first", "Fill the password field first"));
             }
 
             if (!password.equals(confirmPassword)) {
+                this.registerBean.getStatusBean().setError("Password does not match!");
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Wrong input value",
                         "Password does not match!"));
             }
@@ -86,7 +92,7 @@ public class PasswordValidationBean implements Serializable, Validator {
      */
     public void validate2(FacesContext fc, UIComponent uic, Object value) {
         if (value != null) {
-            this.registerBean.put("portal.user.password", value);
+            this.registerBean.put("gatein.user.password", value);
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Password accepted!", "Password value accepted");
             fc.addMessage(uic.getClientId(fc), message);
         }

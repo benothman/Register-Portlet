@@ -38,14 +38,12 @@ public class MediaData implements Serializable {
     Integer Height = 50;
     Color Background = new Color(0, 0, 0);
     Color DrawColor = new Color(255, 255, 255);
-    private static final Logger logger = LoggerFactory.getLogger(MediaData.class);
 
     /**
      * Create a new instance of {@code MediaData}
      */
     public MediaData() {
         super();
-        logger.info("creating new instance of " + getClass().getName());
     }
 
     public Color getBackground() {

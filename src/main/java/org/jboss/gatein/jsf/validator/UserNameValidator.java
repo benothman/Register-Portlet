@@ -75,7 +75,6 @@ public class UserNameValidator implements Validator {
             OrganizationService orgService = (OrganizationService) container.getComponentInstanceOfType(OrganizationService.class);
             UserHandler userHandler = orgService.getUserHandler();
 
-
             try {
                 if (userHandler.findUserByName(value) != null) {
                     throw new ValidatorException(

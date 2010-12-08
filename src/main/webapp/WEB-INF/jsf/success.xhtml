@@ -15,11 +15,15 @@
             <f:facet name="header">
                 <h:outputText value="Registration success" />
             </f:facet>
-            <h:outputText value="The registration is finish with success!" style="color: #00FF00;" /><br />
+
+            <h:outputText value="#{statusBean.status}" style="color: #00FF00;" /><br />
+            
             <a4j:commandButton action="#{registerBean.restart}" value="Restart"/>
         </rich:panel>
     </rich:panel>
 
+    <br/>
+    <br/>
     <br/>
 
 </ui:composition>

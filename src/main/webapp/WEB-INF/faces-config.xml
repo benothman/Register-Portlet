@@ -116,6 +116,10 @@
             <property-name>appBean</property-name>
             <value>#{appBean}</value>
         </managed-property>
+        <managed-property>
+            <property-name>statusBean</property-name>
+            <value>#{statusBean}</value>
+        </managed-property>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>calendarBean</managed-bean-name>
@@ -135,17 +139,49 @@
         <managed-bean-name>captchaValidatorBean</managed-bean-name>
         <managed-bean-class>org.jboss.gatein.bean.CaptchaValidatorBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
-        <!--managed-property>
+        <managed-property>
             <property-name>registerBean</property-name>
             <value>#{registerBean}</value>
-        </managed-property -->
+        </managed-property>
         <managed-property>
             <property-name>mediaBean</property-name>
             <value>#{mediaBean}</value>
         </managed-property>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>emailValidatorBean</managed-bean-name>
+        <managed-bean-class>org.jboss.gatein.bean.EmailValidatorBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
-            <property-name>paintBean</property-name>
-            <value>#{paintBean}</value>
+            <property-name>registerBean</property-name>
+            <value>#{registerBean}</value>
+        </managed-property>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>userNameValidatorBean</managed-bean-name>
+        <managed-bean-class>org.jboss.gatein.bean.UserNameValidatorBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>registerBean</property-name>
+            <value>#{registerBean}</value>
+        </managed-property>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>zipCodeValidatorBean</managed-bean-name>
+        <managed-bean-class>org.jboss.gatein.bean.ZipCodeValidatorBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>registerBean</property-name>
+            <value>#{registerBean}</value>
+        </managed-property>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>inputTextValidatorBean</managed-bean-name>
+        <managed-bean-class>org.jboss.gatein.bean.InputTextValidatorBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>registerBean</property-name>
+            <value>#{registerBean}</value>
         </managed-property>
     </managed-bean>
     <managed-bean>
@@ -214,17 +250,18 @@
         <validator-class>org.jboss.gatein.jsf.validator.ZipCodeValidator</validator-class>
     </validator>
 
-    <component>
-        <component-type>org.jboss.gatein.jsf.component.UIBubbleInfo</component-type>
-        <component-class>org.jboss.gatein.jsf.component.UIBubbleInfo</component-class>
-    </component>
-    <component>
-        <component-type>org.jboss.gatein.jsf.html.HtmlBubbleInfo</component-type>
-        <component-class>org.jboss.gatein.jsf.html.HtmlBubbleInfo</component-class>
-    </component>
+
     <component>
         <component-type>org.jboss.gatein.jsf.html.GateInHtmlInputText</component-type>
         <component-class>org.jboss.gatein.jsf.html.GateInHtmlInputText</component-class>
+    </component>
+    <component>
+        <component-type>org.jboss.gatein.jsf.html.GateInBubbleHtmlInputSecret</component-type>
+        <component-class>org.jboss.gatein.jsf.html.GateInBubbleHtmlInputSecret</component-class>
+    </component>
+    <component>
+        <component-type>org.jboss.gatein.jsf.html.GateInBubbleHtmlInputText</component-type>
+        <component-class>org.jboss.gatein.jsf.html.GateInBubbleHtmlInputText</component-class>
     </component>
 
     <render-kit>
@@ -233,6 +270,12 @@
             <component-family>BIFAMILY</component-family>
             <renderer-type>BUBBLE_INFO_RENDERER</renderer-type>
             <renderer-class>org.jboss.gatein.jsf.renderer.BubbleInfoRenderer</renderer-class>
+        </renderer>
+        <renderer>
+            <description>Renderer for the bubble info component</description>
+            <component-family>BIFAMILY</component-family>
+            <renderer-type>INPUT_TEXT_BUBBLE_INFO_RENDERER</renderer-type>
+            <renderer-class>org.jboss.gatein.jsf.renderer.GateInHtmlInputRenderer</renderer-class>
         </renderer>
     </render-kit>
 
