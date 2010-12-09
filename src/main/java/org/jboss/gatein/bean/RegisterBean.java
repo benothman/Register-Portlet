@@ -141,7 +141,6 @@ public class RegisterBean implements Serializable {
 
         if (this.data.containsKey(usernameKey) && this.data.get(usernameKey) != null) {
             username = (String) this.data.get(usernameKey);
-            logger.info("setting user username -> " + username);
         } else {
             // normally this case shouldn't happens
             this.statusBean.setStatus(null);
@@ -154,7 +153,6 @@ public class RegisterBean implements Serializable {
         // to be removed because it is already done by the validator
         try {
             if (userHandler.findUserByName(username) != null) {
-                logger.error("Username already used !");
                 this.statusBean.setError("The username is already used!");
                 return FAILURE;
             }
@@ -215,8 +213,6 @@ public class RegisterBean implements Serializable {
         Object value = null;
         for (String key : props) {
             value = this.data.get(key);
-
-            logger.info("adding property " + key + ", value : " + value);
 
             if (value != null) {
                 // if the property is a date (including date of birth)

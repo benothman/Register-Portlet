@@ -19,11 +19,12 @@ and open the template in the editor.
         <legend align="left"> Required Data </legend>
         <br/>
         <br/>
-        <table cellpadding="5" cellspacing="5" width="60%">
+
+
+        <table cellpadding="10" cellspacing="10" width="60%">
             <tbody>
                 <tr>
                     <td>
-
             <gtn:bubbleInputText id="firstname" value="#{registerBean.data['user.name.given']}" title="First name"
                                  validator="#{inputTextValidatorBean.validate}" styleClass="trigger"
                                  errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
@@ -31,11 +32,8 @@ and open the template in the editor.
                                  size="40" label="First name">
                 <rich:ajaxValidator event="onblur" reRender="firstname" />
             </gtn:bubbleInputText>
-
-            <br/>
             </td>
             <td>
-
             <gtn:bubbleInputText id="lastname" value="#{registerBean.data['user.name.family']}" title="Last name"
                                  validator="#{inputTextValidatorBean.validate}" styleClass="trigger"
                                  required="true" requiredMessage="Value is required"
@@ -43,25 +41,18 @@ and open the template in the editor.
                                  alt="Last name" size="40" label="Last name">
                 <rich:ajaxValidator event="onblur" reRender="lastname" />
             </gtn:bubbleInputText>
-
-
-            <br/>
             </td>
             </tr>
             <tr>
                 <td>
-
             <gtn:bubbleInputText id="email" value="#{registerBean.data['user.home-info.online.email']}" title="Email address"
                                  validator="#{emailValidatorBean.validate}" required="true" requiredMessage="Value is required"
                                  errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
                                  styleClass="trigger" size="40" label="Email address">
                 <rich:ajaxValidator event="onblur" reRender="email" />
             </gtn:bubbleInputText>
-
-            <br/>
             </td>
             <td>
-
             <gtn:bubbleInputText id="username" value="#{registerBean.data['user.login.id']}" title="User name"
                                  validator="#{userNameValidatorBean.validate}" required="true" requiredMessage="Value is required"
                                  errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
@@ -69,69 +60,49 @@ and open the template in the editor.
                 <rich:ajaxValidator event="onblur" reRender="username" />
             </gtn:bubbleInputText>
 
-
-            <br/>
             </td>
             </tr>
-
             <tr>
                 <td>
-
-
-            <h:panelGroup layout="block">
-                <h:outputLabel for="password" value="Password :" />
-                <gtn:inputSecret id="password" value="#{registerBean.data['gatein.user.password']}" required="true" size="40"
-                                 requiredMessage="Value is required" label="Password" styleClass="trigger"
-                                 errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
-                                 validator="#{passwordValidationBean.validate2}">
-                    <f:validateLength minimum="7" maximum="21" />
-                    <rich:ajaxValidator event="onblur" reRender="password" />
-                </gtn:inputSecret>
-            </h:panelGroup>
-
-            <br/>
+            <gtn:inputSecret id="password" value="#{registerBean.data['gatein.user.password']}" required="true" size="40"
+                             requiredMessage="Value is required" label="Password" labelClass="labelClass" styleClass="trigger"
+                             errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
+                             validator="#{passwordValidationBean.validate2}">
+                <f:validateLength minimum="7" maximum="21" />
+                <rich:ajaxValidator event="onblur" reRender="password" />
+            </gtn:inputSecret>
             </td>
             <td>
-            <h:panelGroup layout="block">
-                <h:outputLabel for="confirmPassword" value="Confirm password : "/>
-                <gtn:inputSecret value="#{registerBean.data['gatein.user.confirmPassword']}" id="confirmPassword" size="40"
-                                 required="true" requiredMessage="Value is required"
-                                 errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
-                                 label="Confirm password" validator="#{passwordValidationBean.validate}" styleClass="trigger">
-                    <rich:ajaxValidator event="onblur" reRender="confirmPassword" />
-                </gtn:inputSecret>
-            </h:panelGroup>
-            <br/>
+            <gtn:inputSecret value="#{registerBean.data['gatein.user.confirmPassword']}" id="confirmPassword" size="40"
+                             required="true" requiredMessage="Value is required" labelClass="labelClass"
+                             errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
+                             label="Confirm password" validator="#{passwordValidationBean.validate}" styleClass="trigger">
+                <rich:ajaxValidator event="onblur" reRender="confirmPassword" />
+            </gtn:inputSecret>
             </td>
             </tr>
             <tr>
                 <td>
-
-            <gtn:bubbleInputText id="answer" value="Answer"
+                    <br/>
+            <gtn:bubbleInputText id="answer" value="Answer" size="40" label="Answer"
                                  validator="#{captchaValidatorBean.validate}" required="true" requiredMessage="Value is required"
-                                 errorClass="error" infoClass="success" styleClass="trigger" fatalClass="error" warnClass="warning"
-                                 size="40" label="Answer">
-                <rich:ajaxValidator event="onblur" reRender="answer" />
+                                 errorClass="error" infoClass="success" styleClass="trigger" fatalClass="error" warnClass="warning">
+
+                <a4j:support event="onblur" reRender="captcha"/>
             </gtn:bubbleInputText>
-
-
-
-            <br/>
             </td>
-            <td valign="bottom">
+            <td>
+                <br/>
                 <br/>
             <a4j:mediaOutput  id="captcha" session="false" element="img"
                               cacheable="false"   mimeType="image/jpeg"
                               createContent="#{mediaBean.paint}" value="#{mediaData}">
                 <f:param value="#{mediaBean.timeStamp}" name="time" />
             </a4j:mediaOutput>
-
-            <br/>
             </td>
             </tr>
             </tbody>
         </table>
-
         <br />
     </fieldset>
 
@@ -196,7 +167,7 @@ and open the template in the editor.
 
                 <gtn:inputText value="#{registerBean.data['user.home-info.postal.street']}" label="Street" size="40" />
 
-                <h:outputText value="Contacts " style="color: #045491;font-weight : bold;" />
+                <h:outputText value="Contacts " styleClass="labelClass"/>
 
                 <rich:spacer />
                 <rich:spacer />
@@ -358,7 +329,7 @@ if ($j.trim(this.value) == ''){
 
     <br/>
     <br/>
-    <a4j:commandButton value="Submit" action="#{registerBean.save}"/>
+    <a4j:commandButton value="Submit" action="#{registerBean.save}" />
     <rich:spacer />
     <a4j:commandButton value="Cancel" action="#{registerBean.cancel}" immediate="true" />
 

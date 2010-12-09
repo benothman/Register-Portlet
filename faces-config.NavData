@@ -11,9 +11,10 @@
         <Node id="WEB-INF/jsf/error.xhtml" x="797" y="454" zoom="true"/>
         <Node id="error.xhtml" x="900" y="150" zoom="true"/>
         <Node id="WEB-INF/jsf/cancel.xhtml" x="510" y="457" zoom="true"/>
+        <Node id="test.xhtml" x="400" y="150" zoom="true"/>
         <Node id="index.xhtml" x="149" y="102" zoom="true"/>
-        <Node id="viewContent.xhtml" x="1063" y="417" zoom="true"/>
         <Node id="WEB-INF/jsf/success.xhtml" x="203" y="457" zoom="true"/>
+        <Node id="viewContent.xhtml" x="1063" y="417" zoom="true"/>
         <Node id="cancel.xhtml" x="1400" y="150" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>

@@ -93,7 +93,7 @@
 
     <!-- end of to be removed block -->
 
-
+    <!-- Managed Bans declarations -->
     <managed-bean>
         <managed-bean-name>resource</managed-bean-name>
         <managed-bean-class>org.jboss.gatein.bean.ResourceBean</managed-bean-class>
@@ -128,16 +128,17 @@
     </managed-bean>
     <managed-bean>
         <managed-bean-name>passwordValidationBean</managed-bean-name>
-        <managed-bean-class>org.jboss.gatein.bean.PasswordValidationBean</managed-bean-class>
+        <managed-bean-class>org.jboss.gatein.bean.validator.PasswordValidationBean</managed-bean-class>
+
         <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
             <property-name>registerBean</property-name>
             <value>#{registerBean}</value>
-        </managed-property>
-    </managed-bean>
+        </managed-property></managed-bean>
     <managed-bean>
         <managed-bean-name>captchaValidatorBean</managed-bean-name>
-        <managed-bean-class>org.jboss.gatein.bean.CaptchaValidatorBean</managed-bean-class>
+        <managed-bean-class>org.jboss.gatein.bean.validator.CaptchaValidatorBean</managed-bean-class>
+
         <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
             <property-name>registerBean</property-name>
@@ -146,44 +147,43 @@
         <managed-property>
             <property-name>mediaBean</property-name>
             <value>#{mediaBean}</value>
-        </managed-property>
-    </managed-bean>
+        </managed-property></managed-bean>
     <managed-bean>
         <managed-bean-name>emailValidatorBean</managed-bean-name>
-        <managed-bean-class>org.jboss.gatein.bean.EmailValidatorBean</managed-bean-class>
+        <managed-bean-class>org.jboss.gatein.bean.validator.EmailValidatorBean</managed-bean-class>
+
         <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
             <property-name>registerBean</property-name>
             <value>#{registerBean}</value>
-        </managed-property>
-    </managed-bean>
+        </managed-property></managed-bean>
     <managed-bean>
         <managed-bean-name>userNameValidatorBean</managed-bean-name>
-        <managed-bean-class>org.jboss.gatein.bean.UserNameValidatorBean</managed-bean-class>
+        <managed-bean-class>org.jboss.gatein.bean.validator.UserNameValidatorBean</managed-bean-class>
+
         <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
             <property-name>registerBean</property-name>
             <value>#{registerBean}</value>
-        </managed-property>
-    </managed-bean>
+        </managed-property></managed-bean>
     <managed-bean>
         <managed-bean-name>zipCodeValidatorBean</managed-bean-name>
-        <managed-bean-class>org.jboss.gatein.bean.ZipCodeValidatorBean</managed-bean-class>
+        <managed-bean-class>org.jboss.gatein.bean.validator.ZipCodeValidatorBean</managed-bean-class>
+
         <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
             <property-name>registerBean</property-name>
             <value>#{registerBean}</value>
-        </managed-property>
-    </managed-bean>
+        </managed-property></managed-bean>
     <managed-bean>
         <managed-bean-name>inputTextValidatorBean</managed-bean-name>
-        <managed-bean-class>org.jboss.gatein.bean.InputTextValidatorBean</managed-bean-class>
+        <managed-bean-class>org.jboss.gatein.bean.validator.InputTextValidatorBean</managed-bean-class>
+
         <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
             <property-name>registerBean</property-name>
             <value>#{registerBean}</value>
-        </managed-property>
-    </managed-bean>
+        </managed-property></managed-bean>
     <managed-bean>
         <managed-bean-name>appBean</managed-bean-name>
         <managed-bean-class>org.jboss.gatein.bean.ApplicationBean</managed-bean-class>
@@ -229,6 +229,7 @@
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 
+    <!-- Custom validators -->
     <validator>
         <validator-id>inputTextValidator</validator-id>
         <validator-class>org.jboss.gatein.jsf.validator.GateInInputTextValidator</validator-class>
@@ -250,7 +251,7 @@
         <validator-class>org.jboss.gatein.jsf.validator.ZipCodeValidator</validator-class>
     </validator>
 
-
+    <!-- Custom components -->
     <component>
         <component-type>org.jboss.gatein.jsf.html.GateInHtmlInputText</component-type>
         <component-class>org.jboss.gatein.jsf.html.GateInHtmlInputText</component-class>
@@ -264,13 +265,8 @@
         <component-class>org.jboss.gatein.jsf.html.GateInBubbleHtmlInputText</component-class>
     </component>
 
+    <!-- Custom renderers -->
     <render-kit>
-        <renderer>
-            <description>Renderer for the bubble info component</description>
-            <component-family>BIFAMILY</component-family>
-            <renderer-type>BUBBLE_INFO_RENDERER</renderer-type>
-            <renderer-class>org.jboss.gatein.jsf.renderer.BubbleInfoRenderer</renderer-class>
-        </renderer>
         <renderer>
             <description>Renderer for the bubble info component</description>
             <component-family>BIFAMILY</component-family>

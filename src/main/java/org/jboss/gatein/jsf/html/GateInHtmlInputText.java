@@ -45,7 +45,7 @@ public class GateInHtmlInputText extends HtmlInputText implements Serializable {
     public Object getSubmittedValue() {
         String value = (String) super.getSubmittedValue();
         String label = getLabel();
-        if (value != null && value.trim().equals(label)) {
+        if (value != null && value.trim().equalsIgnoreCase(label)) {
             return "";
         }
 

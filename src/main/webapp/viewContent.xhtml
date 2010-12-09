@@ -1,4 +1,3 @@
-<?xml version='1.0' encoding='UTF-8' ?>
 <!--
 To change this template, choose Tools | Templates
 and open the template in the editor.
@@ -9,8 +8,8 @@ and open the template in the editor.
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:gtn="http://www.jboss.org/gatein"
                 xmlns:rich="http://richfaces.org/rich">
-
 
 
     <br/><br/>
@@ -18,373 +17,83 @@ and open the template in the editor.
     <fieldset>
         <legend align="left"> Required Data </legend>
         <br/>
-        <a4j:outputPanel ajaxRendered="true" layout="inline">
-            <h:outputText value="#{statusBean.status}" styleClass="success" />
-            <h:outputText value="#{statusBean.error}" styleClass="error" />
-        </a4j:outputPanel>
         <br/>
-        <br/>
-        <table cellpadding="5" cellspacing="5" width="60%">
-            <tbody>
-                <tr>
-                    <td>
-                        <div class="bubbleInfo">
-                            <table class="popup" cellpadding="0" cellspacing="0">
-                                <tbody>
-                                    <tr>
-                                        <td id="topleft" class="corner"></td>
-                                        <td class="top"></td>
-                                        <td id="topright" class="corner"></td>
-                                    </tr>
 
-                                    <tr>
-                                        <td class="left"></td>
-                                        <td>
-                                            <table class="popup-contents"  cellpadding="0" cellspacing="0">
-                                                <tbody>
-                                                    <tr id="release-notes">
-                                                        <th>&#160;</th>
-                                                        <td>
-                                                <rich:message for="firstname" errorClass="error" infoClass="success" fatalClass="error" warnClass="warning" />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                    </td>
-                    <td class="right"></td>
-                </tr>
 
-                <tr>
-                    <td class="corner" id="bottomleft"></td>
-                    <td class="bottom">
-                        <img src="#{facesContext.externalContext.requestContextPath}/images/bubble/bubble-bottom-middle.png" width="30" height="29" alt="popup tail" />
-                    </td>
-                    <td id="bottomright" class="corner"></td>
-                </tr>
-            </tbody>
-        </table>
-        <br/>
-        <div>
-            <h:inputText value="#{registerBean.data['portal.user.firstname']}" id="firstname" title="First name" required="true"
-                         label="First name" size="40" immediate="true" requiredMessage="Value is required" alt="First name"
-                         styleClass="trigger" validator="inputTextValidator" >
+        <h:panelGrid columns="2" cellpadding="10" cellspacing="10" width="60%">
+
+            <gtn:bubbleInputText id="firstname" value="#{registerBean.data['user.name.given']}" title="First name"
+                                 validator="#{inputTextValidatorBean.validate}" styleClass="trigger"
+                                 errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
+                                 required="true" requiredMessage="Value is required" alt="First name"
+                                 size="40" label="First name">
                 <rich:ajaxValidator event="onblur" reRender="firstname" />
-            </h:inputText>
-        </div>
-        </div>
-        <br/>
-        </td>
-        <td>
-            <div class="bubbleInfo">
-                <table class="popup" cellpadding="0" cellspacing="0">
-                    <tbody>
-                        <tr>
-                            <td id="topleft" class="corner"></td>
-                            <td class="top"></td>
-                            <td id="topright" class="corner"></td>
-                        </tr>
+            </gtn:bubbleInputText>
 
-                        <tr>
-                            <td class="left"></td>
-                            <td>
-                                <table class="popup-contents"  cellpadding="0" cellspacing="0">
-                                    <tbody>
-                                        <tr id="release-notes">
-                                            <th>&#160;</th>
-                                            <td>
-                                    <rich:message for="lastname" errorClass="error" fatalClass="error" infoClass="success" warnClass="warning" />
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-        </td>
-        <td class="right"></td>
-        </tr>
 
-        <tr>
-            <td class="corner" id="bottomleft"></td>
-            <td class="bottom">
-                <img src="#{facesContext.externalContext.requestContextPath}/images/bubble/bubble-bottom-middle.png" width="30" height="29" alt="popup tail" />
-            </td>
-            <td id="bottomright" class="corner"></td>
-        </tr>
-        </tbody>
-        </table>
-        <br/>
-        <div>
-
-            <h:inputText value="#{registerBean.data['portal.user.lastname']}" id="lastname" title="Last name" required="true"
-                         label="Last name" size="40" immediate="true" requiredMessage="Value is required" alt="Last name"
-                         styleClass="trigger" validator="inputTextValidator">
+            <gtn:bubbleInputText id="lastname" value="#{registerBean.data['user.name.family']}" title="Last name"
+                                 validator="#{inputTextValidatorBean.validate}" styleClass="trigger"
+                                 required="true" requiredMessage="Value is required"
+                                 errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
+                                 alt="Last name" size="40" label="Last name">
                 <rich:ajaxValidator event="onblur" reRender="lastname" />
-            </h:inputText>
-        </div>
-        </div>
-        <br/>
-        </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="bubbleInfo">
-                    <table class="popup" cellpadding="0" cellspacing="0">
-                        <tbody>
-                            <tr>
-                                <td id="topleft" class="corner"></td>
-                                <td class="top"></td>
-                                <td id="topright" class="corner"></td>
-                            </tr>
+            </gtn:bubbleInputText>
 
-                            <tr>
-                                <td class="left"></td>
-                                <td>
-                                    <table class="popup-contents"  cellpadding="0" cellspacing="0">
-                                        <tbody>
-                                            <tr id="release-notes">
-                                                <th>&#160;</th>
-                                                <td>
-                                        <rich:message for="email" errorClass="error" fatalClass="error" infoClass="success" warnClass="warning" />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-            </td>
-            <td class="right"></td>
-        </tr>
+            <gtn:bubbleInputText id="email" value="#{registerBean.data['user.home-info.online.email']}" title="Email address"
+                                 validator="#{emailValidatorBean.validate}" required="true" requiredMessage="Value is required"
+                                 errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
+                                 styleClass="trigger" size="40" label="Email address">
+                <rich:ajaxValidator event="onblur" reRender="email" />
+            </gtn:bubbleInputText>
 
-        <tr>
-            <td class="corner" id="bottomleft"></td>
-            <td class="bottom">
-                <img src="#{facesContext.externalContext.requestContextPath}/images/bubble/bubble-bottom-middle.png" width="30" height="29" alt="popup tail" />
-            </td>
-            <td id="bottomright" class="corner"></td>
-        </tr>
-        </tbody>
-        </table>
-        <br/>
-        <div>
-            <h:inputText value="#{registerBean.data['portal.user.email']}" id="email" title="Email" required="true" size="40" requiredMessage="Value is required"
-                         label="Email"  validator="emailValidator" immediate="true" alt="Email" styleClass="trigger" >
-                <rich:ajaxValidator event="onblur" reRender="email"/>
-            </h:inputText>
-        </div>
-        </div>
-        <br/>
-        </td>
-        <td>
 
-            <div class="bubbleInfo">
-                <table class="popup" cellpadding="0" cellspacing="0">
-                    <tbody>
-                        <tr>
-                            <td id="topleft" class="corner"></td>
-                            <td class="top"></td>
-                            <td id="topright" class="corner"></td>
-                        </tr>
+            <gtn:bubbleInputText id="username" value="#{registerBean.data['user.login.id']}" title="User name"
+                                 validator="#{userNameValidatorBean.validate}" required="true" requiredMessage="Value is required"
+                                 errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
+                                 styleClass="trigger" size="40" label="User name">
+                <rich:ajaxValidator event="onblur" reRender="username" />
+            </gtn:bubbleInputText>
 
-                        <tr>
-                            <td class="left"></td>
-                            <td>
-                                <table class="popup-contents"  cellpadding="0" cellspacing="0">
-                                    <tbody>
-                                        <tr id="release-notes">
-                                            <th>&#160;</th>
-                                            <td>
-                                    <rich:message for="username" errorClass="error" fatalClass="error" infoClass="success" warnClass="warning" />
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-        </td>
-        <td class="right"></td>
-        </tr>
 
-        <tr>
-            <td class="corner" id="bottomleft"></td>
-            <td class="bottom">
-                <img src="#{facesContext.externalContext.requestContextPath}/images/bubble/bubble-bottom-middle.png" width="30" height="29" alt="popup tail" />
-            </td>
-            <td id="bottomright" class="corner"></td>
-        </tr>
-        </tbody>
-        </table>
-        <br/>
-        <div>
-            <h:inputText value="#{registerBean.data['portal.user.username']}" id="username" title="User name" required="true" size="40" requiredMessage="Value is required"
-                         label="User name" immediate="true" alt="User name" validator="inputTextValidator" styleClass="trigger" >
-                <rich:ajaxValidator event="onblur" reRender="username"/>
-            </h:inputText>
-        </div>
-        </div>
-        <br/>
-        </td>
-        </tr>
-
-        <tr>
-            <td>
-
-                <div class="bubbleInfo">
-                    <table class="popup" cellpadding="0" cellspacing="0">
-                        <tbody>
-                            <tr>
-                                <td id="topleft" class="corner"></td>
-                                <td class="top"></td>
-                                <td id="topright" class="corner"></td>
-                            </tr>
-
-                            <tr>
-                                <td class="left"></td>
-                                <td>
-                                    <table class="popup-contents"  cellpadding="0" cellspacing="0">
-                                        <tbody>
-                                            <tr id="release-notes">
-                                                <th>&#160;</th>
-                                                <td>
-                                        <rich:message for="password" errorClass="error" fatalClass="error" infoClass="success" warnClass="warning" />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-            </td>
-            <td class="right"></td>
-        </tr>
-
-        <tr>
-            <td class="corner" id="bottomleft"></td>
-            <td class="bottom">
-                <img src="#{facesContext.externalContext.requestContextPath}/images/bubble/bubble-bottom-middle.png" width="30" height="29" alt="popup tail" />
-            </td>
-            <td id="bottomright" class="corner"></td>
-        </tr>
-        </tbody>
-        </table>
-        <br/>
-        <div>
-            <h:inputSecret value="#{registerBean.data['portal.user.password']}" id="password" required="true" size="40"
-                           requiredMessage="Value is required" immediate="true" label="Password" styleClass="trigger"
-                           validator="#{passwordValidationBean.validate2}">
+            <gtn:inputSecret id="password" value="#{registerBean.data['gatein.user.password']}" required="true" size="40"
+                             requiredMessage="Value is required" label="Password" styleClass="trigger"
+                             errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
+                             validator="#{passwordValidationBean.validate2}">
                 <f:validateLength minimum="7" maximum="21" />
                 <rich:ajaxValidator event="onblur" reRender="password" />
-            </h:inputSecret>
-        </div>
-        </div>
-        <br/>
-        </td>
-        <td>
+            </gtn:inputSecret>
 
-            <div class="bubbleInfo">
-                <table class="popup" cellpadding="0" cellspacing="0">
-                    <tbody>
-                        <tr>
-                            <td id="topleft" class="corner"></td>
-                            <td class="top"></td>
-                            <td id="topright" class="corner"></td>
-                        </tr>
 
-                        <tr>
-                            <td class="left"></td>
-                            <td>
-                                <table class="popup-contents"  cellpadding="0" cellspacing="0">
-                                    <tbody>
-                                        <tr id="release-notes">
-                                            <th>&#160;</th>
-                                            <td>
-                                    <rich:message for="confirmPassword" errorClass="error" fatalClass="error" infoClass="success" warnClass="warning" />
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-        </td>
-        <td class="right"></td>
-        </tr>
-
-        <tr>
-            <td class="corner" id="bottomleft"></td>
-            <td class="bottom">
-                <img src="#{facesContext.externalContext.requestContextPath}/images/bubble/bubble-bottom-middle.png" width="30" height="29" alt="popup tail" />
-            </td>
-            <td id="bottomright" class="corner"></td>
-        </tr>
-        </tbody>
-        </table>
-        <br/>
-        <div>
-
-            <h:inputSecret value="#{registerBean.data['portal.user.confirmPassword']}" id="confirmPassword"
-                           required="true" size="40" requiredMessage="Value is required" immediate="true"
-                           label="Confirm password" validator="#{passwordValidationBean.validate}" styleClass="trigger">
+            <gtn:inputSecret value="#{registerBean.data['gatein.user.confirmPassword']}" id="confirmPassword" size="40"
+                             required="true" requiredMessage="Value is required"
+                             errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
+                             label="Confirm password" validator="#{passwordValidationBean.validate}" styleClass="trigger">
                 <rich:ajaxValidator event="onblur" reRender="confirmPassword" />
-            </h:inputSecret>
-        </div>
-        </div>
-        <br/>
-        </td>
-        </tr>
-        <tr>
-            <td>
+            </gtn:inputSecret>
 
-                <div class="bubbleInfo">
-                    <table class="popup" cellpadding="0" cellspacing="0">
-                        <tbody>
-                            <tr>
-                                <td id="topleft" class="corner"></td>
-                                <td class="top"></td>
-                                <td id="topright" class="corner"></td>
-                            </tr>
+            <h:panelGroup>
+                <br/>
+                <br/>
+                <gtn:bubbleInputText id="answer" value="Answer" size="40" label="Answer"
+                                     validator="#{captchaValidatorBean.validate}" required="true" requiredMessage="Value is required"
+                                     errorClass="error" infoClass="success" styleClass="trigger" fatalClass="error" warnClass="warning">
 
-                            <tr>
-                                <td class="left"></td>
-                                <td>
-                                    <table class="popup-contents"  cellpadding="0" cellspacing="0">
-                                        <tbody>
-                                            <tr id="release-notes">
-                                                <th>&#160;</th>
-                                                <td>
-                                        <rich:message for="answer" errorClass="error" fatalClass="error" infoClass="success" warnClass="warning" />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-            </td>
-            <td class="right"></td>
-        </tr>
+                    <a4j:support event="onblur" reRender="captcha"/>
+                </gtn:bubbleInputText>
+            </h:panelGroup>
 
-        <tr>
-            <td class="corner" id="bottomleft"></td>
-            <td class="bottom">
-                <img src="#{facesContext.externalContext.requestContextPath}/images/bubble/bubble-bottom-middle.png" width="30" height="29" alt="popup tail" />
-            </td>
-            <td id="bottomright" class="corner"></td>
-        </tr>
-        </tbody>
-        </table>
-        <br/>
-        <div>
+            <h:panelGroup>
+                <br/>
+                <br/>
+                <br/>
+                <a4j:mediaOutput  id="captcha" session="false" element="img"
+                                  cacheable="false"   mimeType="image/jpeg"
+                                  createContent="#{mediaBean.paint}" value="#{mediaData}">
+                    <f:param value="#{mediaBean.timeStamp}" name="time" />
+                </a4j:mediaOutput>
+            </h:panelGroup>
 
-            <h:inputText value="#{registerBean.data['portal.user.captcha.answer']}" id="answer"
-                         required="true" styleClass="trigger" immediate="true" requiredMessage="Value is required"
-                         label="Code" size="40"  validator="#{captchaValidatorBean.validate}">
-
-                <a4j:support event="onblur" reRender="captcha"/>
-            </h:inputText>
-
-        </div>
-        </div>
-        <br/>
-        </td>
-        <td>
-
-        <a4j:mediaOutput  id="captcha" session="false" element="img"
-                          cacheable="false"   mimeType="image/jpeg"
-                          createContent="#{mediaBean.paint}" value="#{mediaData}">
-            <f:param value="#{mediaBean.timeStamp}" name="time" />
-        </a4j:mediaOutput>
-
-        <br/>
-        </td>
-        </tr>
-        </tbody>
-        </table>
-
+        </h:panelGrid>
         <br />
     </fieldset>
 
@@ -416,65 +125,89 @@ and open the template in the editor.
 
                 <h:panelGroup>
                     <h:outputText value="Title : " />
-                    <h:selectOneMenu value="#{registerBean.data['portal.user.title']}" id="title">
+                    <h:selectOneMenu value="#{registerBean.data['gatein.user.title']}" id="title">
+                        <f:selectItem itemValue="" itemLabel="" />
                         <f:selectItem itemValue="Mr" itemLabel="Mr" />
                         <f:selectItem itemValue="Mrs" itemLabel="Mrs" />
                         <f:selectItem itemValue="Ms" itemLabel="Ms" />
                     </h:selectOneMenu>
-                    <rich:spacer />
+
+                    <rich:spacer width="20" />
+
                     <h:outputText value="Gender : " />
-                    <h:selectOneMenu value="#{registerBean.data['portal.user.gender']}" id="gender">
+                    <h:selectOneMenu value="#{registerBean.data['user.gender']}" id="gender">
+                        <f:selectItem itemValue="" itemLabel="" />
                         <f:selectItem itemValue="Male" itemLabel="Male" />
                         <f:selectItem itemValue="Female" itemLabel="Female" />
                     </h:selectOneMenu>
                 </h:panelGroup>
+                <h:panelGroup layout="block">
+                    <h:outputText value="Birthday : " />
+                    <a4j:outputPanel id="calendar" layout="inline">
+                        <rich:calendar value="#{registerBean.data['user.bdate']}"
+                                       locale="#{calendarBean.locale}"
+                                       popup="#{calendarBean.popup}"
+                                       datePattern="#{calendarBean.pattern}"
+                                       showApplyButton="#{calendarBean.showApply}" cellWidth="24px" cellHeight="22px" style="width:200px"/>
+                    </a4j:outputPanel>
+                </h:panelGroup>
 
-                <h:outputLabel for="calendar" value="Birthday" />
-                <h:inputText value="#{registerBean.data['portal.user.address.line1']}" size="40" />
-                <a4j:outputPanel id="calendar" layout="block">
-                    <rich:calendar value="#{calendarBean.selectedDate}"
-                                   locale="#{calendarBean.locale}"
-                                   popup="#{calendarBean.popup}"
-                                   datePattern="#{calendarBean.pattern}"
-                                   showApplyButton="#{calendarBean.showApply}" cellWidth="24px" cellHeight="22px" style="width:220px"/>
-                </a4j:outputPanel>
+                <rich:spacer />
+                <rich:spacer />
 
-                <h:inputText value="#{registerBean.data['portal.user.address.line2']}" size="40" />
-                <h:inputText value="#{registerBean.data['portal.user.twitter']}" size="40" />
+
+                <gtn:inputText value="#{registerBean.data['user.home-info.postal.street']}" label="Street" size="40" />
+
+                <h:outputText value="Contacts " style="color: #045491;font-weight : bold;" />
+
+                <rich:spacer />
+                <rich:spacer />
 
                 <h:panelGroup>
-                    <h:inputText id="zipCode" value="#{registerBean.data['portal.user.address.zipCode']}" size="10"
-                                 converterMessage="The input must be an Integer" validator="zipCodeValidator">
-                        <rich:ajaxValidator event="onblur"/>
-                    </h:inputText>
-                    <h:inputText value="#{registerBean.data['portal.user.address.city']}" size="23" />
+                    <gtn:inputText id="zipCode" value="#{registerBean.data['user.home-info.postal.postalcode']}" size="10"
+                                   converterMessage="The input must be an Integer" validator="#{zipCodeValidatorBean.validate}"
+                                   label="Postal code">
+                        <rich:ajaxValidator event="onblur" reRender="status_message, error_message"/>
+                    </gtn:inputText>
+                    <gtn:inputText value="#{registerBean.data['user.home-info.postal.city']}" label="City" size="23" />
                 </h:panelGroup>
-                <h:inputText value="#{registerBean.data['portal.user.skype']}" size="40" />
+                <gtn:inputText value="#{registerBean.data['gatein.user.twitter']}" label="twitter" size="40" />
 
                 <rich:message for="zipCode"  errorClass="error" infoClass="success" fatalClass="error" warnClass="warning" />
                 <rich:spacer />
 
-                <h:inputText value="#{registerBean.data['portal.user.address.state']}" size="40" />
-                <h:inputText value="#{registerBean.data['portal.user.msn']}" size="40" />
+                <gtn:inputText value="#{registerBean.data['user.home-info.postal.stateprov']}" size="40" label="State" />
+                <gtn:inputText value="#{registerBean.data['gatein.user.skype']}" label="Skype" size="40" />
+
+                <rich:spacer />
+                <rich:spacer />
 
                 <h:panelGroup>
                     <h:outputLabel for="address-country" value="Country : " />
-                    <h:selectOneMenu id="address-country" value="#{registerBean.data['portal.user.address.country']}">
+                    <h:selectOneMenu id="address-country" value="#{registerBean.data['user.home-info.postal.country']}">
                         <f:selectItems value="#{appBean.countries}" />
                     </h:selectOneMenu>
                 </h:panelGroup>
-                <h:inputText value="#{registerBean.data['portal.user.linkedIn']}" size="40" />
+                <gtn:inputText value="#{registerBean.data['gatein.user.msn']}" label="MSN" size="40" />
 
-                <h:inputText value="#{registerBean.data['portal.user.phone']}" size="40" />
-                <h:inputText value="#{registerBean.data['portal.user.icq']}" size="40" />
+                <rich:spacer />
+                <rich:spacer />
+
+                <gtn:inputText value="#{registerBean.data['user.home-info.telecom.telephone.number']}" label="Phone number" size="40" />
+                <gtn:inputText value="#{registerBean.data['gatein.user.linkedIn']}" label="LinkedIn" size="40" />
+
+                <rich:spacer />
+                <rich:spacer />
+
+                <gtn:inputText value="#{registerBean.data['user.home-info.telecom.mobile.number']}" label="Mobile number" size="40" />
+                <gtn:inputText value="#{registerBean.data['gatein.user.icq']}" size="40" label="ICQ" />
+
+                <rich:spacer />
+                <rich:spacer />
 
             </h:panelGrid>
         </fieldset>
     </rich:panel>
-
-
-
-
 
     <script type="text/javascript">
 
@@ -587,7 +320,7 @@ if ($j.trim(this.value) == ''){
 
     <br/>
     <br/>
-    <a4j:commandButton value="Submit" action="#{registerBean.save2}"/>
+    <a4j:commandButton value="Submit" action="#{registerBean.save}"/>
     <rich:spacer />
     <a4j:commandButton value="Cancel" action="#{registerBean.cancel}" immediate="true" />
 

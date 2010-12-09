@@ -16,7 +16,7 @@
  *  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  *  02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.gatein.bean;
+package org.jboss.gatein.bean.validator;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -24,11 +24,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import nl.captcha.Captcha;
-import org.gatein.common.logging.Logger;
-import org.gatein.common.logging.LoggerFactory;
+import org.jboss.gatein.bean.MediaBean;
+import org.jboss.gatein.bean.RegisterBean;
 
 /**
- * {@code CaptchaValidator}
+ * {@code CaptchaValidatorBean}
  *
  * Created on Nov 18, 2010, 9:15:51 AM
  *
@@ -39,14 +39,12 @@ public class CaptchaValidatorBean implements Validator {
 
     private RegisterBean registerBean;
     private MediaBean mediaBean;
-    private static final Logger logger = LoggerFactory.getLogger(MediaBean.class);
 
     /**
-     * Create a new instance of {@code CaptchaValidator}
+     * Create a new instance of {@code CaptchaValidatorBean}
      */
     public CaptchaValidatorBean() {
         super();
-        logger.info("******* create a new instance of " + getClass().getName() + " *******");
     }
 
     /*
@@ -60,10 +58,9 @@ public class CaptchaValidatorBean implements Validator {
                 throw new IllegalArgumentException("The value must be a String");
             }
             String value = ((String) o).trim();
-            this.registerBean.getStatusBean().setStatus(null);
-            this.registerBean.getStatusBean().setError(null);
+
             if (value.matches("\\s*")) {
-                this.registerBean.getStatusBean().setError("You must provide the captcha answer!");
+
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Value is required!", "Value is required!"));
             }
 
@@ -71,10 +68,8 @@ public class CaptchaValidatorBean implements Validator {
 
             if (!captcha.isCorrect(value)) {
                 this.mediaBean.initCaptcha();
-                this.registerBean.getStatusBean().setError("The captcha answer is not correct!");
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "The answer is not correct!", "The answer is not correct!"));
             }
-            
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct answer", "The answer is correct");
             fc.addMessage(uic.getClientId(fc), message);
         }

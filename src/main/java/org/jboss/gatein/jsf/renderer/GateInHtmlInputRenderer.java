@@ -194,13 +194,6 @@ public class GateInHtmlInputRenderer extends Renderer {
         return value;
     }
 
-    private String formatValue(Object currentValue) {
-        // this should be a bit more sophisticated
-        // in essence what should happen here is any
-        // conversion that needs to take place.
-        return currentValue.toString();
-    }
-
     /**
      * 
      * @param context
@@ -213,7 +206,7 @@ public class GateInHtmlInputRenderer extends Renderer {
         } else if (uic == null) {
             throw new NullPointerException("component should not be null");
         } else if (!(uic instanceof GateInHtmlInputText)) {
-            throw new IllegalArgumentException("Expected type : " + GateInHtmlInputText.class.getName() + ", found : " + uic.getClass().getName());
+            throw new IllegalArgumentException("Expected type : instance of " + GateInHtmlInputText.class.getName() + ", found : " + uic.getClass().getName());
         }
     }
 }

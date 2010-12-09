@@ -19,33 +19,39 @@
 package org.jboss.gatein.jsf.html;
 
 import java.io.IOException;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import org.gatein.common.logging.Logger;
-import org.gatein.common.logging.LoggerFactory;
 import org.richfaces.component.html.HtmlRichMessage;
 
 /**
  * {@code GateInBubbleHtmlInputText}
  *
+ * <p>Custom component, rendering a an input text field with a bubble info message.
+ * The info message is a simple {@link HtmlRichMessage} (customized) showing the
+ * label of the {@link UIComponent} and appears when the input text field gain the
+ * focus. If the text field is required and/or supports conversion/validation, the
+ * label message will be replaced by the conversion/validation message. The bubble
+ * info message disappears one second after the input text field loose the focus
+ * </p>
+ *
  * Created on Dec 6, 2010, 6:31:16 PM
  *
- * @author nabilbenothman
+ * @author Nabil Benothman
  * @version 1.0
  */
 public class GateInBubbleHtmlInputText extends GateInHtmlInputText {
 
     public static final String UI_BUBBLE_INFO_FAMILY = "BIFAMILY";
     public static final String COMPONENT_TYPE = "org.jboss.gatein.jsf.html.GateInBubbleHtmlInputText";
-    private static final Logger logger = LoggerFactory.getLogger(GateInBubbleHtmlInputText.class.getName());
-    private HtmlRichMessage htmlMessgae;
+    private GateInHtmlRichMessage htmlMessgae;
 
     /**
      * Create a new instance of {@code GateInBubbleHtmlInputText}
      */
     public GateInBubbleHtmlInputText() {
         super();
-        this.htmlMessgae = new HtmlRichMessage();
+        this.htmlMessgae = new GateInHtmlRichMessage();
     }
 
     @Override
@@ -53,12 +59,8 @@ public class GateInBubbleHtmlInputText extends GateInHtmlInputText {
         ResponseWriter writer = fc.getResponseWriter();
         String reqCtxPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
 
-        if (this.getParent() != null) {
-            this.getParent().getChildren().add(this.getHtmlMessgae());
-        }
-
-        this.getHtmlMessgae().setFor(this.getId());
-
+        writer.startElement("br", null);
+        writer.endElement("br");
         writer.startElement("div", null);
         writer.writeAttribute("class", "bubbleInfo", "class");
 
@@ -111,7 +113,9 @@ public class GateInBubbleHtmlInputText extends GateInHtmlInputText {
         writer.endElement("th");
 
         writer.startElement("td", null);
-        this.getHtmlMessgae().encodeAll(fc);
+
+        this.initMessage();
+        this.htmlMessgae.encodeAll(fc);
         writer.endElement("td");
 
         writer.endElement("tr");
@@ -153,37 +157,58 @@ public class GateInBubbleHtmlInputText extends GateInHtmlInputText {
         writer.startElement("br", null);
         writer.endElement("br");
 
-        writer.startElement("div", null);
+        writer.startElement("span", null);
         super.encodeBegin(fc);
 
-    }
-
-    @Override
-    public void encodeAll(FacesContext fc) throws IOException {
-        logger.info("GateInHtmlInputText.encodeAll(FacesContext) : start");
-        super.encodeAll(fc);
-        logger.info("GateInHtmlInputText.encodeAll(FacesContext) : end");
     }
 
     @Override
     public void encodeEnd(FacesContext fc) throws IOException {
         ResponseWriter writer = fc.getResponseWriter();
         super.encodeEnd(fc);
-        writer.endElement("div");
+        writer.endElement("span");
         writer.endElement("div");
     }
 
     /**
-     * Getter for the error class style
+     * Initialize the HTML message parameters before encoding it
+     */
+    private void initMessage() {
+
+        UIComponent tmp = null;
+        for (UIComponent uic : this.getChildren()) {
+            if (uic instanceof GateInHtmlRichMessage) {
+                tmp = uic;
+                break;
+            }
+        }
+
+        if (tmp != null) {
+            this.htmlMessgae = (GateInHtmlRichMessage) tmp;
+        } else {
+            this.getChildren().add(this.htmlMessgae);
+            this.getHtmlMessgae().setFor(this.getId());
+        }
+
+        String passedLabel = this.getLabel() != null ? this.getLabel() : " ";
+        if (this.isRequired()) {
+            passedLabel += " : required field";
+        }
+
+        this.htmlMessgae.setPassedLabel(passedLabel);
+    }
+
+    /**
+     * Getter for the error class style of the pop up message
      *
-     * @return The error class style
+     * @return The error class style of the pop up message
      */
     public String getErrorClass() {
         return this.getHtmlMessgae().getErrorClass();
     }
 
     /**
-     * Setter for the error class style
+     * Setter for the error class style of the pop up message
      *
      * @param _errorClass the error class style to set
      */
@@ -192,16 +217,16 @@ public class GateInBubbleHtmlInputText extends GateInHtmlInputText {
     }
 
     /**
-     * Getter for the fatal class style
+     * Getter for the fatal class style of the pop up message
      *
-     * @return The fatal class style
+     * @return The fatal class style of the pop up message
      */
     public String getFatalClass() {
         return this.getHtmlMessgae().getFatalClass();
     }
 
     /**
-     * Setter for the fatal class style
+     * Setter for the fatal class style of the pop up message
      *
      * @param _fatalClass the fatal class style to set
      */
@@ -210,16 +235,16 @@ public class GateInBubbleHtmlInputText extends GateInHtmlInputText {
     }
 
     /**
-     * Getter for the info class style
+     * Getter for the info class style of the pop up message
      *
-     * @return The info class style
+     * @return The info class style of the pop up message
      */
     public String getInfoClass() {
         return this.getHtmlMessgae().getInfoClass();
     }
 
     /**
-     * Setter for the info class style
+     * Setter for the info class style of the pop up message
      *
      * @param _infoClass the info class style to set
      */
@@ -228,21 +253,57 @@ public class GateInBubbleHtmlInputText extends GateInHtmlInputText {
     }
 
     /**
-     * Getter for the warning class style
+     * Getter for the warning class style of the pop up message
      * 
-     * @return The warning class style
+     * @return The warning class style of the pop up message
      */
     public String getWarnClass() {
         return this.getHtmlMessgae().getWarnClass();
     }
 
     /**
-     * Setter for the warning class style
+     * Setter for the warning class style of the pop up message
      *
      * @param _warnClass the warning class style to set
      */
     public void setWarnClass(String _warnClass) {
         this.getHtmlMessgae().setWarnClass(_warnClass);
+    }
+
+    /**
+     * Getter for the passed label of the pop up message
+     *
+     * @return The passed label of the pop up message
+     */
+    public String getPassedLabel() {
+        return this.htmlMessgae.getPassedLabel();
+    }
+
+    /**
+     * Setter for the passed label of the pop up message
+     *
+     * @param _passedLabel the passed label of the pop up message
+     */
+    public void setPassedLabel(String _passedLabel) {
+        this.htmlMessgae.setPassedLabel(_passedLabel);
+    }
+
+    /**
+     * Getter for the label class style of the pop up message
+     * 
+     * @return The label class style of the pop up message
+     */
+    public String getLabelClass() {
+        return this.htmlMessgae.getLabelClass();
+    }
+
+    /**
+     * Setter for the label class style of the pop up message
+     *
+     * @param _labelClass the label class style to set
+     */
+    public void setLabelClass(String _labelClass) {
+        this.htmlMessgae.setLabelClass(_labelClass);
     }
 
     /**

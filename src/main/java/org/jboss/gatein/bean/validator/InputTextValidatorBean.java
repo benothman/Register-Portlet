@@ -16,11 +16,12 @@
  *  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  *  02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.gatein.bean;
+package org.jboss.gatein.bean.validator;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
+import org.jboss.gatein.bean.RegisterBean;
 import org.jboss.gatein.jsf.validator.GateInInputTextValidator;
 
 /**
@@ -45,14 +46,9 @@ public class InputTextValidatorBean extends GateInInputTextValidator {
     @Override
     public void validate(FacesContext fc, UIComponent uic, Object o) throws ValidatorException {
 
-        this.registerBean.getStatusBean().setStatus(null);
-        this.registerBean.getStatusBean().setError(null);
-
         try {
             super.validate(fc, uic, o);
         } catch (ValidatorException vexp) {
-            this.registerBean.getStatusBean().setError(vexp.getFacesMessage().getDetail());
-
             throw vexp;
         }
     }

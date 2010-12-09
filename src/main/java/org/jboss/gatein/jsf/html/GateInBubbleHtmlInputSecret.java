@@ -19,16 +19,23 @@
 package org.jboss.gatein.jsf.html;
 
 import java.io.IOException;
+import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlInputSecret;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import org.gatein.common.logging.Logger;
-import org.gatein.common.logging.LoggerFactory;
 import org.richfaces.component.html.HtmlRichMessage;
 
 /**
  * {@code GateInBubbleHtmlInputSecret}
  *
+ * <p>Custom component, rendering a an input password field with a bubble info message.
+ * The info message is a simple {@link HtmlRichMessage} (customized) showing the
+ * label of the {@link UIComponent} and appears when the input text field gain the
+ * focus. If the password field is required and/or supports conversion/validation, the
+ * label message will be replaced by the conversion/validation message. The bubble
+ * info message disappears one second after the input password field loose the focus
+ * </p>
+ * 
  * Created on Dec 7, 2010, 10:13:32 PM
  *
  * @author Nabil Benothman
@@ -37,8 +44,9 @@ import org.richfaces.component.html.HtmlRichMessage;
 public class GateInBubbleHtmlInputSecret extends HtmlInputSecret {
 
     public static final String COMPONENT_TYPE = "org.jboss.gatein.jsf.html.GateInBubbleHtmlInputSecret";
-    protected static final Logger logger = LoggerFactory.getLogger(GateInBubbleHtmlInputSecret.class.getName());
     private HtmlRichMessage htmlMessgae;
+    private String labelStyle;
+    private String labelClass;
 
     /**
      * Create a new instance of {@code GateInHtmlInputSecret}
@@ -46,7 +54,7 @@ public class GateInBubbleHtmlInputSecret extends HtmlInputSecret {
     public GateInBubbleHtmlInputSecret() {
         super();
         this.setValue(this.getLabel());
-        this.htmlMessgae = new HtmlRichMessage();
+        this.htmlMessgae = new GateInHtmlRichMessage();
     }
 
     @Override
@@ -54,13 +62,8 @@ public class GateInBubbleHtmlInputSecret extends HtmlInputSecret {
         ResponseWriter writer = fc.getResponseWriter();
         String reqCtxPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
 
-
-        if (this.getParent() != null) {
-            this.getParent().getChildren().add(this.htmlMessgae);
-        }
-
-        this.htmlMessgae.setFor(this.getId());
-
+        writer.startElement("br", null);
+        writer.endElement("br");
         writer.startElement("div", null);
         writer.writeAttribute("class", "bubbleInfo", "class");
 
@@ -113,6 +116,7 @@ public class GateInBubbleHtmlInputSecret extends HtmlInputSecret {
         writer.endElement("th");
 
         writer.startElement("td", null);
+        this.initMessage();
         this.htmlMessgae.encodeAll(fc);
         writer.endElement("td");
 
@@ -155,22 +159,31 @@ public class GateInBubbleHtmlInputSecret extends HtmlInputSecret {
         writer.startElement("br", null);
         writer.endElement("br");
 
-        writer.startElement("div", null);
-        super.encodeBegin(fc);
-    }
+        if (this.getLabel() != null) {
+            writer.startElement("span", null);
 
-    @Override
-    public void encodeAll(FacesContext fc) throws IOException {
-        logger.info("GateInHtmlInputSecret.encodeAll(FacesContext) : start");
-        super.encodeAll(fc);
-        logger.info("GateInHtmlInputSecret.encodeAll(FacesContext) : end");
+            if (this.labelClass != null) {
+                writer.writeAttribute("class", this.labelClass, "class");
+            }
+            if (this.labelStyle != null && this.labelStyle.length() > 0) {
+                writer.writeAttribute("style", this.labelStyle, "style");
+            }
+
+            writer.write(this.getLabel() + " : ");
+            writer.endElement("span");
+            writer.startElement("br", null);
+            writer.endElement("br");
+        }
+
+        writer.startElement("span", null);
+        super.encodeBegin(fc);
     }
 
     @Override
     public void encodeEnd(FacesContext fc) throws IOException {
         ResponseWriter writer = fc.getResponseWriter();
         super.encodeEnd(fc);
-        writer.endElement("div");
+        writer.endElement("span");
         writer.endElement("div");
     }
 
@@ -178,7 +191,7 @@ public class GateInBubbleHtmlInputSecret extends HtmlInputSecret {
     public Object getSubmittedValue() {
         String value = (String) super.getSubmittedValue();
         String label = getLabel();
-        if (value != null && value.trim().equals(label)) {
+        if (value != null && value.trim().equalsIgnoreCase(label)) {
             return "";
         }
 
@@ -192,6 +205,33 @@ public class GateInBubbleHtmlInputSecret extends HtmlInputSecret {
             return this.getLabel();
         }
         return val;
+    }
+
+    /**
+     * Initialize the HTML message parameters before encoding it
+     */
+    private void initMessage() {
+        UIComponent tmp = null;
+        for (UIComponent uic : this.getChildren()) {
+            if (uic instanceof GateInHtmlRichMessage) {
+                tmp = uic;
+                break;
+            }
+        }
+
+        if (tmp != null) {
+            this.htmlMessgae = (GateInHtmlRichMessage) tmp;
+        } else {
+            this.getChildren().add(this.htmlMessgae);
+            this.htmlMessgae.setFor(this.getId());
+        }
+
+        String passedLabel = this.getLabel() != null ? this.getLabel() : " ";
+        if (this.isRequired()) {
+            passedLabel += " : required field";
+        }
+
+        this.htmlMessgae.setPassedLabel(passedLabel);
     }
 
     /**
@@ -271,5 +311,73 @@ public class GateInBubbleHtmlInputSecret extends HtmlInputSecret {
      */
     public HtmlRichMessage getHtmlMessgae() {
         return htmlMessgae;
+    }
+
+    /**
+     * @return the labelStyle
+     */
+    public String getLabelStyle() {
+        return labelStyle;
+    }
+
+    /**
+     * @param labelStyle the labelStyle to set
+     */
+    public void setLabelStyle(String labelStyle) {
+        this.labelStyle = labelStyle;
+    }
+
+    /**
+     * Getter for the label class
+     *
+     * @return The label class
+     */
+    public String getLabelClass() {
+        return labelClass;
+    }
+
+    /**
+     * Setter for the label class
+     *
+     * @param labelClass the label class to set
+     */
+    public void setLabelClass(String labelClass) {
+        this.labelClass = labelClass;
+    }
+
+    /**
+     * Getter for the passed label of the pop up message
+     *
+     * @return The passed label of the pop up message
+     */
+    public String getPassedLabel() {
+        return this.htmlMessgae.getPassedLabel();
+    }
+
+    /**
+     * Setter for the passed label of the pop up message
+     *
+     * @param _passedLabel the passed label of the pop up message
+     */
+    public void setPassedLabel(String _passedLabel) {
+        this.htmlMessgae.setPassedLabel(_passedLabel);
+    }
+
+    /**
+     * Getter for the label class style of the pop up message
+     *
+     * @return The label class style of the pop up message
+     */
+    public String getMessageLabelClass() {
+        return this.htmlMessgae.getLabelClass();
+    }
+
+    /**
+     * Setter for the label class style of the pop up message
+     *
+     * @param _messageLabelClass the label class style to set
+     */
+    public void setMessageLabelClass(String _messageLabelClass) {
+        this.htmlMessgae.setLabelClass(_messageLabelClass);
     }
 }

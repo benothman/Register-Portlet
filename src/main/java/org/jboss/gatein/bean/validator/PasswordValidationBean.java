@@ -16,7 +16,7 @@
  *  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  *  02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.gatein.bean;
+package org.jboss.gatein.bean.validator;
 
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
@@ -24,13 +24,14 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
+import org.jboss.gatein.bean.RegisterBean;
 
 /**
  * {@code PasswordValidationBean}
  *
  * Created on Nov 25, 2010, 8:58:20 AM
  *
- * @author nabilbenothman
+ * @author Nabil Benothman
  * @version 1.0
  */
 public class PasswordValidationBean implements Serializable, Validator {
@@ -53,33 +54,29 @@ public class PasswordValidationBean implements Serializable, Validator {
 
         if (value != null) {
             String confirmPassword = (String) value;
-            this.registerBean.getStatusBean().setStatus(null);
-            this.registerBean.getStatusBean().setError(null);
+
             if (confirmPassword.matches("\\s*")) {
-                this.registerBean.getStatusBean().setError("Password connot be empty!");
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
                         "Password cannot be null nor empty!", "Password connot be empty!"));
             }
             // the password must have 7 characters at least
             if (confirmPassword.length() < 7) {
-                this.registerBean.getStatusBean().setError("Password length must contain 7 characters at least!");
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
                         "Password length must contain 7 characters at least", "Password must be 7 chars+ !"));
             }
             String password = (String) this.registerBean.get("gatein.user.password");
 
             if (password == null) {
-                this.registerBean.getStatusBean().setError("Fill the password field first!");
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
                         "Please fill the password field first", "Fill the password field first"));
             }
 
             if (!password.equals(confirmPassword)) {
-                this.registerBean.getStatusBean().setError("Password does not match!");
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Wrong input value",
                         "Password does not match!"));
             }
             // if validation passes with success
+
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "The two values are identical and accepted!", "The two values are identical and accepted");
             fc.addMessage(uic.getClientId(fc), message);
         }

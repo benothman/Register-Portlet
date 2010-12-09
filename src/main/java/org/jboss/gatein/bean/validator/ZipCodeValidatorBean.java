@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2010 Red Hat
+ *  Copyright (C) 2010 Red Hat, Inc.
  *
  *  This is free software; you can redistribute it and/or modify it
  *  under the terms of the GNU Lesser General Public License as
@@ -16,44 +16,40 @@
  *  Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  *  02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.gatein.bean;
+package org.jboss.gatein.bean.validator;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
-import org.jboss.gatein.jsf.validator.EmailValidator;
+import org.jboss.gatein.bean.RegisterBean;
+import org.jboss.gatein.jsf.validator.ZipCodeValidator;
 
 /**
- * {@code EmailValidatorBean}
+ * {@code ZipCodeValidatorBean}
  *
- * Created on Dec 6, 2010, 11:48:50 AM
+ * Created on Dec 6, 2010, 1:10:55 PM
  *
  * @author nabilbenothman
  * @version 1.0
  */
-public class EmailValidatorBean extends EmailValidator {
+public class ZipCodeValidatorBean extends ZipCodeValidator {
 
     private RegisterBean registerBean;
 
     /**
-     * Create a new instance of {@code EmailValidatorBean}
+     * Create a new instance of {@code ZipCodeValidatorBean}
      */
-    public EmailValidatorBean() {
+    public ZipCodeValidatorBean() {
         super();
     }
 
     @Override
     public void validate(FacesContext fc, UIComponent uic, Object o) throws ValidatorException {
 
-        this.registerBean.getStatusBean().setStatus(null);
-        this.registerBean.getStatusBean().setError(null);
-
         try {
             super.validate(fc, uic, o);
-        } catch (ValidatorException exp) {
-            this.registerBean.getStatusBean().setError(exp.getFacesMessage().getDetail());
-
-            throw exp;
+        } catch (ValidatorException vexp) {
+            throw vexp;
         }
     }
 

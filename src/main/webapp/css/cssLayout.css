@@ -145,6 +145,10 @@ legend    {
     font-weight: bold;
 }
 
+.labelClass {
+    color: #045491;
+    font-weight : bold;
+}
 
 .focusField {
     border:solid 2px #73A6FF;
