@@ -1,9 +1,25 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
--->
 
+    Copyright (C) 2010 Red Hat, Inc. All rights reserved
+
+    This is free software; you can redistribute it and/or modify it
+    under the terms of the GNU Lesser General Public License as
+    published by the Free Software Foundation; either version 2.1 of
+    the License, or (at your option) any later version.
+
+    This software is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public
+    License along with this software; if not, write to the Free
+    Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+    02110-1301 USA, or see the FSF site: http://www.fsf.org.
+
+    @author Nabil Benothman
+-->
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
@@ -13,18 +29,15 @@ and open the template in the editor.
                 xmlns:rich="http://richfaces.org/rich">
 
 
-    <br/><br/>
+    <br/>
+    <br/>
 
     <fieldset>
         <legend align="left"> Required Data </legend>
+        
         <br/>
-        <br/>
+        <h:panelGrid columns="2" cellpadding="10" cellspacing="10" width="60%">
 
-
-        <table cellpadding="10" cellspacing="10" width="60%">
-            <tbody>
-                <tr>
-                    <td>
             <gtn:bubbleInputText id="firstname" value="#{registerBean.data['user.name.given']}" title="First name"
                                  validator="#{inputTextValidatorBean.validate}" styleClass="trigger"
                                  errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
@@ -32,8 +45,7 @@ and open the template in the editor.
                                  size="40" label="First name">
                 <rich:ajaxValidator event="onblur" reRender="firstname" />
             </gtn:bubbleInputText>
-            </td>
-            <td>
+
             <gtn:bubbleInputText id="lastname" value="#{registerBean.data['user.name.family']}" title="Last name"
                                  validator="#{inputTextValidatorBean.validate}" styleClass="trigger"
                                  required="true" requiredMessage="Value is required"
@@ -41,18 +53,14 @@ and open the template in the editor.
                                  alt="Last name" size="40" label="Last name">
                 <rich:ajaxValidator event="onblur" reRender="lastname" />
             </gtn:bubbleInputText>
-            </td>
-            </tr>
-            <tr>
-                <td>
+
             <gtn:bubbleInputText id="email" value="#{registerBean.data['user.home-info.online.email']}" title="Email address"
                                  validator="#{emailValidatorBean.validate}" required="true" requiredMessage="Value is required"
                                  errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
                                  styleClass="trigger" size="40" label="Email address">
                 <rich:ajaxValidator event="onblur" reRender="email" />
             </gtn:bubbleInputText>
-            </td>
-            <td>
+
             <gtn:bubbleInputText id="username" value="#{registerBean.data['user.login.id']}" title="User name"
                                  validator="#{userNameValidatorBean.validate}" required="true" requiredMessage="Value is required"
                                  errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
@@ -60,10 +68,6 @@ and open the template in the editor.
                 <rich:ajaxValidator event="onblur" reRender="username" />
             </gtn:bubbleInputText>
 
-            </td>
-            </tr>
-            <tr>
-                <td>
             <gtn:inputSecret id="password" value="#{registerBean.data['gatein.user.password']}" required="true" size="40"
                              requiredMessage="Value is required" label="Password" labelClass="labelClass" styleClass="trigger"
                              errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
@@ -71,38 +75,33 @@ and open the template in the editor.
                 <f:validateLength minimum="7" maximum="21" />
                 <rich:ajaxValidator event="onblur" reRender="password" />
             </gtn:inputSecret>
-            </td>
-            <td>
+
             <gtn:inputSecret value="#{registerBean.data['gatein.user.confirmPassword']}" id="confirmPassword" size="40"
                              required="true" requiredMessage="Value is required" labelClass="labelClass"
                              errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
                              label="Confirm password" validator="#{passwordValidationBean.validate}" styleClass="trigger">
                 <rich:ajaxValidator event="onblur" reRender="confirmPassword" />
             </gtn:inputSecret>
-            </td>
-            </tr>
-            <tr>
-                <td>
-                    <br/>
-            <gtn:bubbleInputText id="answer" value="Answer" size="40" label="Answer"
-                                 validator="#{captchaValidatorBean.validate}" required="true" requiredMessage="Value is required"
-                                 errorClass="error" infoClass="success" styleClass="trigger" fatalClass="error" warnClass="warning">
 
-                <a4j:support event="onblur" reRender="captcha"/>
-            </gtn:bubbleInputText>
-            </td>
-            <td>
+            <h:panelGroup>
+                <br/>
+                <gtn:bubbleInputText id="answer" value="Answer" size="40" label="Answer"
+                                     validator="#{captchaValidatorBean.validate}" required="true" requiredMessage="Value is required"
+                                     errorClass="error" infoClass="success" styleClass="trigger" fatalClass="error" warnClass="warning">
+
+                    <a4j:support event="onblur" reRender="captcha" ajaxSingle="true"/>
+                </gtn:bubbleInputText>
+            </h:panelGroup>
+            <h:panelGroup>
                 <br/>
                 <br/>
-            <a4j:mediaOutput  id="captcha" session="false" element="img"
-                              cacheable="false"   mimeType="image/jpeg"
-                              createContent="#{mediaBean.paint}" value="#{mediaData}">
-                <f:param value="#{mediaBean.timeStamp}" name="time" />
-            </a4j:mediaOutput>
-            </td>
-            </tr>
-            </tbody>
-        </table>
+                <a4j:mediaOutput  id="captcha" session="false" element="img"
+                                  cacheable="false"   mimeType="image/jpeg"
+                                  createContent="#{mediaBean.paint}" value="#{mediaData}">
+                    <f:param value="#{mediaBean.timeStamp}" name="time" />
+                </a4j:mediaOutput>
+            </h:panelGroup>
+        </h:panelGrid>
         <br />
     </fieldset>
 
@@ -146,8 +145,8 @@ and open the template in the editor.
                     <h:outputText value="Gender : " />
                     <h:selectOneMenu value="#{registerBean.data['user.gender']}" id="gender">
                         <f:selectItem itemValue="" itemLabel="" />
-                        <f:selectItem itemValue="Male" itemLabel="Male" />
-                        <f:selectItem itemValue="Female" itemLabel="Female" />
+                        <f:selectItem itemValue="M" itemLabel="Male" />
+                        <f:selectItem itemValue="F" itemLabel="Female" />
                     </h:selectOneMenu>
                 </h:panelGroup>
                 <h:panelGroup layout="block">
@@ -324,12 +323,11 @@ if ($j.trim(this.value) == ''){
 
 });
 
-
     </script>
 
     <br/>
     <br/>
-    <a4j:commandButton value="Submit" action="#{registerBean.save}" />
+    <a4j:commandButton value="Submit" action="#{registerBean.save}"/>
     <rich:spacer />
     <a4j:commandButton value="Cancel" action="#{registerBean.cancel}" immediate="true" />
 

@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2010 Red Hat
+ *  Copyright (C) 2010 Red Hat, Inc. All rights reserved.
  *
  *  This is free software; you can redistribute it and/or modify it
  *  under the terms of the GNU Lesser General Public License as
@@ -19,12 +19,9 @@
 package org.jboss.gatein.portlet;
 
 import java.io.IOException;
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletException;
 import javax.portlet.PortletRequestDispatcher;
-import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.faces.GenericFacesPortlet;
@@ -41,7 +38,6 @@ import org.gatein.common.logging.LoggerFactory;
  */
 public class RegisterPortlet extends GenericFacesPortlet {
 
-    private static String jspDir = null;
     private static String viewPage = null;
     private static String editPage = null;
     private static String helpPage = null;
@@ -90,74 +86,42 @@ public class RegisterPortlet extends GenericFacesPortlet {
         editPage = config.getInitParameter("javax.portlet.faces.defaultViewId.edit");
         viewPage = config.getInitParameter("javax.portlet.faces.defaultViewId.view");
         helpPage = config.getInitParameter("javax.portlet.faces.defaultViewId.help");
-        /*
-        jspDir = config.getInitParameter("jspDir");
-        editPage = config.getInitParameter("EditPage");
-        viewPage = config.getInitParameter("ViewPage");
-        helpPage = config.getInitParameter("HelpPage");
-         */
         errorPage = config.getInitParameter("ErrorPage");
-
-    }
-
-    @Override
-    protected void doHeaders(RenderRequest request, RenderResponse response) {
-        super.doHeaders(request, response);
-        
-
     }
 
     /*
      * (non-Javadoc)
      * @see javax.portlet.GenericPortlet.doEdit(javax.portlet.RenderRequest, javax.portlet.RenderResponse)
-     *
+     */
     @Override
     public void doEdit(RenderRequest request, RenderResponse response) throws IOException, PortletException {
-    logger.info("Display Register Portlet edit page");
-    if (editPage == null) {
-    PortletConfig config = getPortletConfig();
-    editPage = config.getInitParameter("javax.portlet.faces.defaultViewId.edit");
-    }
+        logger.info("Display Register Portlet edit page");
+        if (editPage == null) {
+            PortletConfig config = getPortletConfig();
+            editPage = config.getInitParameter("javax.portlet.faces.defaultViewId.edit");
+        }
 
-    forward(request, response, editPage);
+        forward(request, response, editPage);
     }
 
     /*
      * (non-Javadoc)
      * @see javax.portlet.GenericPortlet.doView(javax.portlet.RenderRequest, javax.portlet.RenderResponse)
-     *
+     */
     @Override
     public void doView(RenderRequest request, RenderResponse response) throws IOException, PortletException {
-    logger.info("Display Register Portlet view page");
-    forward(request, response, viewPage);
+        logger.info("Display Register Portlet view page");
+        forward(request, response, viewPage);
     }
 
     /*
      * (non-Javadoc)
      * @see javax.portlet.GenericPortlet.doHelp(javax.portlet.RenderRequest, javax.portlet.RenderResponse)
-     *
+     */
     @Override
     public void doHelp(RenderRequest request, RenderResponse response) throws IOException, PortletException {
-    logger.info("Display Register Portlet help page");
-    forward(request, response, helpPage);
-    }
-
-
-
-
-    /*
-     * (non-Javadoc)
-     * @see javax.portlet.GenericPortlet.processAction(javax.portlet.ActionRequest, javax.portlet.ActionResponse)
-     *
-    @Override
-    public void processAction(ActionRequest request, ActionResponse response) throws PortletException, IOException {
-
-    logger.info("Process user action");
-
-    PortletSession session = request.getPortletSession(true);
-    // TODO
-
-
+        logger.info("Display Register Portlet help page");
+        forward(request, response, helpPage);
     }
 
     /**
@@ -178,6 +142,7 @@ public class RegisterPortlet extends GenericFacesPortlet {
 
     /**
      * Forward the request to the given page
+     * 
      * @param request The render request parameter
      * @param response The render response parameter
      * @param page The destination page

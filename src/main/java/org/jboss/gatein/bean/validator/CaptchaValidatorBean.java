@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2010 Red Hat
+ *  Copyright (C) 2010 Red Hat, Inc. All rights reserved.
  *
  *  This is free software; you can redistribute it and/or modify it
  *  under the terms of the GNU Lesser General Public License as
@@ -37,7 +37,6 @@ import org.jboss.gatein.bean.RegisterBean;
  */
 public class CaptchaValidatorBean implements Validator {
 
-    private RegisterBean registerBean;
     private MediaBean mediaBean;
 
     /**
@@ -87,19 +86,5 @@ public class CaptchaValidatorBean implements Validator {
      */
     public void setMediaBean(MediaBean mediaBean) {
         this.mediaBean = mediaBean;
-    }
-
-    /**
-     * @return the registerBean
-     */
-    public RegisterBean getRegisterBean() {
-        return registerBean;
-    }
-
-    /**
-     * @param registerBean the registerBean to set
-     */
-    public void setRegisterBean(RegisterBean registerBean) {
-        this.registerBean = registerBean;
     }
 }

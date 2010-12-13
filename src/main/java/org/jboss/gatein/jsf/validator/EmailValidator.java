@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2010 Red Hat
+ *  Copyright (C) 2010 Red Hat, Inc. All rights reserved.
  *
  *  This is free software; you can redistribute it and/or modify it
  *  under the terms of the GNU Lesser General Public License as
@@ -21,6 +21,8 @@ package org.jboss.gatein.jsf.validator;
 import java.util.regex.Matcher;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
+import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
@@ -28,7 +30,7 @@ import org.jboss.gatein.bean.RegisterBean;
 
 /**
  * {@code EmailValidator}
- *Checks that a given string is a well-formed email address.
+ * Checks that a given string is a well-formed email address.
  * <p>
  * The specification of a valid email can be found in
  * <a href="http://www.faqs.org/rfcs/rfc2822.html">RFC 2822</a>
@@ -43,16 +45,15 @@ import org.jboss.gatein.bean.RegisterBean;
  *
  * Created on Nov 20, 2010, 11:14:09 AM
  *
- * @author nabilbenothman
+ * @author Nabil Benothman
  * @version 1.0
  */
 public class EmailValidator implements Validator {
 
-
     private static final String ATOM = "[a-z0-9!#$%&'*+/=?^_`{|}~-]";
     private static final String DOMAIN = "(" + ATOM + "+(\\." + ATOM + "+)*";
     private static final String IP_DOMAIN = "\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\]";
-    private java.util.regex.Pattern pattern = java.util.regex.Pattern.compile(
+    private static final java.util.regex.Pattern pattern = java.util.regex.Pattern.compile(
             "^" + ATOM + "+(\\." + ATOM + "+)*@"
             + DOMAIN
             + "|"
@@ -73,15 +74,24 @@ public class EmailValidator implements Validator {
      *   javax.faces.component.UIComponent, java.lang.Object)
      */
     public void validate(FacesContext fc, UIComponent uic, Object o) throws ValidatorException {
+
         if (o != null) {
             if (!(o instanceof String)) {
                 throw new IllegalArgumentException("The value must be a String");
             }
             String value = (String) o;
-            
+            HtmlInputText htmlInputText = (HtmlInputText) uic;
+
+            if (value.trim().matches("\\s*")) {
+                htmlInputText.setStyle("border:solid 2px #FF0000;");
+                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Value is required!", "Value is required!"));
+            }
+
             if (!isValid(value)) {
+                htmlInputText.setStyle("border:solid 2px #FF0000;");
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid email format!", "Invalid email format!"));
             }
+            htmlInputText.setStyle("border:solid 2px #73A6FF;");
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "E-mail address well formed", "E-mail address well formed");
             fc.addMessage(uic.getClientId(fc), message);
         }
@@ -99,5 +109,4 @@ public class EmailValidator implements Validator {
         Matcher m = pattern.matcher(value);
         return m.matches();
     }
-
-   }
+}

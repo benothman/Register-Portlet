@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2010 Red Hat
+ *  Copyright (C) 2010 Red Hat, Inc. All rights reserved.
  *
  *  This is free software; you can redistribute it and/or modify it
  *  under the terms of the GNU Lesser General Public License as
@@ -30,7 +30,7 @@ import javax.faces.validator.ValidatorException;
  *
  * Created on Nov 29, 2010, 2:11:21 PM
  *
- * @author nabilbenothman
+ * @author Nabil Benothman
  * @version 1.0
  */
 public class ZipCodeValidator implements Validator {

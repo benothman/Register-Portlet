@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2010 Red Hat
+ *  Copyright (C) 2010 Red Hat, Inc. All rights reserved.
  *
  *  This is free software; you can redistribute it and/or modify it
  *  under the terms of the GNU Lesser General Public License as
@@ -31,7 +31,7 @@ import nl.captcha.backgrounds.GradiatedBackgroundProducer;
  *
  * Created on Dec 1, 2010, 3:16:15 PM
  *
- * @author nabilbenothman
+ * @author Nabil Benothman
  * @version 1.0
  */
 public class MediaBean {

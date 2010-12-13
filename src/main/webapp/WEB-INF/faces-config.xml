@@ -1,19 +1,35 @@
 <?xml version='1.0' encoding='UTF-8'?>
+<!--
 
-<!-- ============ FULL CONFIGURATION FILE ================================== -->
+    Copyright (C) 2010 Red Hat, Inc. All rights reserved
+
+    This is free software; you can redistribute it and/or modify it
+    under the terms of the GNU Lesser General Public License as
+    published by the Free Software Foundation; either version 2.1 of
+    the License, or (at your option) any later version.
+
+    This software is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public
+    License along with this software; if not, write to the Free
+    Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+    02110-1301 USA, or see the FSF site: http://www.fsf.org.
+
+    @author Nabil Benothman
+-->
 
 <faces-config version="1.2" 
     xmlns="http://java.sun.com/xml/ns/javaee" 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
 
+    <!-- Navigation rules -->
 
     <navigation-rule>
-        <from-view-id>/WEB-INF/jsf/viewContent.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>success</from-outcome>
-            <to-view-id>/WEB-INF/jsf/success.xhtml</to-view-id>
-        </navigation-case>
+        <from-view-id>/WEB-INF/jsf/*</from-view-id>
         <navigation-case>
             <from-outcome>failure</from-outcome>
             <to-view-id>/WEB-INF/jsf/error.xhtml</to-view-id>
@@ -22,78 +38,21 @@
             <from-outcome>cancel</from-outcome>
             <to-view-id>/WEB-INF/jsf/cancel.xhtml</to-view-id>
         </navigation-case>
-    </navigation-rule>
-    
-    <navigation-rule>
-        <from-view-id>/WEB-INF/jsf/cancel.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>restart</from-outcome>
-            <to-view-id>/WEB-INF/jsf/viewContent.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-
-    <navigation-rule>
-        <from-view-id>/WEB-INF/jsf/success.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>restart</from-outcome>
-            <to-view-id>/WEB-INF/jsf/viewContent.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-
-    <navigation-rule>
-        <from-view-id>/WEB-INF/jsf/error.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>return</from-outcome>
-            <to-view-id>/WEB-INF/jsf/viewContent.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-
-
-    <!-- start of to be removed block -->
-    <navigation-rule>
-        <from-view-id>/viewContent.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>success</from-outcome>
-            <to-view-id>/success.xhtml</to-view-id>
+            <to-view-id>/WEB-INF/jsf/success.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>failure</from-outcome>
-            <to-view-id>/error.xhtml</to-view-id>
+            <from-outcome>view</from-outcome>
+            <to-view-id>/WEB-INF/jsf/viewContent.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>cancel</from-outcome>
-            <to-view-id>/cancel.xhtml</to-view-id>
+            <from-outcome>edit</from-outcome>
+            <to-view-id>/WEB-INF/jsf/editContent.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
-
-    <navigation-rule>
-        <from-view-id>/cancel.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>restart</from-outcome>
-            <to-view-id>/viewContent.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-
-    <navigation-rule>
-        <from-view-id>/success.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>restart</from-outcome>
-            <to-view-id>/viewContent.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-
-    <navigation-rule>
-        <from-view-id>/error.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>return</from-outcome>
-            <to-view-id>/viewContent.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-
-
-    <!-- end of to be removed block -->
-
-    <!-- Managed Bans declarations -->
+    
+    <!-- Managed Beans declarations -->
     <managed-bean>
         <managed-bean-name>resource</managed-bean-name>
         <managed-bean-class>org.jboss.gatein.bean.ResourceBean</managed-bean-class>
@@ -104,10 +63,6 @@
         <managed-bean-name>registerBean</managed-bean-name>
         <managed-bean-class>org.jboss.gatein.bean.RegisterBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
-        <managed-property>
-            <property-name>calendarBean</property-name>
-            <value>#{calendarBean}</value>
-        </managed-property>
         <managed-property>
             <property-name>mediaBean</property-name>
             <value>#{mediaBean}</value>
@@ -120,78 +75,81 @@
             <property-name>statusBean</property-name>
             <value>#{statusBean}</value>
         </managed-property>
+        <managed-property>
+            <property-name>navigationBean</property-name>
+            <value>#{navigationBean}</value>
+        </managed-property>
     </managed-bean>
+
     <managed-bean>
         <managed-bean-name>calendarBean</managed-bean-name>
         <managed-bean-class>org.jboss.gatein.bean.CalendarBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>editPreferenceBean</managed-bean-name>
+        <managed-bean-class>org.jboss.gatein.bean.EditPreferenceBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>navigationBean</property-name>
+            <value>#{navigationBean}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>navigationBean</managed-bean-name>
+        <managed-bean-class>org.jboss.gatein.bean.NavigationBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+
     <managed-bean>
         <managed-bean-name>passwordValidationBean</managed-bean-name>
         <managed-bean-class>org.jboss.gatein.bean.validator.PasswordValidationBean</managed-bean-class>
-
-        <managed-bean-scope>request</managed-bean-scope>
-        <managed-property>
-            <property-name>registerBean</property-name>
-            <value>#{registerBean}</value>
-        </managed-property></managed-bean>
-    <managed-bean>
-        <managed-bean-name>captchaValidatorBean</managed-bean-name>
-        <managed-bean-class>org.jboss.gatein.bean.validator.CaptchaValidatorBean</managed-bean-class>
-
         <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
             <property-name>registerBean</property-name>
             <value>#{registerBean}</value>
         </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>captchaValidatorBean</managed-bean-name>
+        <managed-bean-class>org.jboss.gatein.bean.validator.CaptchaValidatorBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
             <property-name>mediaBean</property-name>
             <value>#{mediaBean}</value>
-        </managed-property></managed-bean>
+        </managed-property>
+    </managed-bean>
+
     <managed-bean>
         <managed-bean-name>emailValidatorBean</managed-bean-name>
         <managed-bean-class>org.jboss.gatein.bean.validator.EmailValidatorBean</managed-bean-class>
-
         <managed-bean-scope>request</managed-bean-scope>
-        <managed-property>
-            <property-name>registerBean</property-name>
-            <value>#{registerBean}</value>
-        </managed-property></managed-bean>
+    </managed-bean>
+
     <managed-bean>
         <managed-bean-name>userNameValidatorBean</managed-bean-name>
         <managed-bean-class>org.jboss.gatein.bean.validator.UserNameValidatorBean</managed-bean-class>
-
         <managed-bean-scope>request</managed-bean-scope>
-        <managed-property>
-            <property-name>registerBean</property-name>
-            <value>#{registerBean}</value>
-        </managed-property></managed-bean>
+    </managed-bean>
+
     <managed-bean>
         <managed-bean-name>zipCodeValidatorBean</managed-bean-name>
         <managed-bean-class>org.jboss.gatein.bean.validator.ZipCodeValidatorBean</managed-bean-class>
-
         <managed-bean-scope>request</managed-bean-scope>
-        <managed-property>
-            <property-name>registerBean</property-name>
-            <value>#{registerBean}</value>
-        </managed-property></managed-bean>
+    </managed-bean>
+
     <managed-bean>
         <managed-bean-name>inputTextValidatorBean</managed-bean-name>
         <managed-bean-class>org.jboss.gatein.bean.validator.InputTextValidatorBean</managed-bean-class>
-
         <managed-bean-scope>request</managed-bean-scope>
-        <managed-property>
-            <property-name>registerBean</property-name>
-            <value>#{registerBean}</value>
-        </managed-property></managed-bean>
+    </managed-bean>
+
     <managed-bean>
         <managed-bean-name>appBean</managed-bean-name>
         <managed-bean-class>org.jboss.gatein.bean.ApplicationBean</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>profileMappingBean</managed-bean-name>
-        <managed-bean-class>org.jboss.gatein.bean.ProfileMappingBean</managed-bean-class>
         <managed-bean-scope>application</managed-bean-scope>
     </managed-bean>
 
@@ -200,6 +158,7 @@
         <managed-bean-class>org.jboss.gatein.bean.MediaBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+
     <managed-bean>
         <managed-bean-name>statusBean</managed-bean-name>
         <managed-bean-class>org.jboss.gatein.bean.StatusBean</managed-bean-class>
@@ -209,23 +168,6 @@
     <managed-bean>
         <managed-bean-name>mediaData</managed-bean-name>
         <managed-bean-class>org.jboss.gatein.bean.MediaData</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-    
-    <managed-bean>
-        <managed-bean-name>paintBean</managed-bean-name>
-        <managed-bean-class>org.jboss.gatein.bean.PaintBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-
-    <managed-bean>
-        <managed-bean-name>paintData</managed-bean-name>
-        <managed-bean-class>org.jboss.gatein.bean.PaintData</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>testBean</managed-bean-name>
-        <managed-bean-class>org.jboss.gatein.bean.TestBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 

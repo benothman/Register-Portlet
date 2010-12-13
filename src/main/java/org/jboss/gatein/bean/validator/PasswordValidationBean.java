@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2010 Red Hat
+ *  Copyright (C) 2010 Red Hat, Inc. All rights reserved.
  *
  *  This is free software; you can redistribute it and/or modify it
  *  under the terms of the GNU Lesser General Public License as
@@ -87,9 +87,9 @@ public class PasswordValidationBean implements Serializable, Validator {
      * @see javax.faces.validator.Validator.validate(javax.faces.context.FacesContext,
      *   javax.faces.component.UIComponent, java.lang.Object)
      */
-    public void validate2(FacesContext fc, UIComponent uic, Object value) {
-        if (value != null) {
-            this.registerBean.put("gatein.user.password", value);
+    public void validate2(FacesContext fc, UIComponent uic, Object o) {
+        if (o != null) {
+            this.registerBean.put("gatein.user.password", o);
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Password accepted!", "Password value accepted");
             fc.addMessage(uic.getClientId(fc), message);
         }

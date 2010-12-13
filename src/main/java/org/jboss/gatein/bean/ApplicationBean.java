@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2010 Red Hat
+ *  Copyright (C) 2010 Red Hat, Inc. All rights reserved.
  *
  *  This is free software; you can redistribute it and/or modify it
  *  under the terms of the GNU Lesser General Public License as
@@ -51,6 +51,11 @@ public class ApplicationBean implements Serializable {
     private Properties props;
     private boolean loaded = false;
     private UIComponents uicomponents;
+    public static final String SUCCESS = "success";
+    public static final String FAILURE = "failure";
+    public static final String CANCEL = "cancel";
+    public static final String RESTART = "restart";
+    public static final String RETURN = "return";
     private static final Logger logger = LoggerFactory.getLogger(ApplicationBean.class);
     private static final String PROPS_PATH = "/WEB-INF/profile-config.xml";
     private static final String UI_COMP_PATH = "/WEB-INF/ui-components-config.xml";

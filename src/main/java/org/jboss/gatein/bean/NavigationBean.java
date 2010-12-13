@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2010 Red Hat
+ *  Copyright (C) 2010 Red Hat, Inc. All rights reserved.
  *
  *  This is free software; you can redistribute it and/or modify it
  *  under the terms of the GNU Lesser General Public License as
@@ -18,50 +18,45 @@
  */
 package org.jboss.gatein.bean;
 
-import java.io.Serializable;
-
 /**
- * {@code PaintData}
+ * {@code NavigationBean}
  *
- * Created on Dec 1, 2010, 3:26:55 PM
+ * Created on Dec 10, 2010, 3:45:04 PM
  *
- * @author nabilbenothman
+ * @author Nabil Benothman
  * @version 1.0
  */
-public class PaintData implements Serializable {
+public class NavigationBean {
 
-    String text = "hello world";
-    int color;
-    float scale;
+    public static final String VIEW_ACTION = "view";
+    public static final String EDIT_ACTION = "edit";
+    private String page = VIEW_ACTION;
 
     /**
-     * Create a new instance of {@code PaintData}
+     * Create a new instance of {@code NavigationBean}
      */
-    public PaintData() {
+    public NavigationBean() {
         super();
     }
 
-    public int getColor() {
-        return color;
+    /**
+     * @return The page to which the view will be redirected
+     */
+    public String page() {
+        return this.page;
     }
 
-    public void setColor(int color) {
-        this.color = color;
+    /**
+     * Set the view to the view mode
+     */
+    public void setViewAction() {
+        this.page = VIEW_ACTION;
     }
 
-    public float getScale() {
-        return scale;
-    }
-
-    public void setScale(float scale) {
-        this.scale = scale;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
+    /**
+     * Set the view to the edit mode
+     */
+    public void setEditAction() {
+        this.page = EDIT_ACTION;
     }
 }

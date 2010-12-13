@@ -1,4 +1,5 @@
-<%--
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
 
     Copyright (C) 2010 Red Hat, Inc. All rights reserved
 
@@ -18,9 +19,21 @@
     02110-1301 USA, or see the FSF site: http://www.fsf.org.
 
     @author Nabil Benothman
---%>
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:gtn="http://www.jboss.org/gatein"
+                xmlns:rich="http://richfaces.org/rich">
 
-<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
+    <br/>
+    <br/>
+    <a4j:commandButton value="Submit" action="#{editPreferenceBean.save}"/>
+    <rich:spacer />
+    <a4j:commandButton value="Cancel" action="#{editPreferenceBean.cancel}" immediate="true" />
+    <rich:spacer />
+    <a4j:commandButton value="Error" action="#{editPreferenceBean.error}" immediate="true" />
 
-<jsp:forward page="../jsf/edit.jsf" />
-
+</ui:composition>

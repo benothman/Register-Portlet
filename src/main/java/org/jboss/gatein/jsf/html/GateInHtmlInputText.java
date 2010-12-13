@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2010 Red Hat
+ *  Copyright (C) 2010 Red Hat, Inc. All rights reserved.
  *
  *  This is free software; you can redistribute it and/or modify it
  *  under the terms of the GNU Lesser General Public License as
@@ -41,6 +41,37 @@ public class GateInHtmlInputText extends HtmlInputText implements Serializable {
         this.setValue(this.getLabel());
     }
 
+
+    /*
+    @Override
+    public void validate(FacesContext fc) {
+        Object submittedValue = getSubmittedValue();
+        if (submittedValue == null) {
+            return;
+        }
+        String newValue = (String) submittedValue;
+        if (this.isRequired() && newValue.matches("\\s*")) {
+            String requiredMessageStr = getRequiredMessage();
+            FacesMessage message;
+            if (null != requiredMessageStr) {
+                message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        requiredMessageStr,
+                        requiredMessageStr);
+            } else {
+                message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                        "Value is required!",
+                        "The value is required and should not be empty or null!");
+            }
+            
+            this.setStyle("border:solid 2px #FF0000;");
+            fc.addMessage(getClientId(fc), message);
+            setValid(false);
+            return;
+        }
+
+        super.validate(fc);
+    }
+     */
     @Override
     public Object getSubmittedValue() {
         String value = (String) super.getSubmittedValue();

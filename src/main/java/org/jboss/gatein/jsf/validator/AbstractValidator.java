@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2010 Red Hat
+ *  Copyright (C) 2010 Red Hat, Inc. All rights reserved.
  *
  *  This is free software; you can redistribute it and/or modify it
  *  under the terms of the GNU Lesser General Public License as
@@ -28,7 +28,7 @@ import org.jboss.gatein.bean.RegisterBean;
  *
  * Created on Dec 6, 2010, 1:15:14 PM
  *
- * @author nabilbenothman
+ * @author Nabil Benothman
  * @version 1.0
  */
 public abstract class AbstractValidator implements Validator {

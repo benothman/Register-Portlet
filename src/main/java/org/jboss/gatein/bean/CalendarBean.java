@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2010 Red Hat
+ *  Copyright (C) 2010 Red Hat, Inc. All rights reserved.
  *
  *  This is free software; you can redistribute it and/or modify it
  *  under the terms of the GNU Lesser General Public License as
@@ -34,6 +34,7 @@ import org.gatein.common.logging.LoggerFactory;
 /**
  * {@code CalendarBean}
  * Utility class for calendar
+ * 
  * Created on Nov 8, 2010, 2:14:35 PM
  *
  * @author Nabil Benothman

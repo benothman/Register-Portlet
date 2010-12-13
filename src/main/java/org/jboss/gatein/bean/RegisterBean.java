@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2010 Red Hat
+ *  Copyright (C) 2010 Red Hat, Inc. All rights reserved.
  *
  *  This is free software; you can redistribute it and/or modify it
  *  under the terms of the GNU Lesser General Public License as
@@ -50,16 +50,11 @@ import org.gatein.common.logging.LoggerFactory;
 public class RegisterBean implements Serializable {
 
     private static final Logger logger = LoggerFactory.getLogger(RegisterBean.class);
-    public static final String SUCCESS = "success";
-    public static final String FAILURE = "failure";
-    public static final String CANCEL = "cancel";
-    public static final String RESTART = "restart";
-    public static final String RETURN = "return";
-    private CalendarBean calendarBean;
     private ApplicationBean appBean;
     private Map<String, Object> data;
     private MediaBean mediaBean;
     private StatusBean statusBean;
+    private NavigationBean navigationBean;
 
     /**
      * Create a new instance of {@code RegisterBean}
@@ -76,6 +71,7 @@ public class RegisterBean implements Serializable {
         this.data = new HashMap<String, Object>();
         //fillDefaultValues();
         this.mediaBean.initCaptcha();
+        this.statusBean.reset();
     }
 
     /**
@@ -119,13 +115,9 @@ public class RegisterBean implements Serializable {
      */
     public String save() {
         logger.info("Starting saving values");
+        this.navigationBean.setViewAction();
+        this.statusBean.reset();
 
-        this.statusBean.setStatus(null);
-        this.statusBean.setError(null);
-
-        FacesContext fc = FacesContext.getCurrentInstance();
-        ExternalContext exCtx = fc.getExternalContext();
-        exCtx.getRequest();
         ExoContainer container = ExoContainerContext.getContainerByName("portal");
         OrganizationService orgService = (OrganizationService) container.getComponentInstanceOfType(OrganizationService.class);
 
@@ -143,30 +135,23 @@ public class RegisterBean implements Serializable {
             username = (String) this.data.get(usernameKey);
         } else {
             // normally this case shouldn't happens
-            this.statusBean.setStatus(null);
-            this.statusBean.setError("The username is required!");
-
-            return FAILURE;
+            return this.error("The username is required!");
         }
-
 
         // to be removed because it is already done by the validator
         try {
             if (userHandler.findUserByName(username) != null) {
-                this.statusBean.setError("The username is already used!");
-                return FAILURE;
+                return this.error("The username is already used!");
             }
         } catch (Exception exp) {
             logger.error("An error occurs while looking for user : " + exp.getMessage());
-            this.statusBean.setError(exp.getMessage());
-
-            return FAILURE;
+            return this.error("An error occurs while looking for user : " + exp.getMessage());
         }
 
         User user = userHandler.createUserInstance(username);
         UserProfile userProfile = userProfileHandler.createUserProfileInstance(username);
 
-        // retrieving main properties (according to JSR 286)
+        // retrieving main properties (according to JSR-286)
 
         // setting password (if any)
         String passwordKey = "gatein.user.password";
@@ -177,7 +162,7 @@ public class RegisterBean implements Serializable {
         }
         usedKeys.add(passwordKey);
 
-        // setting firstName (if any)
+        // setting first name (if any)
         String firstnameKey = "user.name.given";
         if (this.data.get(firstnameKey) != null) {
             String firstname = (String) this.data.get(firstnameKey);
@@ -186,7 +171,7 @@ public class RegisterBean implements Serializable {
         }
         usedKeys.add(firstnameKey);
 
-        // setting lastName (if any)
+        // setting last name (if any)
         String lastnameKey = "user.name.family";
         if (this.data.get(lastnameKey) != null) {
             String lastname = (String) this.data.get(lastnameKey);
@@ -231,30 +216,27 @@ public class RegisterBean implements Serializable {
                     userProfile.setAttribute(key + ".ymd.day", day.toString());
                 } else {
                     String stringVal = (String) value;
-                    if (!stringVal.trim().matches("\\s*")) {
+                    if (stringVal.trim().length() > 0) {
                         userProfile.setAttribute(key, stringVal);
                     }
                 }
             }
         }
 
-        // reset the register bean (captcha, default values, etc.)
-        this.init();
-
         // save user and user profile
         try {
             userHandler.createUser(user, true);
             userProfileHandler.saveUserProfile(userProfile, true);
         } catch (Exception exp) {
-            logger.error("an error occurs while saving user and/or user profile : " + exp.getMessage());
-            this.statusBean.setError("An error occurs while saving user and/or user profile : " + exp.getMessage());
-
-            return FAILURE;
+            logger.error("An error occurs while saving user and/or user profile : " + exp.getMessage());
+            return this.error("An error occurs while saving user and/or user profile : " + exp.getMessage());
         }
 
+        // reset the register bean (captcha, default values, etc.)
+        this.init();
         this.statusBean.setStatus("The registration is finished with success!");
 
-        return SUCCESS;
+        return ApplicationBean.SUCCESS;
     }
 
     /**
@@ -277,7 +259,7 @@ public class RegisterBean implements Serializable {
 
         // reset captcha and default values, useful to the reuse of the same captcha mutiple times
         this.init();
-        return SUCCESS;
+        return ApplicationBean.SUCCESS;
 
     }
 
@@ -287,7 +269,8 @@ public class RegisterBean implements Serializable {
      */
     public String cancel() {
         this.init();
-        return CANCEL;
+        this.navigationBean.setViewAction();
+        return ApplicationBean.CANCEL;
     }
 
     /**
@@ -295,10 +278,7 @@ public class RegisterBean implements Serializable {
      * @return <i>RESTART</i> field value
      */
     public String restart() {
-        this.mediaBean.initCaptcha();
-        this.statusBean.setError(null);
-        this.statusBean.setStatus(null);
-        return RESTART;
+        return ApplicationBean.RESTART;
     }
 
     /**
@@ -306,23 +286,17 @@ public class RegisterBean implements Serializable {
      * @return
      */
     public String returnTo() {
+        return ApplicationBean.RETURN;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public String error(String message) {
         this.mediaBean.initCaptcha();
-        this.statusBean.setStatus(null);
-        return RETURN;
-    }
-
-    /**
-     * @return the calendarBean
-     */
-    public CalendarBean getCalendarBean() {
-        return calendarBean;
-    }
-
-    /**
-     * @param calendarBean the calendarBean to set
-     */
-    public void setCalendarBean(CalendarBean calendarBean) {
-        this.calendarBean = calendarBean;
+        this.statusBean.setError(message);
+        return ApplicationBean.FAILURE;
     }
 
     /**
@@ -379,5 +353,19 @@ public class RegisterBean implements Serializable {
      */
     public void setStatusBean(StatusBean statusBean) {
         this.statusBean = statusBean;
+    }
+
+    /**
+     * @return the navigationBean
+     */
+    public NavigationBean getNavigationBean() {
+        return navigationBean;
+    }
+
+    /**
+     * @param navigationBean the navigationBean to set
+     */
+    public void setNavigationBean(NavigationBean navigationBean) {
+        this.navigationBean = navigationBean;
     }
 }

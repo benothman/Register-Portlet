@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2010 Red Hat
+ *  Copyright (C) 2010 Red Hat, Inc. All rights reserved.
  *
  *  This is free software; you can redistribute it and/or modify it
  *  under the terms of the GNU Lesser General Public License as
@@ -21,7 +21,6 @@ package org.jboss.gatein.bean.validator;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
-import org.jboss.gatein.bean.RegisterBean;
 import org.jboss.gatein.jsf.validator.EmailValidator;
 
 /**
@@ -29,12 +28,10 @@ import org.jboss.gatein.jsf.validator.EmailValidator;
  *
  * Created on Dec 6, 2010, 11:48:50 AM
  *
- * @author nabilbenothman
+ * @author Nabil Benothman
  * @version 1.0
  */
 public class EmailValidatorBean extends EmailValidator {
-
-    private RegisterBean registerBean;
 
     /**
      * Create a new instance of {@code EmailValidatorBean}
@@ -51,19 +48,5 @@ public class EmailValidatorBean extends EmailValidator {
         } catch (ValidatorException exp) {
             throw exp;
         }
-    }
-
-    /**
-     * @return the registerBean
-     */
-    public RegisterBean getRegisterBean() {
-        return registerBean;
-    }
-
-    /**
-     * @param registerBean the registerBean to set
-     */
-    public void setRegisterBean(RegisterBean registerBean) {
-        this.registerBean = registerBean;
     }
 }

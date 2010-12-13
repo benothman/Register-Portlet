@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2010 Red Hat
+ *  Copyright (C) 2010 Red Hat, Inc. All rights reserved.
  *
  *  This is free software; you can redistribute it and/or modify it
  *  under the terms of the GNU Lesser General Public License as
@@ -29,12 +29,10 @@ import org.jboss.gatein.jsf.validator.UserNameValidator;
  *
  * Created on Dec 6, 2010, 12:58:27 PM
  *
- * @author nabilbenothman
+ * @author Nabil Benothman
  * @version 1.0
  */
 public class UserNameValidatorBean extends UserNameValidator {
-
-    private RegisterBean registerBean;
 
     /**
      * Create a new instance of {@code UserNameValidatorBean}
@@ -50,19 +48,5 @@ public class UserNameValidatorBean extends UserNameValidator {
         } catch (ValidatorException exp) {
             throw exp;
         }
-    }
-
-    /**
-     * @return the registerBean
-     */
-    public RegisterBean getRegisterBean() {
-        return registerBean;
-    }
-
-    /**
-     * @param registerBean the registerBean to set
-     */
-    public void setRegisterBean(RegisterBean registerBean) {
-        this.registerBean = registerBean;
     }
 }
