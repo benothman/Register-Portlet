@@ -24,10 +24,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import javax.annotation.PostConstruct;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import org.exoplatform.container.ExoContainer;
 import org.exoplatform.container.ExoContainerContext;
@@ -54,7 +54,6 @@ public class RegisterBean implements Serializable {
     private Map<String, Object> data;
     private MediaBean mediaBean;
     private StatusBean statusBean;
-    private NavigationBean navigationBean;
 
     /**
      * Create a new instance of {@code RegisterBean}
@@ -96,7 +95,7 @@ public class RegisterBean implements Serializable {
     /**
      * Fill default values in the data
      */
-    private void fillDefaultValues() {
+    protected void fillDefaultValues() {
 
         if (this.appBean.getAppData() != null) {
             Set<String> keys = this.appBean.getAppData().keySet();
@@ -115,7 +114,6 @@ public class RegisterBean implements Serializable {
      */
     public String save() {
         logger.info("Starting saving values");
-        this.navigationBean.setViewAction();
         this.statusBean.reset();
 
         ExoContainer container = ExoContainerContext.getContainerByName("portal");
@@ -247,18 +245,10 @@ public class RegisterBean implements Serializable {
 
         logger.info("Starting saving values");
 
-
-
-        ExternalContext exCtx = FacesContext.getCurrentInstance().getExternalContext();
-
-        exCtx.getRequest();
-        //ResourceRequest request = (ResourceRequest) exCtx.getRequest();
-        //PortletSession session = request.getPortletSession(true);
-
         // TODO
 
         // reset captcha and default values, useful to the reuse of the same captcha mutiple times
-        this.init();
+        //this.init();
         return ApplicationBean.SUCCESS;
 
     }
@@ -269,7 +259,6 @@ public class RegisterBean implements Serializable {
      */
     public String cancel() {
         this.init();
-        this.navigationBean.setViewAction();
         return ApplicationBean.CANCEL;
     }
 
@@ -298,6 +287,22 @@ public class RegisterBean implements Serializable {
         this.statusBean.setError(message);
         return ApplicationBean.FAILURE;
     }
+
+    /**
+     * 
+     * @return
+     */
+    public String error() {
+        return this.error("Test error action");
+    }
+
+
+    
+    public String changeLocale() {
+        FacesContext.getCurrentInstance().getViewRoot().setLocale(Locale.FRENCH);
+        return "view";
+    }
+
 
     /**
      * @return the data
@@ -353,19 +358,5 @@ public class RegisterBean implements Serializable {
      */
     public void setStatusBean(StatusBean statusBean) {
         this.statusBean = statusBean;
-    }
-
-    /**
-     * @return the navigationBean
-     */
-    public NavigationBean getNavigationBean() {
-        return navigationBean;
-    }
-
-    /**
-     * @param navigationBean the navigationBean to set
-     */
-    public void setNavigationBean(NavigationBean navigationBean) {
-        this.navigationBean = navigationBean;
     }
 }

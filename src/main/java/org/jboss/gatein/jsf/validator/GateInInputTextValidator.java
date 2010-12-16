@@ -18,6 +18,7 @@
  */
 package org.jboss.gatein.jsf.validator;
 
+import java.util.ResourceBundle;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlInputText;
@@ -34,7 +35,6 @@ import javax.faces.validator.ValidatorException;
  * @version 1.0
  */
 public class GateInInputTextValidator implements Validator {
-
 
     /**
      * Create a new instance of {@code GateInInputTextValidator}
@@ -58,21 +58,37 @@ public class GateInInputTextValidator implements Validator {
             String value = ((String) o).trim();
             HtmlInputText inputText = (HtmlInputText) uic;
 
+            ResourceBundle resourceBundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(fc, "msg");
+            String validationMessage = null;
+
             if (value.matches("\\s*")) {
+                validationMessage = resourceBundle.getString("javax.faces.component.UIInput.REQUIRED");
+                if (validationMessage == null) {
+                    validationMessage = "Value is required!";
+                }
+
                 throw new ValidatorException(
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Value is required!",
-                        "The input value connot be empty"));
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, validationMessage, validationMessage));
             }
 
             String label = inputText.getLabel();
             if (value.equalsIgnoreCase(label)) {
-                throw new ValidatorException(
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "The introduced value is not valid!",
-                        "The value " + value + " is not accepted!"));
-            }
-        }
+                validationMessage = resourceBundle.getString("gatein.input.text");
+                if (validationMessage == null) {
+                    validationMessage = "The introduced value is not valid!";
+                }
 
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "The introduced value is accepted", "The introduced value is accepted");
-        fc.addMessage(uic.getClientId(fc), message);
+                throw new ValidatorException(
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, validationMessage, validationMessage));
+            }
+            // value accepted
+            validationMessage = resourceBundle.getString("gatein.input.text.accepted");
+            if (validationMessage == null) {
+                validationMessage = "The introduced value is accepted";
+            }
+
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, validationMessage, validationMessage);
+            fc.addMessage(uic.getClientId(fc), message);
+        }
     }
 }

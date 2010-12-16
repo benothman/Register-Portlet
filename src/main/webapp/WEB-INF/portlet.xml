@@ -25,9 +25,7 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd"> 
     <portlet>
         <description>
-            Register Portlet allows administrator to register new users, or users
-            to register themselves if the administrator give them access.
-            This portlet is based on JSF (richfaces) and aims to replace the existing one
+            Register Portlet is based on JSF (richfaces) and aims to replace the existing one
             built with eXo PlatForm WebUI.
         </description>
         <portlet-name>JSFRegisterPortlet</portlet-name>
@@ -42,48 +40,21 @@
 
         <init-param>
             <name>javax.portlet.faces.defaultViewId.view</name>
-            <value>/WEB-INF/jsf/view.xhtml</value>
+            <value>/faces/index.xhtml</value>
         </init-param>
-        <init-param>
+        <!--init-param>
             <name>javax.portlet.faces.defaultViewId.edit</name>
             <value>/WEB-INF/jsf/edit.xhtml</value>
         </init-param>
         <init-param>
             <name>javax.portlet.faces.defaultViewId.help</name>
             <value>/WEB-INF/jsf/help.xhtml</value>
-        </init-param>
-
-        <init-param>
-            <name>jspDir</name>
-            <value>/WEB-INF/jsp/</value>
-        </init-param>
-        <init-param>
-            <name>ViewPage</name>
-            <value>/WEB-INF/jsp/view.jsp</value>
-        </init-param>
-        <init-param>
-            <name>EditPage</name>
-            <value>/WEB-INF/jsp/edit.jsp</value>
-        </init-param>
-        <init-param>
-            <name>HelpPage</name>
-            <value>/WEB-INF/jsp/help.jsp</value>
-        </init-param>
-        <init-param>
-            <name>ErrorPage</name>
-            <value>/WEB-INF/jsp/error.jsp</value>
-        </init-param>
-        <init-param>
-            <name>ErrorPageJSF</name>
-            <value>/WEB-INF/jsf/error.xhtml</value>
-        </init-param>
+        </init-param -->
 
         <expiration-cache>0</expiration-cache>
         <supports>
             <mime-type>text/html</mime-type>
             <portlet-mode>view</portlet-mode>
-            <portlet-mode>edit</portlet-mode>
-            <portlet-mode>help</portlet-mode>
         </supports>
         <portlet-info>
             <title>Register Portlet</title>

@@ -19,6 +19,7 @@
 package org.jboss.gatein.bean.validator;
 
 import java.io.Serializable;
+import java.util.ResourceBundle;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -55,29 +56,52 @@ public class PasswordValidationBean implements Serializable, Validator {
         if (value != null) {
             String confirmPassword = (String) value;
 
+            //retrieve the resoure bundle of the application
+            ResourceBundle resourceBundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(fc, "msg");
+
             if (confirmPassword.matches("\\s*")) {
-                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        "Password cannot be null nor empty!", "Password connot be empty!"));
+                String requiredMessage = resourceBundle.getString("gatein.password.empty");
+                if (requiredMessage == null) {
+                    requiredMessage = "Password connot be empty!";
+                }
+                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, requiredMessage, requiredMessage));
             }
             // the password must have 7 characters at least
             if (confirmPassword.length() < 7) {
-                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        "Password length must contain 7 characters at least", "Password must be 7 chars+ !"));
+                String lengthMessage = resourceBundle.getString("gatein.password.length");
+                if (lengthMessage == null) {
+                    lengthMessage = "Password must be 7 chars+ !";
+                }
+
+                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, lengthMessage, lengthMessage));
             }
             String password = (String) this.registerBean.get("gatein.user.password");
 
+            String validationMessage = null;
+
             if (password == null) {
-                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        "Please fill the password field first", "Fill the password field first"));
+                validationMessage = resourceBundle.getString("gatein.password.fill");
+                if (validationMessage == null) {
+                    validationMessage = "Fill the password field first";
+                }
+
+                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, validationMessage, validationMessage));
             }
 
             if (!password.equals(confirmPassword)) {
-                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Wrong input value",
-                        "Password does not match!"));
+                validationMessage = resourceBundle.getString("gatein.password.match");
+                if (validationMessage == null) {
+                    validationMessage = "Password does not match!";
+                }
+                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, validationMessage, validationMessage));
             }
             // if validation passes with success
+            validationMessage = resourceBundle.getString("gatein.password.correct");
+            if (validationMessage == null) {
+                validationMessage = "The two values are identical and accepted";
+            }
 
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "The two values are identical and accepted!", "The two values are identical and accepted");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, validationMessage, validationMessage);
             fc.addMessage(uic.getClientId(fc), message);
         }
     }
@@ -90,7 +114,13 @@ public class PasswordValidationBean implements Serializable, Validator {
     public void validate2(FacesContext fc, UIComponent uic, Object o) {
         if (o != null) {
             this.registerBean.put("gatein.user.password", o);
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Password accepted!", "Password value accepted");
+            ResourceBundle resourceBundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(fc, "msg");
+            String validationMessage = resourceBundle.getString("gatein.password.accepted");
+            if (validationMessage == null) {
+                validationMessage = "Password value accepted";
+            }
+
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, validationMessage, validationMessage);
             fc.addMessage(uic.getClientId(fc), message);
         }
     }

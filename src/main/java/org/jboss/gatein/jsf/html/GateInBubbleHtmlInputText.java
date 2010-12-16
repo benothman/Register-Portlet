@@ -19,6 +19,7 @@
 package org.jboss.gatein.jsf.html;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -114,7 +115,7 @@ public class GateInBubbleHtmlInputText extends GateInHtmlInputText {
 
         writer.startElement("td", null);
 
-        this.initMessage();
+        this.initMessage(fc);
         this.htmlMessgae.encodeAll(fc);
         writer.endElement("td");
 
@@ -173,7 +174,7 @@ public class GateInBubbleHtmlInputText extends GateInHtmlInputText {
     /**
      * Initialize the HTML message parameters before encoding it
      */
-    private void initMessage() {
+    private void initMessage(FacesContext fc) {
 
         UIComponent tmp = null;
         for (UIComponent uic : this.getChildren()) {
@@ -192,7 +193,16 @@ public class GateInBubbleHtmlInputText extends GateInHtmlInputText {
 
         String passedLabel = this.getLabel() != null ? this.getLabel() : " ";
         if (this.isRequired()) {
-            passedLabel += " : required field";
+            ResourceBundle resourceBundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(fc, "msg");
+            String text = null;
+            if (resourceBundle != null) {
+                text = resourceBundle.getString("gatein.input.field");
+            }
+            if (text == null) {
+                text = "required field";
+            }
+
+            passedLabel += " : " + text;
         }
 
         this.htmlMessgae.setPassedLabel(passedLabel);

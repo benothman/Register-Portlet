@@ -18,16 +18,13 @@
  */
 package org.jboss.gatein.jsf.validator;
 
+import java.util.ResourceBundle;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
-import org.exoplatform.container.ExoContainer;
-import org.exoplatform.container.ExoContainerContext;
-import org.exoplatform.services.organization.OrganizationService;
-import org.exoplatform.services.organization.UserHandler;
 
 /**
  * {@code UserNameValidator}
@@ -58,33 +55,56 @@ public class UserNameValidator implements Validator {
             }
             String value = ((String) o).trim();
             HtmlInputText inputText = (HtmlInputText) uic;
+
+            ResourceBundle resourceBundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(fc, "msg");
+            String validationMessage = null;
+
+
             if (value.matches("\\s*")) {
+                validationMessage = resourceBundle.getString("javax.faces.component.UIInput.REQUIRED");
+                if (validationMessage == null) {
+                    validationMessage = "Value is required!";
+                }
+
                 throw new ValidatorException(
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Value is required!",
-                        "The username connot be empty"));
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, validationMessage, validationMessage));
             }
 
             String label = inputText.getLabel();
             if (value.equalsIgnoreCase(label)) {
+                validationMessage = resourceBundle.getString("user.login.id.validation");
+                if (validationMessage == null) {
+                    validationMessage = "The introduced value is not valid!";
+                }
+
                 throw new ValidatorException(
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "The introduced value is not valid!",
-                        "The value " + value + " is not accepted!"));
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, validationMessage, validationMessage));
             }
 
+            /*
             ExoContainer container = ExoContainerContext.getContainerByName("portal");
             OrganizationService orgService = (OrganizationService) container.getComponentInstanceOfType(OrganizationService.class);
             UserHandler userHandler = orgService.getUserHandler();
 
             try {
                 if (userHandler.findUserByName(value) != null) {
+                    validationMessage = resourceBundle.getString("user.login.id.exists");
+                    if (validationMessage == null) {
+                        validationMessage = "The username is already used!";
+                    }
+
                     throw new ValidatorException(
-                            new FacesMessage(FacesMessage.SEVERITY_ERROR, "Username already exist", "The username is already used!"));
+                            new FacesMessage(FacesMessage.SEVERITY_ERROR, validationMessage, validationMessage));
                 }
             } catch (Exception exp) {
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error while accessing database", exp.getMessage()));
             }
-
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "The username is accepted", "The username is accepted");
+            */
+            validationMessage = resourceBundle.getString("user.login.id.accepted");
+            if (validationMessage == null) {
+                validationMessage = "The username is accepted";
+            }
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, validationMessage, validationMessage);
             fc.addMessage(uic.getClientId(fc), message);
         }
     }

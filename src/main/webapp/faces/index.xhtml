@@ -30,12 +30,12 @@
 
 
     <ui:define name="content">
-        <rich:panel style="width:70%" id="eidt-panel">
+        <rich:panel style="width:60%" id="rigister-panel">
             <f:facet name="header">
-                <h:outputText value="Edit the portlet preferences" style="text-align: center" />
+                <h:outputText value="#{msg['action.create.header']}" style="text-align: center" />
             </f:facet>
-            <h:form>
-                <a4j:include viewId="/WEB-INF/jsf/editContent.xhtml" />
+            <h:form id="register">
+                <a4j:include id="include" viewId="/faces/viewContent.xhtml" />
             </h:form>
         </rich:panel>
     </ui:define>

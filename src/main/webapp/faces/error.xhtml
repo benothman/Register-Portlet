@@ -34,12 +34,14 @@
     <rich:panel style="border:0;width:90%;text-align:center">
         <rich:panel>
             <f:facet name="header">
-                <h:outputText value="Process error" />
+                <h:outputText value="#{msg['action.error.header']}" />
             </f:facet>
-            <h:outputText value="#{statusBean.error}" style="font-weight:bold;color:#FF0000;"/>
+            <h:outputText value="#{msg['action.error']} : #{statusBean.error}" style="font-weight:bold;color:#FF0000;"/>
             <br/>
-            <a4j:commandButton action="#{navigationBean.page}" value="Return"/>
+            <a4j:commandButton action="view" value="#{msg['action.return']}"/>
         </rich:panel>
     </rich:panel>
+    <br/>
+    <br/>
     <br/>
 </ui:composition>

@@ -83,7 +83,6 @@ public class ApplicationConfigLoader {
      * Print out the XML content of the given element
      *
      * @param o the element to print out
-     * @param jc the <code>JAXBContext</code>
      * @throws Exception
      */
     public void printXML(Object o) throws Exception {

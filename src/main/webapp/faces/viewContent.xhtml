@@ -33,43 +33,47 @@
     <br/>
 
     <fieldset>
-        <legend align="left"> Required data </legend>
+        <legend align="left"> #{msg['data.required']} </legend>
 
         <br/>
-        <h:panelGrid columns="2" cellpadding="10" cellspacing="10" width="60%">
 
-            <gtn:bubbleInputText id="firstname" value="#{registerBean.data['user.name.given']}" title="First name"
+        <h:panelGrid columns="2" cellpadding="10" cellspacing="10" width="90%">
+
+            <gtn:bubbleInputText id="firstname" value="#{registerBean.data['user.name.given']}" title="#{msg['user.name.given']}"
                                  validator="#{inputTextValidatorBean.validate}" styleClass="trigger"
                                  errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
-                                 required="true" requiredMessage="Value is required" alt="First name"
-                                 size="40" label="First name">
+                                 required="true" requiredMessage="#{msg['javax.faces.component.UIInput.REQUIRED']}"
+                                 alt="First name" size="40" label="#{msg['user.name.given']}">
                 <rich:ajaxValidator event="onblur" reRender="firstname" />
             </gtn:bubbleInputText>
 
-            <gtn:bubbleInputText id="lastname" value="#{registerBean.data['user.name.family']}" title="Last name"
-                                 validator="#{inputTextValidatorBean.validate}" styleClass="trigger"
-                                 required="true" requiredMessage="Value is required"
+            <gtn:bubbleInputText id="lastname" value="#{registerBean.data['user.name.family']}" title="#{msg['user.name.family']}"
+                                 validator="#{inputTextValidatorBean.validate}" styleClass="trigger" 
+                                 required="true"  requiredMessage="#{msg['javax.faces.component.UIInput.REQUIRED']}"
                                  errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
-                                 alt="Last name" size="40" label="Last name">
+                                 alt="Last name" size="40" label="#{msg['user.name.family']}">
                 <rich:ajaxValidator event="onblur" reRender="lastname" />
             </gtn:bubbleInputText>
 
-            <gtn:bubbleInputText id="email" value="#{registerBean.data['user.home-info.online.email']}" title="Email address"
-                                 validator="#{emailValidatorBean.validate}" required="true" requiredMessage="Value is required"
+            <gtn:bubbleInputText id="email" value="#{registerBean.data['user.home-info.online.email']}" title="#{msg['user.home-info.online.email']}"
+                                 validator="#{emailValidatorBean.validate}" 
+                                 required="true" requiredMessage="#{msg['javax.faces.component.UIInput.REQUIRED']}"
                                  errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
-                                 styleClass="trigger" size="40" label="Email address">
+                                 styleClass="trigger" size="40" label="#{msg['user.home-info.online.email']}">
                 <rich:ajaxValidator event="onblur" reRender="email" />
             </gtn:bubbleInputText>
 
-            <gtn:bubbleInputText id="username" value="#{registerBean.data['user.login.id']}" title="User name"
-                                 validator="#{userNameValidatorBean.validate}" required="true" requiredMessage="Value is required"
+            <gtn:bubbleInputText id="username" value="#{registerBean.data['user.login.id']}" title="#{msg['user.login.id']}"
+                                 validator="#{userNameValidatorBean.validate}" 
+                                 required="true" requiredMessage="#{msg['javax.faces.component.UIInput.REQUIRED']}"
                                  errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
-                                 styleClass="trigger" size="40" label="User name">
+                                 styleClass="trigger" size="40" label="#{msg['user.login.id']}">
                 <rich:ajaxValidator event="onblur" reRender="username" />
             </gtn:bubbleInputText>
 
             <gtn:inputSecret id="password" value="#{registerBean.data['gatein.user.password']}" required="true" size="40"
-                             requiredMessage="Value is required" label="Password" labelClass="labelClass" styleClass="trigger"
+                             requiredMessage="#{msg['javax.faces.component.UIInput.REQUIRED']}"
+                             label="#{msg['gatein.user.password']}" labelClass="labelClass" styleClass="trigger"
                              errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
                              validator="#{passwordValidationBean.validate2}">
                 <f:validateLength minimum="7" maximum="21" />
@@ -77,21 +81,13 @@
             </gtn:inputSecret>
 
             <gtn:inputSecret id="confirmPassword" value="#{registerBean.data['gatein.user.confirmPassword']}" size="40"
-                             required="true" requiredMessage="Value is required" labelClass="labelClass"
+                             required="true" requiredMessage="#{msg['javax.faces.component.UIInput.REQUIRED']}" labelClass="labelClass"
                              errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
-                             label="Confirm password" validator="#{passwordValidationBean.validate}" styleClass="trigger">
+                             label="#{msg['gatein.user.confirmPassword']}" validator="#{passwordValidationBean.validate}" styleClass="trigger">
                 <rich:ajaxValidator event="onblur" reRender="confirmPassword" />
             </gtn:inputSecret>
 
-            <h:panelGroup>
-                <br/>
-                <gtn:bubbleInputText id="answer" value="Answer" size="40" label="Answer"
-                                     validator="#{captchaValidatorBean.validate}" required="true" requiredMessage="Value is required"
-                                     errorClass="error" infoClass="success" styleClass="trigger" fatalClass="error" warnClass="warning">
 
-                    <a4j:support event="onblur" reRender="captcha" ajaxSingle="true"/>
-                </gtn:bubbleInputText>
-            </h:panelGroup>
             <h:panelGroup>
                 <br/>
                 <br/>
@@ -101,7 +97,18 @@
                     <f:param value="#{mediaBean.timeStamp}" name="time" />
                 </a4j:mediaOutput>
             </h:panelGroup>
+            <h:panelGroup>
+                <br/>
+                <gtn:bubbleInputText id="captcha-verification" size="40" label="#{msg['gatein.text.verification']}"
+                                     validator="#{captchaValidatorBean.validate}"
+                                     required="true" requiredMessage="#{msg['javax.faces.component.UIInput.REQUIRED']}"
+                                     errorClass="error" infoClass="success" styleClass="trigger" fatalClass="error" warnClass="warning">
+
+                    <a4j:support event="onblur" reRender="captcha" ajaxSingle="true"/>
+                </gtn:bubbleInputText>
+            </h:panelGroup>
         </h:panelGrid>
+
         <br />
     </fieldset>
 
@@ -112,14 +119,14 @@
         <rich:effect for="hide" event="onclick" type="BlindUp" targetId="moreOptionsPanel" params="id:'moreOptionsPanel', duration:1.0" />
         <rich:effect for="hide" event="onclick" type="Appear" targetId="look" params="delay:1.5, duration:0.5" />
         <rich:effect for="hide" event="onclick" type="Fade" targetId="hide" params="delay:0.0, duration:0.1" />
-        <h:outputText escape="false" style="color: #045491;font-weight : bold;" value="Hide..."/>
+        <h:outputText escape="false" style="color: #045491;font-weight : bold;" value="#{msg['option.hide']}"/>
     </a4j:outputPanel>
     <a4j:outputPanel styleClass="viewsourcelooklink" id="look" style="float: left">
         <rich:effect for="look" event="onclick" type="Fade" params="delay:0.0, duration:0.1" disableDefault="true"/>
         <rich:effect for="look" event="onclick" type="BlindDown" targetId="moreOptionsPanel" params="delay:0.1,duration:1.0,from:0.0,to:1.0"/>
         <rich:effect for="look" event="onclick" type="Appear"  targetId="moreOptionsPanel"  params="delay:0.1,duration:0.5,from:0.0,to:1.0" />
         <rich:effect for="look" event="onclick" type="Appear"  targetId="hide"  params="delay:1.5,duration:1.0,from:0.0,to:1.0" />
-        <h:outputText escape="false" style="color: #045491;font-weight : bold;" value="More..."/>
+        <h:outputText escape="false" style="color: #045491;font-weight : bold;" value="#{msg['option.more']}"/>
     </a4j:outputPanel>
 
     <br/>
@@ -127,32 +134,32 @@
 
     <rich:panel id="moreOptionsPanel" style="display:none">
         <fieldset>
-            <legend align="left"> Optional data </legend>
+            <legend align="left"> #{msg['data.optional']} </legend>
 
             <h:panelGrid columns="2" cellpadding="5" cellspacing="5" width="100%">
 
                 <h:panelGroup>
-                    <h:outputText value="Title : " />
-                    <h:selectOneMenu value="#{registerBean.data['gatein.user.title']}" id="title">
-                        <f:selectItem itemValue="" itemLabel="" />
-                        <f:selectItem itemValue="Mr" itemLabel="Mr" />
-                        <f:selectItem itemValue="Mrs" itemLabel="Mrs" />
-                        <f:selectItem itemValue="Ms" itemLabel="Ms" />
+                    <h:outputText value="#{msg['gatein.user.title']} : " />
+                    <h:selectOneMenu value="#{registerBean.data['gatein.user.title']}" id="title" tabindex="1">
+                        <f:selectItem id="titleEmptyLabel" itemValue="" itemLabel="" />
+                        <f:selectItem id="selectMr" itemValue="Mr" itemLabel="#{msg['gatein.user.title.m']}" />
+                        <f:selectItem id="selectMrs" itemValue="Mrs" itemLabel="#{msg['gatein.user.title.mrs']}" />
+                        <f:selectItem id="selectMs" itemValue="Ms" itemLabel="#{msg['gatein.user.title.ms']}" />
                     </h:selectOneMenu>
 
                     <rich:spacer width="20" />
 
-                    <h:outputText value="Gender : " />
-                    <h:selectOneMenu value="#{registerBean.data['user.gender']}" id="gender">
-                        <f:selectItem itemValue="" itemLabel="" />
-                        <f:selectItem itemValue="M" itemLabel="Male" />
-                        <f:selectItem itemValue="F" itemLabel="Female" />
+                    <h:outputText value="#{mag['user.gender']} : " />
+                    <h:selectOneMenu value="#{registerBean.data['user.gender']}" id="gender" tabindex="2">
+                        <f:selectItem id="genderEmptyLabel"  itemValue="" itemLabel="" />
+                        <f:selectItem id="selectMale" itemValue="M" itemLabel="#{msg['user.gender.male']}" />
+                        <f:selectItem id="selectFemale" itemValue="F" itemLabel="#{msg['user.gender.female']}" />
                     </h:selectOneMenu>
                 </h:panelGroup>
                 <h:panelGroup layout="block">
-                    <h:outputText value="Birthday : " />
+                    <h:outputText value="#{msg['user.bdate']} : " />
                     <a4j:outputPanel id="calendar" layout="inline">
-                        <rich:calendar value="#{registerBean.data['user.bdate']}"
+                        <rich:calendar value="#{registerBean.data['user.bdate']}" tabindex="3"
                                        locale="#{calendarBean.locale}"
                                        popup="#{calendarBean.popup}"
                                        datePattern="#{calendarBean.pattern}"
@@ -164,9 +171,11 @@
                 <rich:spacer />
 
 
-                <gtn:inputText value="#{registerBean.data['user.home-info.postal.street']}" label="Street" size="40" />
+                <gtn:inputText id="address-street" value="#{registerBean.data['user.home-info.postal.street']}"
+                               label="#{msg['user.home-info.postal.street']}" size="40" tabindex="4"
+                               title="#{msg['user.home-info.postal.street']}"/>
 
-                <h:outputText value="Contacts " styleClass="labelClass"/>
+                <h:outputText value="#{msg['gatein.contact']} " styleClass="labelClass"/>
 
                 <rich:spacer />
                 <rich:spacer />
@@ -174,41 +183,49 @@
                 <h:panelGroup>
                     <gtn:inputText id="zipCode" value="#{registerBean.data['user.home-info.postal.postalcode']}" size="10"
                                    converterMessage="The input must be an Integer" validator="#{zipCodeValidatorBean.validate}"
-                                   label="Postal code">
+                                   label="#{msg['user.home-info.postal.postalcode']}"
+                                   title="#{msg['user.home-info.postal.postalcode']}" tabindex="5">
                         <rich:ajaxValidator event="onblur" reRender="status_message, error_message"/>
                     </gtn:inputText>
-                    <gtn:inputText value="#{registerBean.data['user.home-info.postal.city']}" label="City" size="23" />
+                    <gtn:inputText id="address-city" value="#{registerBean.data['user.home-info.postal.city']}"
+                                   label="#{msg['user.home-info.postal.city']}" size="23" tabindex="6"
+                                   title="#{msg['user.home-info.postal.city']}" />
                 </h:panelGroup>
-                <gtn:inputText value="#{registerBean.data['gatein.user.twitter']}" label="twitter" size="40" />
+                <gtn:inputText id="user-twitter" value="#{registerBean.data['gatein.user.twitter']}" label="twitter" size="40" tabindex="11" />
 
                 <rich:message for="zipCode"  errorClass="error" infoClass="success" fatalClass="error" warnClass="warning" />
                 <rich:spacer />
 
-                <gtn:inputText value="#{registerBean.data['user.home-info.postal.stateprov']}" size="40" label="State" />
-                <gtn:inputText value="#{registerBean.data['gatein.user.skype']}" label="Skype" size="40" />
+                <gtn:inputText id="address-state" value="#{registerBean.data['user.home-info.postal.stateprov']}" size="40" 
+                               label="#{msg['user.home-info.postal.stateprov']}"
+                               title="#{msg['user.home-info.postal.stateprov']}" tabindex="7" />
+                <gtn:inputText id="user-skype" value="#{registerBean.data['gatein.user.skype']}" label="Skype" size="40" tabindex="12" />
 
                 <rich:spacer />
                 <rich:spacer />
 
                 <h:panelGroup>
-                    <h:outputLabel for="address-country" value="Country : " />
-                    <h:selectOneMenu id="address-country" value="#{registerBean.data['user.home-info.postal.country']}">
+                    <h:outputLabel for="address-country" value="#{msg['user.home-info.postal.country']} : " />
+                    <h:selectOneMenu id="address-country" value="#{registerBean.data['user.home-info.postal.country']}" tabindex="8">
                         <f:selectItems value="#{appBean.countries}" />
                     </h:selectOneMenu>
                 </h:panelGroup>
-                <gtn:inputText value="#{registerBean.data['gatein.user.msn']}" label="MSN" size="40" />
+                <gtn:inputText id="user-msn" value="#{registerBean.data['gatein.user.msn']}" label="MSN" size="40" tabindex="13" />
 
                 <rich:spacer />
                 <rich:spacer />
 
-                <gtn:inputText value="#{registerBean.data['user.home-info.telecom.telephone.number']}" label="Phone number" size="40" />
-                <gtn:inputText value="#{registerBean.data['gatein.user.linkedIn']}" label="LinkedIn" size="40" />
+                <gtn:inputText id="user-phone" value="#{registerBean.data['user.home-info.telecom.telephone.number']}" 
+                               label="#{msg['user.home-info.telecom.telephone.number']}"
+                               title="#{msg['user.home-info.telecom.telephone.number']}" size="40" tabindex="9" />
+                <gtn:inputText id="user-linkedin" value="#{registerBean.data['gatein.user.linkedIn']}" label="LinkedIn" size="40" tabindex="14" />
 
                 <rich:spacer />
                 <rich:spacer />
 
-                <gtn:inputText value="#{registerBean.data['user.home-info.telecom.mobile.number']}" label="Mobile number" size="40" />
-                <gtn:inputText value="#{registerBean.data['gatein.user.icq']}" size="40" label="ICQ" />
+                <gtn:inputText id="user-mobile" value="#{registerBean.data['user.home-info.telecom.mobile.number']}" 
+                               label="#{msg['user.home-info.telecom.mobile.number']}" size="40" tabindex="10" />
+                <gtn:inputText id="user-icq" value="#{registerBean.data['gatein.user.icq']}" size="40" label="ICQ" tabindex="15" />
 
                 <rich:spacer />
                 <rich:spacer />
@@ -224,8 +241,10 @@ $j = jQuery.noConflict();
 $j(function () {
 $j('.bubbleInfo').each(function () {
 var distance = 10;
+// animation time
 var time = 250;
-var hideDelay = 500;
+// delay to hide the bubble info. message
+var hideDelay = 1000;
 
 var hideDelayTimer = null;
 
@@ -327,8 +346,12 @@ if ($j.trim(this.value) == ''){
 
     <br/>
     <br/>
-    <a4j:commandButton value="Submit" action="#{registerBean.save}"/>
+    <a4j:commandButton id="submit-form" value="#{msg['button.action.submit']}" action="#{registerBean.save2}"/>
     <rich:spacer />
-    <a4j:commandButton value="Cancel" action="#{registerBean.cancel}" immediate="true" />
+    <a4j:commandButton id="cancel" value="#{msg['button.action.cancel']}" action="#{registerBean.cancel}" immediate="true" />
+    <rich:spacer />
+    <a4j:commandButton id="error" value="Error" action="#{registerBean.error}" immediate="true" />
+    <rich:spacer />
+    <a4j:commandButton id="locale" value="French" action="#{registerBean.changeLocale}" immediate="true" />
 
 </ui:composition>

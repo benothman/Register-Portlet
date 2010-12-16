@@ -27,31 +27,31 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
 
     <!-- Navigation rules -->
-
+ 
     <navigation-rule>
-        <from-view-id>/WEB-INF/jsf/*</from-view-id>
+        <from-view-id>/faces/viewContent.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>failure</from-outcome>
-            <to-view-id>/WEB-INF/jsf/error.xhtml</to-view-id>
+            <to-view-id>/faces/error.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>cancel</from-outcome>
-            <to-view-id>/WEB-INF/jsf/cancel.xhtml</to-view-id>
+            <to-view-id>/faces/cancel.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>success</from-outcome>
-            <to-view-id>/WEB-INF/jsf/success.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>view</from-outcome>
-            <to-view-id>/WEB-INF/jsf/viewContent.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>edit</from-outcome>
-            <to-view-id>/WEB-INF/jsf/editContent.xhtml</to-view-id>
+            <to-view-id>/faces/success.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
-    
+
+    <navigation-rule>
+        <from-view-id>/faces/*</from-view-id>
+        <navigation-case>
+            <from-outcome>view</from-outcome>
+            <to-view-id>/faces/viewContent.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
     <!-- Managed Beans declarations -->
     <managed-bean>
         <managed-bean-name>resource</managed-bean-name>
@@ -75,32 +75,12 @@
             <property-name>statusBean</property-name>
             <value>#{statusBean}</value>
         </managed-property>
-        <managed-property>
-            <property-name>navigationBean</property-name>
-            <value>#{navigationBean}</value>
-        </managed-property>
     </managed-bean>
 
     <managed-bean>
         <managed-bean-name>calendarBean</managed-bean-name>
         <managed-bean-class>org.jboss.gatein.bean.CalendarBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-
-    <managed-bean>
-        <managed-bean-name>editPreferenceBean</managed-bean-name>
-        <managed-bean-class>org.jboss.gatein.bean.EditPreferenceBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-        <managed-property>
-            <property-name>navigationBean</property-name>
-            <value>#{navigationBean}</value>
-        </managed-property>
-    </managed-bean>
-
-    <managed-bean>
-        <managed-bean-name>navigationBean</managed-bean-name>
-        <managed-bean-class>org.jboss.gatein.bean.NavigationBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
 
     <managed-bean>
@@ -177,10 +157,6 @@
         <validator-class>org.jboss.gatein.jsf.validator.GateInInputTextValidator</validator-class>
     </validator>
     <validator>
-        <validator-id>passwordValidator</validator-id>
-        <validator-class>org.jboss.gatein.jsf.validator.PasswordValidator</validator-class>
-    </validator>
-    <validator>
         <validator-id>userNameValidator</validator-id>
         <validator-class>org.jboss.gatein.jsf.validator.UserNameValidator</validator-class>
     </validator>
@@ -226,6 +202,14 @@
                 <excluded-attribute>org.jboss.gatein.bean.*</excluded-attribute>
             </excluded-attributes>
         </application-extension -->
+        <resource-bundle>
+            <base-name>messages</base-name>
+            <var>msg</var>
+        </resource-bundle>
+        <locale-config>
+            <default-locale>en</default-locale>
+            <supported-locale>fr</supported-locale>
+        </locale-config>
     </application>
 
 </faces-config>

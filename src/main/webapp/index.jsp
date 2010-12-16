@@ -21,11 +21,11 @@
     @author Nabil Benothman
 --%>
 
-<!-- jsp:forward page="index.jsf" / -->
+<jsp:forward page="/faces/index.jsf" />
 
-<%
+<%--
             String hostname = request.getRequestURL().toString();
             String splits[] = hostname.split("/+");
             hostname = splits[0] + "//" + splits[1] + "/portal";
             response.sendRedirect(hostname);
-%>
+--%>

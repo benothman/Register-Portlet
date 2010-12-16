@@ -34,13 +34,17 @@
     <rich:panel style="border:0;width:90%;text-align:center">
         <rich:panel>
             <f:facet name="header">
-                <h:outputText value="Process canceled" />
+                <h:outputText value="#{msg['action.success.header']}" />
             </f:facet>
-            <h:outputText value="You canceled the action" style="font-weight:bold;color:#FF0000;"/>
-            <br/>
-            <a4j:commandButton action="#{navigationBean.page}" value="Restart"/>
+
+            <h:outputText value="#{msg['action.success']}" style="color: #00FF00;" /><br />
+
+            <a4j:commandButton action="view" value="#{msg['action.restart']}"/>
         </rich:panel>
     </rich:panel>
+
+    <br/>
+    <br/>
     <br/>
 
 </ui:composition>

@@ -18,15 +18,14 @@
  */
 package org.jboss.gatein.jsf.validator;
 
+import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
-import org.jboss.gatein.bean.RegisterBean;
 
 /**
  * {@code EmailValidator}
@@ -82,17 +81,36 @@ public class EmailValidator implements Validator {
             String value = (String) o;
             HtmlInputText htmlInputText = (HtmlInputText) uic;
 
+            ResourceBundle resourceBundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(fc, "msg");
+            String validationMessage = null;
+
             if (value.trim().matches("\\s*")) {
+                validationMessage = resourceBundle.getString("javax.faces.component.UIInput.REQUIRED");
+                if (validationMessage == null) {
+                    validationMessage = "Value is required!";
+                }
+
                 htmlInputText.setStyle("border:solid 2px #FF0000;");
-                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Value is required!", "Value is required!"));
+                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, validationMessage, validationMessage));
             }
 
             if (!isValid(value)) {
+                validationMessage = resourceBundle.getString("gatein.email.format.invalid");
+                if (validationMessage == null) {
+                    validationMessage = "Invalid email format!";
+                }
+
+
                 htmlInputText.setStyle("border:solid 2px #FF0000;");
-                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid email format!", "Invalid email format!"));
+                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, validationMessage, validationMessage));
             }
+            validationMessage = resourceBundle.getString("gatein.email.format.valid");
+            if (validationMessage == null) {
+                validationMessage = "E-mail address well formed!";
+            }
+
             htmlInputText.setStyle("border:solid 2px #73A6FF;");
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "E-mail address well formed", "E-mail address well formed");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, validationMessage, validationMessage);
             fc.addMessage(uic.getClientId(fc), message);
         }
     }

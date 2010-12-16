@@ -18,6 +18,7 @@
  */
 package org.jboss.gatein.jsf.validator;
 
+import java.util.ResourceBundle;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlInputText;
@@ -36,6 +37,7 @@ import javax.faces.validator.ValidatorException;
 public class ZipCodeValidator implements Validator {
 
 
+
     /**
      * Create a new instance of {@code ZipCodeValidator}
      */
@@ -51,18 +53,37 @@ public class ZipCodeValidator implements Validator {
     public void validate(FacesContext fc, UIComponent uic, Object o) throws ValidatorException {
         if (o != null) {
             String value = ((String) o).trim();
-            String label = ((HtmlInputText)uic).getLabel();
+            String label = ((HtmlInputText) uic).getLabel();
             if (!value.matches("\\s*") && !value.equalsIgnoreCase(label)) {
+
+                //retrieve the resoure bundle of the application
+                ResourceBundle resourceBundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(fc, "msg");
+                String validationMessage = null;
                 try {
                     int zipCode = Integer.parseInt(value);
                     if (zipCode < 1 || zipCode > 500000) {
-                        throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Value must be between 1 and 500000!", "Value must be between 1 and 500000!"));
+                        validationMessage = resourceBundle.getString("gatein.zipcode.range");
+                        if (validationMessage == null) {
+                            validationMessage = "Value must be between 1 and 500000!";
+                        }
+                        throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, validationMessage, validationMessage));
                     }
                 } catch (NumberFormatException nfe) {
+                    validationMessage = resourceBundle.getString("gatein.zipcode.format");
+                    if (validationMessage == null) {
+                        validationMessage = "Input must be an integer!";
+                    }
+
                     throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                            "Input must be an integer!", "Input must be an integer"));
+                            validationMessage, validationMessage));
                 }
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Value accepted", "Value accepted");
+
+                validationMessage = resourceBundle.getString("gatein.zipcode.accepted");
+                if (validationMessage == null) {
+                    validationMessage = "Value accepted!";
+                }
+
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, validationMessage, validationMessage);
                 fc.addMessage(uic.getClientId(fc), message);
             }
         }

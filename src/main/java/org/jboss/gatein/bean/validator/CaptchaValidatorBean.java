@@ -18,14 +18,15 @@
  */
 package org.jboss.gatein.bean.validator;
 
+import java.util.ResourceBundle;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import nl.captcha.Captcha;
 import org.jboss.gatein.bean.MediaBean;
-import org.jboss.gatein.bean.RegisterBean;
 
 /**
  * {@code CaptchaValidatorBean}
@@ -57,19 +58,28 @@ public class CaptchaValidatorBean implements Validator {
                 throw new IllegalArgumentException("The value must be a String");
             }
             String value = ((String) o).trim();
-
+            //retrieve the resoure bundle of the application
+            ResourceBundle resourceBundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(fc, "msg");
+            String validationMessage = null;
             if (value.matches("\\s*")) {
+                validationMessage = resourceBundle.getString(UIInput.REQUIRED_MESSAGE_ID);
+                if (validationMessage == null) {
+                    validationMessage = "Value is required!";
+                }
 
-                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Value is required!", "Value is required!"));
+                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, validationMessage, validationMessage));
             }
 
             Captcha captcha = this.mediaBean.getCaptcha();
 
             if (!captcha.isCorrect(value)) {
                 this.mediaBean.initCaptcha();
-                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "The answer is not correct!", "The answer is not correct!"));
+                validationMessage = resourceBundle.getString("gatein.captcha.answer.error");
+                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, validationMessage, validationMessage));
             }
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct answer", "The answer is correct");
+            
+            validationMessage = resourceBundle.getString("gatein.captcha.answer.correct");
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, validationMessage, validationMessage);
             fc.addMessage(uic.getClientId(fc), message);
         }
     }

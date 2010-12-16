@@ -22,7 +22,11 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
 import javax.annotation.PostConstruct;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import nl.captcha.Captcha;
 import nl.captcha.backgrounds.GradiatedBackgroundProducer;
 
@@ -48,6 +52,15 @@ public class MediaBean {
     @PostConstruct
     public void initCaptcha() {
         this.captcha = new Captcha.Builder(200, 50).addText().addBackground(new GradiatedBackgroundProducer()).gimp().addNoise().addBorder().build();
+        String answer = this.captcha.getAnswer();
+        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
+        try {
+            HttpServletRequest request = (HttpServletRequest) ectx.getRequest();
+            HttpSession session = request.getSession(true);
+            session.setAttribute("captcha_answer", answer);
+        } catch (Exception exp) {
+            System.out.println(exp.getMessage());
+        }
     }
 
     /**

@@ -3,19 +3,19 @@
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
         <Node id="index.jsp" x="150" y="150" zoom="true"/>
-        <Node id="template.xhtml" x="62" y="835" zoom="true"/>
+        <Node id="faces/*" x="650" y="150" zoom="true"/>
+        <Node id="faces/error.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="faces/viewContent.xhtml" x="400" y="150" zoom="true"/>
         <Node id="WEB-INF/jsf/viewContent.xhtml" x="744" y="734" zoom="true"/>
-        <Node id="success.xhtml" x="357" y="147" zoom="true"/>
-        <Node id="captcha.xhtml" x="137" y="197" zoom="true"/>
-        <Node id="WEB-INF/jsf/error.xhtml" x="797" y="454" zoom="true"/>
+        <Node id="faces/success.xhtml" x="400" y="450" zoom="true"/>
         <Node id="WEB-INF/jsf/*" x="546" y="589" zoom="true"/>
-        <Node id="error.xhtml" x="353" y="100" zoom="true"/>
+        <Node id="WEB-INF/jsf/error.xhtml" x="797" y="454" zoom="true"/>
+        <Node id="faces/template.xhtml" x="650" y="300" zoom="true"/>
         <Node id="WEB-INF/jsf/cancel.xhtml" x="510" y="457" zoom="true"/>
-        <Node id="index.xhtml" x="149" y="102" zoom="true"/>
         <Node id="WEB-INF/jsf/editContent.xhtml" x="138" y="734" zoom="true"/>
+        <Node id="faces/cancel.xhtml" x="900" y="150" zoom="true"/>
         <Node id="WEB-INF/jsf/success.xhtml" x="203" y="457" zoom="true"/>
-        <Node id="viewContent.xhtml" x="906" y="822" zoom="true"/>
-        <Node id="cancel.xhtml" x="368" y="193" zoom="true"/>
+        <Node id="faces/index.xhtml" x="150" y="300" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>
 </Scene>
