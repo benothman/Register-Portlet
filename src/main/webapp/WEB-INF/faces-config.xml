@@ -182,6 +182,10 @@
         <component-type>org.jboss.gatein.jsf.html.GateInBubbleHtmlInputText</component-type>
         <component-class>org.jboss.gatein.jsf.html.GateInBubbleHtmlInputText</component-class>
     </component>
+    <component>
+        <component-type>org.jboss.gatein.jsf.html.GateInHtmlInputSecret</component-type>
+        <component-class>org.jboss.gatein.jsf.html.GateInHtmlInputSecret</component-class>
+    </component>
 
     <!-- Custom renderers -->
     <render-kit>

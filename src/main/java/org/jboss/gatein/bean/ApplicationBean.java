@@ -56,6 +56,7 @@ public class ApplicationBean implements Serializable {
     public static final String CANCEL = "cancel";
     public static final String RESTART = "restart";
     public static final String RETURN = "return";
+    public static final String VIEW = "view";
     private static final Logger logger = LoggerFactory.getLogger(ApplicationBean.class);
     private static final String PROPS_PATH = "/WEB-INF/profile-config.xml";
     private static final String UI_COMP_PATH = "/WEB-INF/ui-components-config.xml";

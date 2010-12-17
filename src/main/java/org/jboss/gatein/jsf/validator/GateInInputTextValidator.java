@@ -21,6 +21,7 @@ package org.jboss.gatein.jsf.validator;
 import java.util.ResourceBundle;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
@@ -62,7 +63,7 @@ public class GateInInputTextValidator implements Validator {
             String validationMessage = null;
 
             if (value.matches("\\s*")) {
-                validationMessage = resourceBundle.getString("javax.faces.component.UIInput.REQUIRED");
+                validationMessage = resourceBundle.getString(UIInput.REQUIRED_MESSAGE_ID);
                 if (validationMessage == null) {
                     validationMessage = "Value is required!";
                 }

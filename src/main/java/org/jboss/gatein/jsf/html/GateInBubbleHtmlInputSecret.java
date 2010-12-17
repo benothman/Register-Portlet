@@ -21,7 +21,6 @@ package org.jboss.gatein.jsf.html;
 import java.io.IOException;
 import java.util.ResourceBundle;
 import javax.faces.component.UIComponent;
-import javax.faces.component.html.HtmlInputSecret;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import org.richfaces.component.html.HtmlRichMessage;
@@ -42,7 +41,7 @@ import org.richfaces.component.html.HtmlRichMessage;
  * @author Nabil Benothman
  * @version 1.0
  */
-public class GateInBubbleHtmlInputSecret extends HtmlInputSecret {
+public class GateInBubbleHtmlInputSecret extends GateInHtmlInputSecret {
 
     public static final String COMPONENT_TYPE = "org.jboss.gatein.jsf.html.GateInBubbleHtmlInputSecret";
     private HtmlRichMessage htmlMessgae;

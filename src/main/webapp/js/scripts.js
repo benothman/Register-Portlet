@@ -17,13 +17,16 @@
  *  02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+
 $j = jQuery.noConflict();
 
 $j(function () {
     $j('.bubbleInfo').each(function () {
         var distance = 10;
+        // animation time
         var time = 250;
-        var hideDelay = 500;
+        // delay to hide the bubble info. message
+        var hideDelay = 1000;
 
         var hideDelayTimer = null;
 
@@ -77,8 +80,11 @@ $j(function () {
             return false;
         });
     });
+});
 
-
+$j(document).ready(function() {
+    $j('input[type="text"]').addClass("idleField");
+    $j('input[type="password"]').addClass("idleField");
 
     // Remove idleField class and adding focusField class to the input type
     // text and password when the input aquire focus
@@ -116,19 +122,5 @@ $j(function () {
         }
     });
 
-
-
-
-
 });
-
-
-$j(document).ready(function() {
-    $j('input[type="text"]').addClass("idleField");
-    $j('input[type="password"]').addClass("idleField");
-    
-    
-});
-
-
 

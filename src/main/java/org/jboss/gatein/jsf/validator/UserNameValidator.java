@@ -21,10 +21,15 @@ package org.jboss.gatein.jsf.validator;
 import java.util.ResourceBundle;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
+import org.exoplatform.container.ExoContainer;
+import org.exoplatform.container.ExoContainerContext;
+import org.exoplatform.services.organization.OrganizationService;
+import org.exoplatform.services.organization.UserHandler;
 
 /**
  * {@code UserNameValidator}
@@ -61,7 +66,7 @@ public class UserNameValidator implements Validator {
 
 
             if (value.matches("\\s*")) {
-                validationMessage = resourceBundle.getString("javax.faces.component.UIInput.REQUIRED");
+                validationMessage = resourceBundle.getString(UIInput.REQUIRED_MESSAGE_ID);
                 if (validationMessage == null) {
                     validationMessage = "Value is required!";
                 }
@@ -81,7 +86,6 @@ public class UserNameValidator implements Validator {
                         new FacesMessage(FacesMessage.SEVERITY_ERROR, validationMessage, validationMessage));
             }
 
-            /*
             ExoContainer container = ExoContainerContext.getContainerByName("portal");
             OrganizationService orgService = (OrganizationService) container.getComponentInstanceOfType(OrganizationService.class);
             UserHandler userHandler = orgService.getUserHandler();
@@ -99,7 +103,7 @@ public class UserNameValidator implements Validator {
             } catch (Exception exp) {
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error while accessing database", exp.getMessage()));
             }
-            */
+
             validationMessage = resourceBundle.getString("user.login.id.accepted");
             if (validationMessage == null) {
                 validationMessage = "The username is accepted";

@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
-import javax.faces.component.html.HtmlInputText;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
@@ -79,18 +79,16 @@ public class EmailValidator implements Validator {
                 throw new IllegalArgumentException("The value must be a String");
             }
             String value = (String) o;
-            HtmlInputText htmlInputText = (HtmlInputText) uic;
 
             ResourceBundle resourceBundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(fc, "msg");
             String validationMessage = null;
 
             if (value.trim().matches("\\s*")) {
-                validationMessage = resourceBundle.getString("javax.faces.component.UIInput.REQUIRED");
+                validationMessage = resourceBundle.getString(UIInput.REQUIRED_MESSAGE_ID);
                 if (validationMessage == null) {
                     validationMessage = "Value is required!";
                 }
 
-                htmlInputText.setStyle("border:solid 2px #FF0000;");
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, validationMessage, validationMessage));
             }
 
@@ -100,8 +98,6 @@ public class EmailValidator implements Validator {
                     validationMessage = "Invalid email format!";
                 }
 
-
-                htmlInputText.setStyle("border:solid 2px #FF0000;");
                 throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, validationMessage, validationMessage));
             }
             validationMessage = resourceBundle.getString("gatein.email.format.valid");
@@ -109,7 +105,6 @@ public class EmailValidator implements Validator {
                 validationMessage = "E-mail address well formed!";
             }
 
-            htmlInputText.setStyle("border:solid 2px #73A6FF;");
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, validationMessage, validationMessage);
             fc.addMessage(uic.getClientId(fc), message);
         }

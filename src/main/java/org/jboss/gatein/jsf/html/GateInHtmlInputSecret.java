@@ -20,25 +20,25 @@ package org.jboss.gatein.jsf.html;
 
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
-import javax.faces.component.html.HtmlInputText;
+import javax.faces.component.html.HtmlInputSecret;
 import javax.faces.context.FacesContext;
 
 /**
- * {@code GateInHtmlInputText}
+ * {@code GateInHtmlInputSecret}
  *
- * Created on Nov 15, 2010, 10:35:50 AM
+ * Created on Dec 17, 2010, 3:59:30 PM
  *
  * @author Nabil Benothman
  * @version 1.0
  */
-public class GateInHtmlInputText extends HtmlInputText implements Serializable {
+public class GateInHtmlInputSecret extends HtmlInputSecret implements Serializable {
 
-    public static final String COMPONENT_TYPE = "org.jboss.gatein.jsf.html.GateInHtmlInputText";
+    public static final String COMPONENT_TYPE = "org.jboss.gatein.jsf.html.GateInHtmlInputSecret";
 
     /**
-     * Create a new instance of {@code GateInHtmlInputText}
+     * Create a new instance of {@code GateInHtmlInputSecret}
      */
-    public GateInHtmlInputText() {
+    public GateInHtmlInputSecret() {
         super();
         this.setValue(this.getLabel());
     }
@@ -89,9 +89,7 @@ public class GateInHtmlInputText extends HtmlInputText implements Serializable {
     @Override
     public Object getValue() {
         Object val = super.getValue();
-        String stringVal = (String) val;
-
-        if (val == null || stringVal.trim().length() == 0) {
+        if (val == null) {
             return this.getLabel();
         }
         return val;

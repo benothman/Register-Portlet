@@ -68,7 +68,6 @@ public class RegisterBean implements Serializable {
     @PostConstruct
     public void init() {
         this.data = new HashMap<String, Object>();
-        //fillDefaultValues();
         this.mediaBean.initCaptcha();
         this.statusBean.reset();
     }
@@ -95,6 +94,7 @@ public class RegisterBean implements Serializable {
     /**
      * Fill default values in the data
      */
+    @Deprecated
     protected void fillDefaultValues() {
 
         if (this.appBean.getAppData() != null) {
@@ -245,6 +245,8 @@ public class RegisterBean implements Serializable {
 
         logger.info("Starting saving values");
 
+        this.data = new HashMap<String, Object>();
+
         // TODO
 
         // reset captcha and default values, useful to the reuse of the same captcha mutiple times
@@ -254,7 +256,8 @@ public class RegisterBean implements Serializable {
     }
 
     /**
-     * Cancel the registration
+     * Cancel the registration process
+     * 
      * @return <i>CANCEL</i> field value
      */
     public String cancel() {
@@ -263,19 +266,12 @@ public class RegisterBean implements Serializable {
     }
 
     /**
-     * Cancel the registration
+     * Return to the view page
+     * 
      * @return <i>RESTART</i> field value
      */
     public String restart() {
         return ApplicationBean.RESTART;
-    }
-
-    /**
-     * 
-     * @return
-     */
-    public String returnTo() {
-        return ApplicationBean.RETURN;
     }
 
     /**
@@ -293,14 +289,17 @@ public class RegisterBean implements Serializable {
      * @return
      */
     public String error() {
-        return this.error("Test error action");
+        return this.error("An error occurs while looking for user : test error action");
     }
 
 
-    
+    /**
+     * 
+     * @return
+     */
     public String changeLocale() {
         FacesContext.getCurrentInstance().getViewRoot().setLocale(Locale.FRENCH);
-        return "view";
+        return ApplicationBean.VIEW;
     }
 
 

@@ -44,6 +44,7 @@
                                  errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
                                  required="true" requiredMessage="#{msg['javax.faces.component.UIInput.REQUIRED']}"
                                  alt="First name" size="40" label="#{msg['user.name.given']}">
+
                 <rich:ajaxValidator event="onblur" reRender="firstname" />
             </gtn:bubbleInputText>
 
@@ -55,11 +56,13 @@
                 <rich:ajaxValidator event="onblur" reRender="lastname" />
             </gtn:bubbleInputText>
 
+
             <gtn:bubbleInputText id="email" value="#{registerBean.data['user.home-info.online.email']}" title="#{msg['user.home-info.online.email']}"
-                                 validator="#{emailValidatorBean.validate}" 
+                                 validator="#{emailValidatorBean.validate}"
                                  required="true" requiredMessage="#{msg['javax.faces.component.UIInput.REQUIRED']}"
                                  errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
                                  styleClass="trigger" size="40" label="#{msg['user.home-info.online.email']}">
+
                 <rich:ajaxValidator event="onblur" reRender="email" />
             </gtn:bubbleInputText>
 
@@ -87,25 +90,28 @@
                 <rich:ajaxValidator event="onblur" reRender="confirmPassword" />
             </gtn:inputSecret>
 
-
+            <a4j:region>
+                <h:panelGroup>
+                    <br/>
+                    <br/>
+                    <a4j:mediaOutput  id="captcha" session="false" element="img"
+                                      cacheable="false"   mimeType="image/jpeg"
+                                      createContent="#{mediaBean.paint}" value="#{mediaData}">
+                        <f:param value="#{mediaBean.timeStamp}" name="time" />
+                    </a4j:mediaOutput>
+                </h:panelGroup>
+            </a4j:region>
             <h:panelGroup>
                 <br/>
-                <br/>
-                <a4j:mediaOutput  id="captcha" session="false" element="img"
-                                  cacheable="false"   mimeType="image/jpeg"
-                                  createContent="#{mediaBean.paint}" value="#{mediaData}">
-                    <f:param value="#{mediaBean.timeStamp}" name="time" />
-                </a4j:mediaOutput>
-            </h:panelGroup>
-            <h:panelGroup>
-                <br/>
-                <gtn:bubbleInputText id="captcha-verification" size="40" label="#{msg['gatein.text.verification']}"
-                                     validator="#{captchaValidatorBean.validate}"
-                                     required="true" requiredMessage="#{msg['javax.faces.component.UIInput.REQUIRED']}"
-                                     errorClass="error" infoClass="success" styleClass="trigger" fatalClass="error" warnClass="warning">
+                <a4j:region>
+                    <gtn:bubbleInputText id="captcha-verification" size="40" label="#{msg['gatein.text.verification']}"
+                                         validator="#{captchaValidatorBean.validate}"
+                                         required="true" requiredMessage="#{msg['javax.faces.component.UIInput.REQUIRED']}"
+                                         errorClass="error" infoClass="success" styleClass="trigger" fatalClass="error" warnClass="warning">
 
-                    <a4j:support event="onblur" reRender="captcha" ajaxSingle="true"/>
-                </gtn:bubbleInputText>
+                        <a4j:support event="onblur" reRender="captcha" ajaxSingle="true"/>
+                    </gtn:bubbleInputText>
+                </a4j:region>
             </h:panelGroup>
         </h:panelGrid>
 
@@ -234,119 +240,16 @@
         </fieldset>
     </rich:panel>
 
+    <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/js/util.js"></script>
+
     <script type="text/javascript">
-
-$j = jQuery.noConflict();
-
-$j(function () {
-$j('.bubbleInfo').each(function () {
-var distance = 10;
-// animation time
-var time = 250;
-// delay to hide the bubble info. message
-var hideDelay = 1000;
-
-var hideDelayTimer = null;
-
-var beingShown = false;
-var shown = false;
-var trigger = $j('.trigger', this);
-var info = $j('.popup', this).css('opacity', 0);
-
-
-$j([trigger.get(0), info.get(0)]).focus(function () {
-    if (hideDelayTimer) {
-        clearTimeout(hideDelayTimer);
-    }
-    if (beingShown || shown) {
-        // don't trigger the animation again
-        return;
-    } else {
-        // reset position of info box
-        beingShown = true;
-
-        info.css({
-            top: -33,
-            left: -0,
-            display: 'block'
-        }).animate({
-            top: '-=' + distance + 'px',
-            opacity: 1
-        }, time, 'swing', function() {
-            beingShown = false;
-            shown = true;
-        });
-    }
-
-    return false;
-}).blur(function () {
-    if (hideDelayTimer) {
-        clearTimeout(hideDelayTimer);
-    }
-    hideDelayTimer = setTimeout(function () {
-        hideDelayTimer = null;
-        info.animate({
-            top: '-=' + distance + 'px',
-            opacity: 0
-        }, time, 'swing', function () {
-            shown = false;
-            info.css('display', 'none');
-        });
-
-    }, hideDelay);
-
-    return false;
-});
-});
-});
-
-$j(document).ready(function() {
-$j('input[type="text"]').addClass("idleField");
-$j('input[type="password"]').addClass("idleField");
-
-// Remove idleField class and adding focusField class to the input type
-// text and password when the input aquire focus
-$j('input[type="text"]').focus(function() {
-$j(this).removeClass("idleField").addClass("focusField");
-if ($j.trim(this.value) == this.defaultValue){
-    this.value = '';
-}
-if(this.value != this.defaultValue){
-    this.select();
-}
-});
-$j('input[type="password"]').focus(function() {
-$j(this).removeClass("idleField").addClass("focusField");
-if ($j.trim(this.value) == this.defaultValue){
-    this.value = '';
-}
-if(this.value != this.defaultValue){
-    this.select();
-}
-});
-
-// Remove focusField class and adding idleField class to the input type
-// text and password when the input loses the focus
-$j('input[type="text"]').blur(function() {
-$j(this).removeClass("focusField").addClass("idleField");
-if ($j.trim(this.value) == ''){
-    this.value = (this.defaultValue ? this.defaultValue : '');
-}
-});
-$j('input[type="password"]').blur(function() {
-$j(this).removeClass("focusField").addClass("idleField");
-if ($j.trim(this.value) == ''){
-    this.value = (this.defaultValue ? this.defaultValue : '');
-}
-});
-
-});
-
+        bubble();
+        docReady();
     </script>
 
     <br/>
     <br/>
-    <a4j:commandButton id="submit-form" value="#{msg['button.action.submit']}" action="#{registerBean.save2}"/>
+    <a4j:commandButton id="submit-form" value="#{msg['button.action.submit']}" action="#{registerBean.save}" reRender="register"/>
     <rich:spacer />
     <a4j:commandButton id="cancel" value="#{msg['button.action.cancel']}" action="#{registerBean.cancel}" immediate="true" />
     <rich:spacer />

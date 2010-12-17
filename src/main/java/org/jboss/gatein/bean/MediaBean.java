@@ -49,6 +49,9 @@ public class MediaBean {
         super();
     }
 
+    /**
+     * Initialize the {@code MediaBean} object
+     */
     @PostConstruct
     public void initCaptcha() {
         this.captcha = new Captcha.Builder(200, 50).addText().addBackground(new GradiatedBackgroundProducer()).gimp().addNoise().addBorder().build();
@@ -64,10 +67,11 @@ public class MediaBean {
     }
 
     /**
-     * 
-     * @param out
-     * @param data
-     * @throws IOException
+     * Paint out the captcha image and write it in the given output stream
+     *
+     * @param out The output stream in which the image will be written
+     * @param data The <i>a4j:mediaOutput</i> parameter
+     * @throws IOException if a problem occurs when writing image
      */
     public void paint(OutputStream out, Object data) throws IOException {
         BufferedImage img = this.captcha.getImage();

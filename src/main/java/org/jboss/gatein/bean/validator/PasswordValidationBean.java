@@ -113,9 +113,21 @@ public class PasswordValidationBean implements Serializable, Validator {
      */
     public void validate2(FacesContext fc, UIComponent uic, Object o) {
         if (o != null) {
-            this.registerBean.put("gatein.user.password", o);
+
+            String value = (String) o;
             ResourceBundle resourceBundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(fc, "msg");
-            String validationMessage = resourceBundle.getString("gatein.password.accepted");
+            String validationMessage = null;
+            if (value.length() < 7) {
+                validationMessage = resourceBundle.getString("gatein.password.length");
+                if (validationMessage == null) {
+                    validationMessage = "Password must be 7 chars+ !";
+                }
+                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, validationMessage, validationMessage));
+            }
+
+            this.registerBean.put("gatein.user.password", o);
+
+            validationMessage = resourceBundle.getString("gatein.password.accepted");
             if (validationMessage == null) {
                 validationMessage = "Password value accepted";
             }

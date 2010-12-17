@@ -65,9 +65,12 @@ public class GateInBubbleHtmlInputText extends GateInHtmlInputText {
         writer.startElement("div", null);
         writer.writeAttribute("class", "bubbleInfo", "class");
 
+        String divId = this.getClientId(fc) + ":bubble";
+        writer.writeAttribute("id", divId, "id");
+
         writer.startElement("table", null);
 
-        writer.writeAttribute("id", getId() + ":" + "dpopd", "id");
+        writer.writeAttribute("id", divId + ":" + "popup", "id");
         writer.writeAttribute("class", "popup", "class");
         writer.writeAttribute("border", "0", "border");
         writer.writeAttribute("cellpadding", "0", "cellpadding");

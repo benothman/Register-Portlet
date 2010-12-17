@@ -136,7 +136,7 @@
     </context-param>
     <context-param>
         <param-name>org.ajax4jsf.xmlparser.NEKO</param-name>
-        <param-value>/WEB-INF/jsf\.xhtml</param-value>
+        <param-value>/faces/\.xhtml</param-value>
     </context-param-->
     <context-param>
         <param-name>org.ajax4jsf.handleViewExpiredOnClient</param-name>
@@ -176,7 +176,7 @@
     </session-config>
     <error-page>
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
-        <location>/WEB-INF/jsf/error.xhtml</location>
+        <location>/faces/error.xhtml</location>
     </error-page>
     <jsp-config>
         <taglib>
@@ -189,6 +189,6 @@
     </welcome-file-list>
     <error-page>
         <exception-type>Exception</exception-type>
-        <location>/WEB-INF/jsf/error.xhtml</location>
+        <location>/faces/error.xhtml</location>
     </error-page>
 </web-app>
