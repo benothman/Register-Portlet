@@ -31,17 +31,22 @@
     <br/>
     <br/>
 
-    <rich:panel style="border:0;width:90%;text-align:center">
-        <rich:panel>
-            <f:facet name="header">
-                <h:outputText value="#{msg['action.error.header']}" />
-            </f:facet>
-            <h:outputText value="#{msg['action.error']} : #{statusBean.error}" style="font-weight:bold;color:#FF0000;"/>
-            <br/>
-            <a4j:commandButton action="view" value="#{msg['action.return']}"/>
-        </rich:panel>
-    </rich:panel>
-    <br/>
-    <br/>
-    <br/>
+    <fieldset>
+        <legend align="left"> #{msg['action.error.header']} </legend>
+        <br/>
+        <br/>
+        <img src="#{facesContext.externalContext.requestContextPath}/images/error-icon.png" alt="error icon" width="50" height="50" />
+        <br />
+        <br />
+        <h:outputText value="#{msg['action.error']} : " style="font-weight:bold;color:#FF0000;"/>
+        <br/>
+        <h:outputText value="#{statusBean.error}" style="font-weight:bold;color:#FF0000;"/>
+        <br/>
+        <br/>
+        <br/>
+        <a4j:commandButton action="view" value="#{msg['action.return']}"/>
+        <br/>
+        <br/>
+        <br/>
+    </fieldset>
 </ui:composition>

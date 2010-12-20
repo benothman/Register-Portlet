@@ -86,22 +86,15 @@ public class UserNameValidator implements Validator {
                         new FacesMessage(FacesMessage.SEVERITY_ERROR, validationMessage, validationMessage));
             }
 
-            ExoContainer container = ExoContainerContext.getContainerByName("portal");
-            OrganizationService orgService = (OrganizationService) container.getComponentInstanceOfType(OrganizationService.class);
-            UserHandler userHandler = orgService.getUserHandler();
-
-            try {
-                if (userHandler.findUserByName(value) != null) {
-                    validationMessage = resourceBundle.getString("user.login.id.exists");
-                    if (validationMessage == null) {
-                        validationMessage = "The username is already used!";
-                    }
-
-                    throw new ValidatorException(
-                            new FacesMessage(FacesMessage.SEVERITY_ERROR, validationMessage, validationMessage));
+            // check if the username is already used
+            if (exists(value)) {
+                validationMessage = resourceBundle.getString("user.login.id.exists");
+                if (validationMessage == null) {
+                    validationMessage = "The username is already used!";
                 }
-            } catch (Exception exp) {
-                throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error while accessing database", exp.getMessage()));
+
+                throw new ValidatorException(
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, validationMessage, validationMessage));
             }
 
             validationMessage = resourceBundle.getString("user.login.id.accepted");
@@ -111,5 +104,27 @@ public class UserNameValidator implements Validator {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, validationMessage, validationMessage);
             fc.addMessage(uic.getClientId(fc), message);
         }
+    }
+
+    /**
+     * Check whether the given username is already used or not
+     * @param username The username to check
+     * @return {@code true} if the username already exists, {@code false} otherwise
+     */
+    private boolean exists(String username) {
+
+        ExoContainer container = ExoContainerContext.getContainerByName("portal");
+        OrganizationService orgService = (OrganizationService) container.getComponentInstanceOfType(OrganizationService.class);
+        UserHandler userHandler = orgService.getUserHandler();
+
+        try {
+            if (userHandler.findUserByName(username) != null) {
+                return true;
+            }
+        } catch (Exception exp) {
+            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error while accessing database", exp.getMessage()));
+        }
+
+        return false;
     }
 }

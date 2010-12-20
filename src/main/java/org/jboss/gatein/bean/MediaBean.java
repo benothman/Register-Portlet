@@ -56,8 +56,10 @@ public class MediaBean {
     public void initCaptcha() {
         this.captcha = new Captcha.Builder(200, 50).addText().addBackground(new GradiatedBackgroundProducer()).gimp().addNoise().addBorder().build();
         String answer = this.captcha.getAnswer();
-        ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
         try {
+            // used for testing with JSFUnit
+            // TODO to be removed
+            ExternalContext ectx = FacesContext.getCurrentInstance().getExternalContext();
             HttpServletRequest request = (HttpServletRequest) ectx.getRequest();
             HttpSession session = request.getSession(true);
             session.setAttribute("captcha_answer", answer);
@@ -80,8 +82,9 @@ public class MediaBean {
 
     /**
      * Useful method to force image refresh for every request
-     * (for more informations :
-     * {@link http://community.jboss.org/wiki/AjaxCoreComponents})
+     * for more informations :
+     * <a href="http://community.jboss.org/wiki/AjaxCoreComponents">
+     * http://community.jboss.org/wiki/AjaxCoreComponents</a>
      *
      *
      * @return The timestamp for the captcha

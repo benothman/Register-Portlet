@@ -31,19 +31,20 @@
     <br/>
     <br/>
 
-    <rich:panel style="border:0;width:90%;text-align:center">
-        <rich:panel>
-            <f:facet name="header">
-                <h:outputText value="#{msg['action.cancel.header']}" />
-            </f:facet>
-            <h:outputText value="#{msg['action.cancel']}" style="font-weight:bold;color:#FF0000;"/>
-            <br/>
-            <a4j:commandButton action="view" value="#{msg['action.restart']}"/>
-        </rich:panel>
-    </rich:panel>
-
-    <br/>
-    <br/>
-    <br/>
-
+    <fieldset>
+        <legend align="left"> #{msg['action.cancel.header']} </legend>
+        <br/>
+        <br/>
+        <img src="#{facesContext.externalContext.requestContextPath}/images/warning-icon.png" alt="error icon" width="50" height="50" />
+        <br />
+        <br />
+        <h:outputText value="#{msg['action.cancel']}" style="font-weight:bold;color:#FF0000;"/>
+        <br/>
+        <br/>
+        <br/>
+        <a4j:commandButton action="view" value="#{msg['action.restart']}"/>
+        <br/>
+        <br/>
+        <br/>
+    </fieldset>
 </ui:composition>

@@ -289,9 +289,8 @@ public class RegisterBean implements Serializable {
      * @return
      */
     public String error() {
-        return this.error("An error occurs while looking for user : test error action");
+        return this.error("An error occurs while looking for user");
     }
-
 
     /**
      * 
@@ -301,7 +300,6 @@ public class RegisterBean implements Serializable {
         FacesContext.getCurrentInstance().getViewRoot().setLocale(Locale.FRENCH);
         return ApplicationBean.VIEW;
     }
-
 
     /**
      * @return the data

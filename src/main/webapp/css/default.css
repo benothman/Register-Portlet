@@ -99,6 +99,29 @@ div.arrondi {
     /* padding: 10px; */
 }
 
+div {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+div.rich-panel-header {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 4px;
+    height: 20px;
+    vertical-align: middle;
+
+}
+
+.add-user {
+    background-image: url('../images/add-user-icon.png');
+    background-position: left top;
+    background-repeat: no-repeat;
+    margin-left: 20px;
+    padding-left: 20px;
+}
+
 .viewsourcediv pre {
     margin: 0px
 }
