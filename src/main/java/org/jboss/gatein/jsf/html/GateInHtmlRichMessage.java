@@ -65,13 +65,17 @@ public class GateInHtmlRichMessage extends HtmlRichMessage {
     }
 
     /**
-     * @return the alreadyRendered
+     * Getter for alreadyRendered
+     *
+     * @return the alreadyRendered boolean value
      */
     public boolean isAlreadyRendered() {
         return alreadyRendered;
     }
 
     /**
+     * Setter for alreadyRendered
+     * 
      * @param alreadyRendered the alreadyRendered to set
      */
     public void setAlreadyRendered(boolean alreadyRendered) {

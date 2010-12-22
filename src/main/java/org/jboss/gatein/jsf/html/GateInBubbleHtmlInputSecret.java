@@ -43,6 +43,7 @@ import org.richfaces.component.html.HtmlRichMessage;
  */
 public class GateInBubbleHtmlInputSecret extends GateInHtmlInputSecret {
 
+    public static final String UI_BUBBLE_INFO_FAMILY = "BIFAMILY";
     public static final String COMPONENT_TYPE = "org.jboss.gatein.jsf.html.GateInBubbleHtmlInputSecret";
     private HtmlRichMessage htmlMessgae;
     private String labelStyle;

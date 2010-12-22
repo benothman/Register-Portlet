@@ -192,8 +192,8 @@
         <renderer>
             <description>Renderer for the bubble info component</description>
             <component-family>BIFAMILY</component-family>
-            <renderer-type>INPUT_TEXT_BUBBLE_INFO_RENDERER</renderer-type>
-            <renderer-class>org.jboss.gatein.jsf.renderer.GateInHtmlInputRenderer</renderer-class>
+            <renderer-type>GATEIN_BUBBLE_INPUT_RENDERER</renderer-type>
+            <renderer-class>org.jboss.gatein.jsf.renderer.GateInBubbleInputRenderer</renderer-class>
         </renderer>
     </render-kit>
 
