@@ -82,6 +82,28 @@
             <version>3.0.0-GA</version>
             <scope>provided</scope>
         </dependency>
+
+
+        <dependency>
+            <groupId>org.exoplatform.portal</groupId>
+            <artifactId>exo.portal.component.test.core</artifactId>
+            <scope>test</scope>
+            <version>3.0.0-GA</version>
+        </dependency>
+        <dependency>
+            <groupId>org.exoplatform.portal</groupId>
+            <artifactId>exo.portal.component.test.core</artifactId>
+            <scope>test</scope>
+            <version>3.0.0-GA</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.exoplatform.portal</groupId>
+            <artifactId>exo.portal.component.test.jcr</artifactId>
+            <version>3.0.0-GA</version>
+            <scope>test</scope>
+        </dependency>
+
         <!-- JSF & Facelets dependencies -->
         <dependency>
             <groupId>javax.faces</groupId>
@@ -126,8 +148,8 @@
         </dependency>
 
         <!-- Core jar needed for all JSFUnit tests -->
-        <!--
-        <dependency>
+        
+        <!--dependency>
             <groupId>org.jboss.jsfunit</groupId>
             <artifactId>jboss-jsfunit-core</artifactId>
             <version>1.3.0.Final</version>
@@ -153,8 +175,8 @@
             <groupId>org.jboss.jsfunit</groupId>
             <artifactId>jboss-jsfunit-ant</artifactId>
             <version>1.3.0.Final</version>
-        </dependency>
-        -->
+        </dependency -->
+        
         <!-- JUnit dependency -->
         <dependency>
             <groupId>junit</groupId>

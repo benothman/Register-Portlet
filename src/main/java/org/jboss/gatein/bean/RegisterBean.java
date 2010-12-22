@@ -19,11 +19,9 @@
 package org.jboss.gatein.bean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -31,13 +29,13 @@ import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import org.exoplatform.container.ExoContainer;
 import org.exoplatform.container.ExoContainerContext;
+import org.exoplatform.container.PortalContainer;
 import org.exoplatform.services.organization.User;
 import org.exoplatform.services.organization.OrganizationService;
 import org.exoplatform.services.organization.UserHandler;
 import org.exoplatform.services.organization.UserProfile;
 import org.exoplatform.services.organization.UserProfileHandler;
-import org.gatein.common.logging.Logger;
-import org.gatein.common.logging.LoggerFactory;
+import org.exoplatform.services.organization.impl.mock.DummyOrganizationService;
 
 /**
  * {@code RegisterBean}
@@ -49,11 +47,16 @@ import org.gatein.common.logging.LoggerFactory;
  */
 public class RegisterBean implements Serializable {
 
-    private static final Logger logger = LoggerFactory.getLogger(RegisterBean.class);
     private ApplicationBean appBean;
     private Map<String, Object> data;
     private MediaBean mediaBean;
     private StatusBean statusBean;
+    public static final String USER_NAME_KEY = "user.login.id";
+    public static final String PASSWORD_KEY = "gatein.user.password";
+    public static final String CONFIRM_PASSWORD_KEY = "gatein.user.confirmPassword";
+    public static final String FIRST_NAME_KEY = "user.name.given";
+    public static final String LAST_NAME_KEY = "user.name.family";
+    public static final String EMAIL_KEY = "user.home-info.online.email";
 
     /**
      * Create a new instance of {@code RegisterBean}
@@ -113,7 +116,6 @@ public class RegisterBean implements Serializable {
      * @return <i>success</i> if the registration finish with success else <i>failure</i>
      */
     public String save() {
-        logger.info("Starting saving values");
         this.statusBean.reset();
 
         ExoContainer container = ExoContainerContext.getContainerByName("portal");
@@ -123,14 +125,11 @@ public class RegisterBean implements Serializable {
         UserProfileHandler userProfileHandler = orgService.getUserProfileHandler();
 
         Set<String> props = this.data.keySet();
-        List<String> usedKeys = new ArrayList<String>();
 
-        String usernameKey = "user.login.id";
         String username = null;
-        usedKeys.add(usernameKey);
 
-        if (this.data.containsKey(usernameKey) && this.data.get(usernameKey) != null) {
-            username = (String) this.data.get(usernameKey);
+        if (this.data.containsKey(USER_NAME_KEY) && this.data.get(USER_NAME_KEY) != null) {
+            username = (String) this.data.get(USER_NAME_KEY);
         } else {
             // normally this case shouldn't happens
             return this.error("The username is required!");
@@ -142,7 +141,6 @@ public class RegisterBean implements Serializable {
                 return this.error("The username is already used!");
             }
         } catch (Exception exp) {
-            logger.error("An error occurs while looking for user : " + exp.getMessage());
             return this.error("An error occurs while looking for user : " + exp.getMessage());
         }
 
@@ -152,45 +150,33 @@ public class RegisterBean implements Serializable {
         // retrieving main properties (according to JSR-286)
 
         // setting password (if any)
-        String passwordKey = "gatein.user.password";
-        if (this.data.get(passwordKey) != null) {
-            String password = (String) this.data.get(passwordKey);
-            usedKeys.add("gatein.user.confirmPassword");
+        if (this.data.get(PASSWORD_KEY) != null) {
+            String password = (String) this.data.get(PASSWORD_KEY);
             user.setPassword(password);
         }
-        usedKeys.add(passwordKey);
 
         // setting first name (if any)
-        String firstnameKey = "user.name.given";
-        if (this.data.get(firstnameKey) != null) {
-            String firstname = (String) this.data.get(firstnameKey);
+        if (this.data.get(FIRST_NAME_KEY) != null) {
+            String firstname = (String) this.data.get(FIRST_NAME_KEY);
             user.setFirstName(firstname);
-            userProfile.setAttribute(firstnameKey, firstname);
         }
-        usedKeys.add(firstnameKey);
 
         // setting last name (if any)
-        String lastnameKey = "user.name.family";
-        if (this.data.get(lastnameKey) != null) {
-            String lastname = (String) this.data.get(lastnameKey);
+        if (this.data.get(LAST_NAME_KEY) != null) {
+            String lastname = (String) this.data.get(LAST_NAME_KEY);
             user.setLastName(lastname);
-            userProfile.setAttribute(lastnameKey, lastname);
         }
-        usedKeys.add(lastnameKey);
 
         // setting e-mail (if any)
-        String emailKey = "user.home-info.online.email";
-        if (this.data.get(emailKey) != null) {
-            String email = (String) this.data.get(emailKey);
+        if (this.data.get(EMAIL_KEY) != null) {
+            String email = (String) this.data.get(EMAIL_KEY);
             user.setEmail(email);
-            userProfile.setAttribute(emailKey, email);
         }
-        usedKeys.add(emailKey);
 
         // remove all used keys to avoid duplication or re-writing the same value twice
-        for (String key : usedKeys) {
-            props.remove(key);
-        }
+        props.remove(USER_NAME_KEY); // The username is already set
+        props.remove(PASSWORD_KEY);  // do not store password without encryption
+        props.remove(CONFIRM_PASSWORD_KEY); // same as above
 
         // setting all other properties
         Object value = null;
@@ -226,7 +212,6 @@ public class RegisterBean implements Serializable {
             userHandler.createUser(user, true);
             userProfileHandler.saveUserProfile(userProfile, true);
         } catch (Exception exp) {
-            logger.error("An error occurs while saving user and/or user profile : " + exp.getMessage());
             return this.error("An error occurs while saving user and/or user profile : " + exp.getMessage());
         }
 
@@ -238,40 +223,128 @@ public class RegisterBean implements Serializable {
     }
 
     /**
-     * 
+     *
+     * // TODO to be removed
+     *
      * @return
      */
-    public String save2() {
+    public String save2() throws Exception {
+        this.statusBean.reset();
 
-        logger.info("Starting saving values");
+        ExoContainer exoContainer = ExoContainerContext.getCurrentContainer();
+        exoContainer.initContainer();
+        PortalContainer container = PortalContainer.getInstance();
+        OrganizationService orgService = (OrganizationService) exoContainer.createComponent(OrganizationService.class);
 
-        this.data = new HashMap<String, Object>();
+        UserHandler userHandler = orgService.getUserHandler();
+        UserProfileHandler userProfileHandler = orgService.getUserProfileHandler();
 
-        // TODO
+        Set<String> props = this.data.keySet();
 
-        // reset captcha and default values, useful to the reuse of the same captcha mutiple times
-        //this.init();
+        String username = null;
+
+        if (this.data.containsKey(USER_NAME_KEY) && this.data.get(USER_NAME_KEY) != null) {
+            username = (String) this.data.get(USER_NAME_KEY);
+        } else {
+            // normally this case shouldn't happens
+            return this.error("The username is required!");
+        }
+
+        // to be removed because it is already done by the validator
+        try {
+            if (userHandler.findUserByName(username) != null) {
+                return this.error("The username is already used!");
+            }
+        } catch (Exception exp) {
+            return this.error("An error occurs while looking for user : " + exp.getMessage());
+        }
+
+        User user = userHandler.createUserInstance(username);
+        UserProfile userProfile = userProfileHandler.createUserProfileInstance(username);
+
+        // retrieving main properties (according to JSR-286)
+
+        // setting password (if any)
+        if (this.data.get(PASSWORD_KEY) != null) {
+            String password = (String) this.data.get(PASSWORD_KEY);
+            user.setPassword(password);
+        }
+
+        // setting first name (if any)
+        if (this.data.get(FIRST_NAME_KEY) != null) {
+            String firstname = (String) this.data.get(FIRST_NAME_KEY);
+            user.setFirstName(firstname);
+        }
+
+        // setting last name (if any)
+        if (this.data.get(LAST_NAME_KEY) != null) {
+            String lastname = (String) this.data.get(LAST_NAME_KEY);
+            user.setLastName(lastname);
+        }
+
+        // setting e-mail (if any)
+        if (this.data.get(EMAIL_KEY) != null) {
+            String email = (String) this.data.get(EMAIL_KEY);
+            user.setEmail(email);
+        }
+
+        // remove all used keys to avoid duplication or re-writing the same value twice
+        props.remove(USER_NAME_KEY); // The username is already set
+        props.remove(PASSWORD_KEY);  // do not store password without encryption
+        props.remove(CONFIRM_PASSWORD_KEY); // same as above
+
+        // setting all other properties
+        Object value = null;
+        for (String key : props) {
+            value = this.data.get(key);
+
+            if (value != null) {
+                // if the property is a date (including date of birth)
+                if (value instanceof java.util.Date) {
+                    Date date = (Date) value;
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(date);
+                    // retrieve the year
+                    Integer year = calendar.get(Calendar.YEAR);
+                    userProfile.setAttribute(key + ".ymd.year", year.toString());
+                    // retrieve the month
+                    Integer month = calendar.get(Calendar.MONTH);
+                    userProfile.setAttribute(key + ".ymd.month", month.toString());
+                    // retrieve the day
+                    Integer day = calendar.get(Calendar.DAY_OF_MONTH);
+                    userProfile.setAttribute(key + ".ymd.day", day.toString());
+                } else {
+                    String stringVal = (String) value;
+                    if (stringVal.trim().length() > 0) {
+                        userProfile.setAttribute(key, stringVal);
+                    }
+                }
+            }
+        }
+
+        // save user and user profile
+        try {
+            userHandler.createUser(user, true);
+            userProfileHandler.saveUserProfile(userProfile, true);
+        } catch (Exception exp) {
+            return this.error("An error occurs while saving user and/or user profile : " + exp.getMessage());
+        }
+
+        // reset the register bean (captcha, default values, etc.)
+        this.init();
+        this.statusBean.setStatus("The registration is finished with success!");
+
         return ApplicationBean.SUCCESS;
-
     }
 
     /**
      * Cancel the registration process
      * 
-     * @return <i>CANCEL</i> field value
+     * @return <i>ApplicationBean.CANCEL</i> field value
      */
     public String cancel() {
         this.init();
         return ApplicationBean.CANCEL;
-    }
-
-    /**
-     * Return to the view page
-     * 
-     * @return <i>RESTART</i> field value
-     */
-    public String restart() {
-        return ApplicationBean.RESTART;
     }
 
     /**

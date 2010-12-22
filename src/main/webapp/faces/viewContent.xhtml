@@ -32,6 +32,7 @@
     <br/>
     <br/>
 
+
     <fieldset>
         <legend align="left"> #{msg['data.required']} </legend>
 
@@ -49,7 +50,7 @@
             </gtn:bubbleInputText>
 
             <gtn:bubbleInputText id="lastname" value="#{registerBean.data['user.name.family']}" title="#{msg['user.name.family']}"
-                                 validator="#{inputTextValidatorBean.validate}" styleClass="trigger" 
+                                 validator="#{inputTextValidatorBean.validate}" styleClass="trigger"
                                  required="true"  requiredMessage="#{msg['javax.faces.component.UIInput.REQUIRED']}"
                                  errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
                                  alt="Last name" size="40" label="#{msg['user.name.family']}" dir="#{msg['view.text.dir']}">
@@ -67,7 +68,7 @@
             </gtn:bubbleInputText>
 
             <gtn:bubbleInputText id="username" value="#{registerBean.data['user.login.id']}" title="#{msg['user.login.id']}"
-                                 validator="#{userNameValidatorBean.validate}" 
+                                 validator="#{userNameValidatorBean.validate}"
                                  required="true" requiredMessage="#{msg['javax.faces.component.UIInput.REQUIRED']}"
                                  errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
                                  styleClass="trigger" size="40" label="#{msg['user.login.id']}" dir="#{msg['view.text.dir']}">
@@ -140,7 +141,7 @@
     <br/>
     <br/>
 
-    <rich:panel id="moreOptionsPanel" style="display:none;">
+    <rich:panel id="moreOptionsPanel" style="display:none; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;">
         <fieldset>
             <legend align="left"> #{msg['data.optional']} </legend>
             <br />
@@ -193,6 +194,7 @@
                                    label="#{msg['user.home-info.postal.postalcode']}"
                                    title="#{msg['user.home-info.postal.postalcode']}" tabindex="5">
                         <rich:ajaxValidator event="onblur" reRender="status_message, error_message"/>
+
                     </gtn:inputText>
                     <gtn:inputText id="address-city" value="#{registerBean.data['user.home-info.postal.city']}"
                                    label="#{msg['user.home-info.postal.city']}" size="23" tabindex="6"
@@ -203,7 +205,7 @@
                 <rich:message for="zipCode"  errorClass="error" infoClass="success" fatalClass="error" warnClass="warning" />
                 <rich:spacer />
 
-                <gtn:inputText id="address-state" value="#{registerBean.data['user.home-info.postal.stateprov']}" size="40" 
+                <gtn:inputText id="address-state" value="#{registerBean.data['user.home-info.postal.stateprov']}" size="40"
                                label="#{msg['user.home-info.postal.stateprov']}"
                                title="#{msg['user.home-info.postal.stateprov']}" tabindex="7" />
                 <gtn:inputText id="user-skype" value="#{registerBean.data['gatein.user.skype']}" label="Skype" size="40" tabindex="12" />
@@ -214,7 +216,7 @@
                 <h:panelGroup>
                     <h:outputLabel for="address-country" value="#{msg['user.home-info.postal.country']} : " />
                     <h:selectOneMenu id="address-country" value="#{registerBean.data['user.home-info.postal.country']}" tabindex="8">
-                        <f:selectItems value="#{appBean.countries}" />
+                        <f:selectItems id="countries-list" value="#{appBean.countries}" />
                     </h:selectOneMenu>
                 </h:panelGroup>
                 <gtn:inputText id="user-msn" value="#{registerBean.data['gatein.user.msn']}" label="MSN" size="40" tabindex="13" />
@@ -222,7 +224,7 @@
                 <rich:spacer />
                 <rich:spacer />
 
-                <gtn:inputText id="user-phone" value="#{registerBean.data['user.home-info.telecom.telephone.number']}" 
+                <gtn:inputText id="user-phone" value="#{registerBean.data['user.home-info.telecom.telephone.number']}"
                                label="#{msg['user.home-info.telecom.telephone.number']}"
                                title="#{msg['user.home-info.telecom.telephone.number']}" size="40" tabindex="9" />
                 <gtn:inputText id="user-linkedin" value="#{registerBean.data['gatein.user.linkedIn']}" label="LinkedIn" size="40" tabindex="14" />
@@ -230,7 +232,7 @@
                 <rich:spacer />
                 <rich:spacer />
 
-                <gtn:inputText id="user-mobile" value="#{registerBean.data['user.home-info.telecom.mobile.number']}" 
+                <gtn:inputText id="user-mobile" value="#{registerBean.data['user.home-info.telecom.mobile.number']}"
                                label="#{msg['user.home-info.telecom.mobile.number']}" size="40" tabindex="10" />
                 <gtn:inputText id="user-icq" value="#{registerBean.data['gatein.user.icq']}" size="40" label="ICQ" tabindex="15" />
 
@@ -251,7 +253,7 @@
     <br/>
     <br/>
     <a4j:commandButton id="submit-form" value="#{msg['button.action.submit']}" action="#{registerBean.save}" reRender="register"/>
-    <rich:spacer />
+    <rich:spacer width="5" />
     <a4j:commandButton id="cancel" value="#{msg['button.action.cancel']}" action="#{registerBean.cancel}" immediate="true" />
 
 </ui:composition>

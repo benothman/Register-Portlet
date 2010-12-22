@@ -103,7 +103,8 @@ function docReady() {
         // text and password when the input aquire focus
         $j('input[type="text"]').focus(function() {
             $j(this).removeClass("idleField").addClass("focusField");
-            if ($j.trim(this.value) == this.defaultValue){
+            //if ($j.trim(this.value) == this.defaultValue){
+            if ($j.trim(this.value) == this.title){
                 this.value = '';
             }
             if(this.value != this.defaultValue){
@@ -126,7 +127,8 @@ function docReady() {
         $j('input[type="text"]').blur(function() {
             $j(this).removeClass("focusField").addClass("idleField");
             if ($j.trim(this.value) == '') {
-                this.value = (this.defaultValue ? this.defaultValue : '');
+                //this.value = (this.defaultValue ? this.defaultValue : '');
+                this.value = (this.title ? this.title : '');
             }
         });
         $j('input[type="password"]').blur(function() {

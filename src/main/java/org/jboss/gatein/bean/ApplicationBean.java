@@ -29,8 +29,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.model.SelectItem;
-import org.gatein.common.logging.Logger;
-import org.gatein.common.logging.LoggerFactory;
 import org.jboss.gatein.util.ApplicationConfigLoader;
 import org.jboss.gatein.xml.Properties;
 import org.jboss.gatein.xml.Property;
@@ -54,10 +52,8 @@ public class ApplicationBean implements Serializable {
     public static final String SUCCESS = "success";
     public static final String FAILURE = "failure";
     public static final String CANCEL = "cancel";
-    public static final String RESTART = "restart";
-    public static final String RETURN = "return";
+    public static final String RESET = "reset";
     public static final String VIEW = "view";
-    private static final Logger logger = LoggerFactory.getLogger(ApplicationBean.class);
     private static final String PROPS_PATH = "/WEB-INF/profile-config.xml";
     private static final String UI_COMP_PATH = "/WEB-INF/ui-components-config.xml";
     public static final String[] COUNTRY_LIST = new String[]{
@@ -122,7 +118,6 @@ public class ApplicationBean implements Serializable {
     //@PostConstruct
     public void initAppConfig() throws Exception {
 
-        logger.info("init application config start");
         if (!this.isLoaded()) {
             this.appData = new ConcurrentHashMap<String, Object>();
             try {
@@ -141,10 +136,10 @@ public class ApplicationBean implements Serializable {
                 // check if the uicomponents were loaded correctly
                 this.loaded = true;
             } catch (Exception exp) {
-                logger.error(exp.getMessage(), exp);
+                System.err.println(exp.getMessage());
             }
         }
-        logger.info("init application config finish");
+        System.out.println("init application config finish");
     }
 
     @PreDestroy

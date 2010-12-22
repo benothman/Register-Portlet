@@ -25,8 +25,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.helpers.DefaultValidationEventHandler;
-import org.gatein.common.logging.Logger;
-import org.gatein.common.logging.LoggerFactory;
 import org.jboss.gatein.xml.ObjectFactory;
 
 /**
@@ -40,7 +38,6 @@ import org.jboss.gatein.xml.ObjectFactory;
 public class ApplicationConfigLoader {
 
     private static final ApplicationConfigLoader appConfigLoader = new ApplicationConfigLoader();
-    private static final Logger logger = LoggerFactory.getLogger(ApplicationConfigLoader.class);
 
     /**
      * Create a new instance of {@code ApplicationConfigLoader}
@@ -64,7 +61,6 @@ public class ApplicationConfigLoader {
      * @throws Exception
      */
     public Object xmlToObject(String path) throws Exception {
-        logger.info("Loading file " + path);
 
         InputStream inputStream = null;
         ExternalContext extCtx = FacesContext.getCurrentInstance().getExternalContext();
@@ -73,8 +69,6 @@ public class ApplicationConfigLoader {
         JAXBContext jc = JAXBContext.newInstance(packageName);
         Unmarshaller u = jc.createUnmarshaller();
         Object obj = u.unmarshal(inputStream);
-
-        logger.info("File " + path + " loaded with success");
 
         return obj;
     }

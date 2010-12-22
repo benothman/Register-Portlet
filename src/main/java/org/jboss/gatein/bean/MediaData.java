@@ -20,8 +20,6 @@ package org.jboss.gatein.bean;
 
 import java.awt.Color;
 import java.io.Serializable;
-import org.gatein.common.logging.Logger;
-import org.gatein.common.logging.LoggerFactory;
 
 /**
  * {@code MediaData}

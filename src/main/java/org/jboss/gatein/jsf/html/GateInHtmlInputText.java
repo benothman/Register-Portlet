@@ -87,6 +87,15 @@ public class GateInHtmlInputText extends HtmlInputText implements Serializable {
     }
 
     @Override
+    public String getTitle() {
+        String title = super.getTitle();
+        if (title == null || title.trim().length() == 0) {
+            return this.getLabel();
+        }
+        return title;
+    }
+
+    @Override
     public Object getValue() {
         Object val = super.getValue();
         String stringVal = (String) val;

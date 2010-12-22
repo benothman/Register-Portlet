@@ -25,8 +25,6 @@ import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
-import org.gatein.common.logging.Logger;
-import org.gatein.common.logging.LoggerFactory;
 import org.jboss.gatein.jsf.html.GateInHtmlInputText;
 import org.jboss.gatein.jsf.html.GateInBubbleHtmlInputText;
 import org.richfaces.component.UIRichMessage;
@@ -42,7 +40,6 @@ import org.richfaces.component.UIRichMessage;
 public class GateInHtmlInputRenderer extends Renderer {
 
     public static final String RENDER_TYPE = "INPUT_TEXT_BUBBLE_INFO_RENDERER";
-    protected static final Logger logger = LoggerFactory.getLogger(GateInHtmlInputRenderer.class.getName());
 
     /**
      * Create a new instance of {@code GateInHtmlInputRenderer}
@@ -54,8 +51,6 @@ public class GateInHtmlInputRenderer extends Renderer {
     @Override
     public void encodeBegin(FacesContext fc, UIComponent uic) throws IOException {
 
-        logger.info(" -> start encodeBegin()");
-
         assertValidInput(fc, uic);
         ResponseWriter writer = fc.getResponseWriter();
         String reqCtxPath = FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath();
@@ -66,7 +61,6 @@ public class GateInHtmlInputRenderer extends Renderer {
         writer.writeAttribute("id", bubbleInfo.getId(), "id");
         writer.writeAttribute("class", "bubbleInfo", "class");
         if (bubbleInfo.getStyle() != null && bubbleInfo.getStyle().length() != 0) {
-            logger.info("BubbleInfo style : " + bubbleInfo.getStyle());
             writer.writeAttribute("style", bubbleInfo.getStyle(), "style");
         }
 
@@ -162,16 +156,13 @@ public class GateInHtmlInputRenderer extends Renderer {
         writer.endElement("tr");
         writer.endElement("tbody");
         writer.endElement("table");
-        logger.info(" -> end encodeBegin()");
     }
 
     @Override
     public void encodeEnd(FacesContext ctx, UIComponent component) throws IOException {
-        logger.info(" -> start encodeEnd()");
         assertValidInput(ctx, component);
         ResponseWriter writer = ctx.getResponseWriter();
         writer.endElement("div");
-        logger.info(" -> end encodeEnd()");
     }
 
     /**

@@ -59,8 +59,9 @@ public class ZipCodeValidator implements Validator {
                 //retrieve the resoure bundle of the application
                 ResourceBundle resourceBundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(fc, "msg");
                 String validationMessage = null;
+
                 try {
-                    int zipCode = Integer.parseInt(value);
+                    long zipCode = Long.parseLong(value);
                     if (zipCode < 1 || zipCode > 500000) {
                         validationMessage = resourceBundle.getString("gatein.zipcode.range");
                         if (validationMessage == null) {

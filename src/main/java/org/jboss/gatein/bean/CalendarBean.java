@@ -28,8 +28,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
-import org.gatein.common.logging.Logger;
-import org.gatein.common.logging.LoggerFactory;
 
 /**
  * {@code CalendarBean}
@@ -48,7 +46,6 @@ public class CalendarBean implements Serializable {
     private Date selectedDate;
     private Locale locale;
     private Calendar cal;
-    private static final Logger logger = LoggerFactory.getLogger(CalendarBean.class);
 
     /**
      * Creates a new instance of {@code CalendarBean}
@@ -80,7 +77,7 @@ public class CalendarBean implements Serializable {
             cal.set(Calendar.MONTH, cal.get(Calendar.MONTH) + 1);
             cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) - 1);
         } catch (Exception exp) {
-            logger.error(exp.getMessage(), exp);
+            System.err.println(exp.getMessage());
         }
     }
 

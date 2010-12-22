@@ -18,18 +18,16 @@
  */
 package org.jboss.gatein.portlet;
 
-import java.io.IOException;
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletException;
-import javax.portlet.PortletRequestDispatcher;
+import javax.portlet.MimeResponse;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.faces.GenericFacesPortlet;
-import org.gatein.common.logging.Logger;
-import org.gatein.common.logging.LoggerFactory;
+import org.w3c.dom.Element;
 
 /**
  * {@code RegisterPortlet}
+ * This Portlet is based on JSF & Richfaces and it is proposed as alternative
+ * to the existing one built with eXo-Platform WebUI.
  *
  * Created on Nov 8, 2010, 9:22:35 AM
  *
@@ -38,121 +36,39 @@ import org.gatein.common.logging.LoggerFactory;
  */
 public class RegisterPortlet extends GenericFacesPortlet {
 
-    private static String viewPage = null;
-    private static String editPage = null;
-    private static String helpPage = null;
-    private static String errorPage = null;
-    private static final Logger logger = LoggerFactory.getLogger(RegisterPortlet.class);
-
     /**
      * Create a new {@code RegisterPortlet} instance
      */
     public RegisterPortlet() {
-        logger.info("Creating new instance of <<" + this.getClass().getName() + ">>");
+        super();
     }
 
-    /*
-     * (non-Javadoc)
-     * @see javax.portlet.GenericPortlet.init(javax.portlet.PortletConfig)
-     */
     @Override
-    public void init(PortletConfig config) throws PortletException {
-        logger.info("Initializing Register Protlet");
-        super.init(config);
-        this.initParams();
-        logger.info("Register Protlet initialized with success");
-    }
+    public void doHeaders(RenderRequest request, RenderResponse response) {
 
-    /*
-     * (non-Javadoc)
-     * @see javax.portlet.GenericPortlet.init()
-     */
-    @Override
-    public void init() throws PortletException {
-        logger.info("Initializing Register Protlet");
-        super.init();
-        this.initParams();
-        logger.info("Register Protlet initialized with success");
-    }
+        // adding different stylesheets
+        Element default_css = response.createElement("link");
+        default_css.setAttribute("id", "defaultccs");
+        default_css.setAttribute("type", "text/css");
+        default_css.setAttribute("rel", "stylesheet");
+        default_css.setAttribute("media", "screen");
+        default_css.setAttribute("href", request.getContextPath() + "/css/default.css");
+        response.addProperty(MimeResponse.MARKUP_HEAD_ELEMENT, default_css);
 
-    /**
-     * Initialize the static parameter which represents the location of view,
-     * edit, and help pages and also the directory containing those files
-     */
-    private void initParams() {
-        logger.info("Initializing Register Protlet parameters");
-        PortletConfig config = getPortletConfig();
+        Element layout_css = response.createElement("link");
+        layout_css.setAttribute("id", "ccs_layout");
+        layout_css.setAttribute("type", "text/css");
+        layout_css.setAttribute("rel", "stylesheet");
+        default_css.setAttribute("media", "screen");
+        layout_css.setAttribute("href", request.getContextPath() + "/css/cssLayout.css");
+        response.addProperty(MimeResponse.MARKUP_HEAD_ELEMENT, layout_css);
 
-        editPage = config.getInitParameter("javax.portlet.faces.defaultViewId.edit");
-        viewPage = config.getInitParameter("javax.portlet.faces.defaultViewId.view");
-        helpPage = config.getInitParameter("javax.portlet.faces.defaultViewId.help");
-        errorPage = config.getInitParameter("ErrorPage");
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see javax.portlet.GenericPortlet.doEdit(javax.portlet.RenderRequest, javax.portlet.RenderResponse)
-     */
-    @Override
-    public void doEdit(RenderRequest request, RenderResponse response) throws IOException, PortletException {
-        logger.info("Display Register Portlet edit page");
-        if (editPage == null) {
-            PortletConfig config = getPortletConfig();
-            editPage = config.getInitParameter("javax.portlet.faces.defaultViewId.edit");
-        }
-
-        forward(request, response, editPage);
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see javax.portlet.GenericPortlet.doView(javax.portlet.RenderRequest, javax.portlet.RenderResponse)
-     */
-    @Override
-    public void doView(RenderRequest request, RenderResponse response) throws IOException, PortletException {
-        logger.info("Display Register Portlet view page");
-        forward(request, response, viewPage);
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see javax.portlet.GenericPortlet.doHelp(javax.portlet.RenderRequest, javax.portlet.RenderResponse)
-     */
-    @Override
-    public void doHelp(RenderRequest request, RenderResponse response) throws IOException, PortletException {
-        logger.info("Display Register Portlet help page");
-        forward(request, response, helpPage);
-    }
-
-    /**
-     * Set the error session attribute to the given message and forward to the
-     * default error page
-     *
-     * @param request The render request parameter
-     * @param response The render response parameter
-     * @param message The error message to set and display
-     * @throws PortletException
-     * @throws IOException
-     */
-    protected void error(RenderRequest request, RenderResponse response, String message)
-            throws PortletException, IOException {
-        request.getPortletSession(true).setAttribute("error", message);
-        forward(request, response, errorPage);
-    }
-
-    /**
-     * Forward the request to the given page
-     * 
-     * @param request The render request parameter
-     * @param response The render response parameter
-     * @param page The destination page
-     * @throws PortletException
-     * @throws IOException
-     */
-    private void forward(RenderRequest request, RenderResponse response, String page)
-            throws PortletException, IOException {
-        response.setContentType("text/html");
-        PortletRequestDispatcher portletReqDisp = getPortletContext().getRequestDispatcher(page);
-        portletReqDisp.include(request, response);
+        Element bubble_css = response.createElement("link");
+        bubble_css.setAttribute("id", "bubble_css");
+        bubble_css.setAttribute("type", "text/css");
+        bubble_css.setAttribute("rel", "stylesheet");
+        default_css.setAttribute("media", "screen");
+        bubble_css.setAttribute("href", request.getContextPath() + "/css/bubble.css");
+        response.addProperty(MimeResponse.MARKUP_HEAD_ELEMENT, bubble_css);
     }
 }

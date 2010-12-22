@@ -26,8 +26,6 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/portlet.xml</param-value>
     </context-param>
-
-
     <!-- JSFUnit setup -->
     <!--filter>
         <filter-name>JSFUnitFilter</filter-name>
@@ -56,10 +54,7 @@
     <servlet-mapping>
         <servlet-name>ServletTestRunner</servlet-name>
         <url-pattern>/ServletTestRunner</url-pattern>
-    </servlet-mapping-->
-    
-
-
+    </servlet-mapping -->
     <!-- Faces Servlet -->
     <context-param>
         <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
@@ -71,7 +66,7 @@
     </context-param>
     <context-param>
         <param-name>facelets.DEVELOPMENT</param-name>
-        <param-value>true</param-value>
+        <param-value>false</param-value>
     </context-param>
     <context-param>
         <param-name>facelets.SKIP_COMMENTS</param-name>
