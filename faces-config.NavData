@@ -5,10 +5,9 @@
         <Node id="index.jsp" x="150" y="150" zoom="true"/>
         <Node id="faces/template.xhtml" x="650" y="300" zoom="true"/>
         <Node id="faces/*" x="541" y="42" zoom="true"/>
-        <Node id="faces/viewContent.xhtml" x="400" y="150" zoom="true"/>
-        <Node id="faces/error.xhtml" x="400" y="300" zoom="true"/>
         <Node id="faces/cancel.xhtml" x="237" y="65" zoom="true"/>
-        <Node id="layout.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="faces/error.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="faces/viewContent.xhtml" x="400" y="150" zoom="true"/>
         <Node id="faces/index.xhtml" x="150" y="300" zoom="true"/>
         <Node id="faces/success.xhtml" x="400" y="450" zoom="true"/>
     </Scope>

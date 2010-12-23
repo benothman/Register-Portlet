@@ -22,4 +22,5 @@
 -->
 <jboss-web>
   <context-root>/RegisterPortlet</context-root>
+  <security-domain>java:/jaas/gatein-domain</security-domain>
 </jboss-web>

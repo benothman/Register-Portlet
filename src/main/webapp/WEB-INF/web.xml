@@ -186,4 +186,8 @@
         <exception-type>Exception</exception-type>
         <location>/faces/error.xhtml</location>
     </error-page>
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>gatein-domain</realm-name>
+    </login-config>
 </web-app>

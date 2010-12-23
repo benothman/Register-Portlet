@@ -21,8 +21,10 @@
     @author Nabil Benothman
 --%>
 
+<!-- used for some tests -->
 <jsp:forward page="/faces/index.jsf" />
 
+<!-- redirect to the portal page -->
 <%--
             String hostname = request.getRequestURL().toString();
             String splits[] = hostname.split("/+");

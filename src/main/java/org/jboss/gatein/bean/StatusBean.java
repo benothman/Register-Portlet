@@ -72,7 +72,7 @@ public class StatusBean {
      * @return the error
      */
     public String getError() {
-        return error;
+        return this.error;
     }
 
     /**

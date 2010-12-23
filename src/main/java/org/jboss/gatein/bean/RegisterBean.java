@@ -29,13 +29,11 @@ import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import org.exoplatform.container.ExoContainer;
 import org.exoplatform.container.ExoContainerContext;
-import org.exoplatform.container.PortalContainer;
 import org.exoplatform.services.organization.User;
 import org.exoplatform.services.organization.OrganizationService;
 import org.exoplatform.services.organization.UserHandler;
 import org.exoplatform.services.organization.UserProfile;
 import org.exoplatform.services.organization.UserProfileHandler;
-import org.exoplatform.services.organization.impl.mock.DummyOrganizationService;
 
 /**
  * {@code RegisterBean}
@@ -231,107 +229,9 @@ public class RegisterBean implements Serializable {
     public String save2() throws Exception {
         this.statusBean.reset();
 
-        ExoContainer exoContainer = ExoContainerContext.getCurrentContainer();
-        exoContainer.initContainer();
-        PortalContainer container = PortalContainer.getInstance();
-        OrganizationService orgService = (OrganizationService) exoContainer.createComponent(OrganizationService.class);
-
-        UserHandler userHandler = orgService.getUserHandler();
-        UserProfileHandler userProfileHandler = orgService.getUserProfileHandler();
-
-        Set<String> props = this.data.keySet();
-
-        String username = null;
-
-        if (this.data.containsKey(USER_NAME_KEY) && this.data.get(USER_NAME_KEY) != null) {
-            username = (String) this.data.get(USER_NAME_KEY);
-        } else {
-            // normally this case shouldn't happens
-            return this.error("The username is required!");
-        }
-
-        // to be removed because it is already done by the validator
-        try {
-            if (userHandler.findUserByName(username) != null) {
-                return this.error("The username is already used!");
-            }
-        } catch (Exception exp) {
-            return this.error("An error occurs while looking for user : " + exp.getMessage());
-        }
-
-        User user = userHandler.createUserInstance(username);
-        UserProfile userProfile = userProfileHandler.createUserProfileInstance(username);
-
-        // retrieving main properties (according to JSR-286)
-
-        // setting password (if any)
-        if (this.data.get(PASSWORD_KEY) != null) {
-            String password = (String) this.data.get(PASSWORD_KEY);
-            user.setPassword(password);
-        }
-
-        // setting first name (if any)
-        if (this.data.get(FIRST_NAME_KEY) != null) {
-            String firstname = (String) this.data.get(FIRST_NAME_KEY);
-            user.setFirstName(firstname);
-        }
-
-        // setting last name (if any)
-        if (this.data.get(LAST_NAME_KEY) != null) {
-            String lastname = (String) this.data.get(LAST_NAME_KEY);
-            user.setLastName(lastname);
-        }
-
-        // setting e-mail (if any)
-        if (this.data.get(EMAIL_KEY) != null) {
-            String email = (String) this.data.get(EMAIL_KEY);
-            user.setEmail(email);
-        }
-
-        // remove all used keys to avoid duplication or re-writing the same value twice
-        props.remove(USER_NAME_KEY); // The username is already set
-        props.remove(PASSWORD_KEY);  // do not store password without encryption
-        props.remove(CONFIRM_PASSWORD_KEY); // same as above
-
-        // setting all other properties
-        Object value = null;
-        for (String key : props) {
-            value = this.data.get(key);
-
-            if (value != null) {
-                // if the property is a date (including date of birth)
-                if (value instanceof java.util.Date) {
-                    Date date = (Date) value;
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTime(date);
-                    // retrieve the year
-                    Integer year = calendar.get(Calendar.YEAR);
-                    userProfile.setAttribute(key + ".ymd.year", year.toString());
-                    // retrieve the month
-                    Integer month = calendar.get(Calendar.MONTH);
-                    userProfile.setAttribute(key + ".ymd.month", month.toString());
-                    // retrieve the day
-                    Integer day = calendar.get(Calendar.DAY_OF_MONTH);
-                    userProfile.setAttribute(key + ".ymd.day", day.toString());
-                } else {
-                    String stringVal = (String) value;
-                    if (stringVal.trim().length() > 0) {
-                        userProfile.setAttribute(key, stringVal);
-                    }
-                }
-            }
-        }
-
-        // save user and user profile
-        try {
-            userHandler.createUser(user, true);
-            userProfileHandler.saveUserProfile(userProfile, true);
-        } catch (Exception exp) {
-            return this.error("An error occurs while saving user and/or user profile : " + exp.getMessage());
-        }
-
+        
         // reset the register bean (captcha, default values, etc.)
-        this.init();
+        this.mediaBean.initCaptcha();
         this.statusBean.setStatus("The registration is finished with success!");
 
         return ApplicationBean.SUCCESS;
