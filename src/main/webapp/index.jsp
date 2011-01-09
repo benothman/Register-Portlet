@@ -22,12 +22,12 @@
 --%>
 
 <!-- used for some tests -->
-<jsp:forward page="/faces/index.jsf" />
+<!--jsp:forward page="/faces/index.jsf" /-->
 
 <!-- redirect to the portal page -->
-<%--
+<%
             String hostname = request.getRequestURL().toString();
             String splits[] = hostname.split("/+");
             hostname = splits[0] + "//" + splits[1] + "/portal";
             response.sendRedirect(hostname);
---%>
+%>

@@ -64,7 +64,7 @@ public class MediaBean {
             HttpSession session = request.getSession(true);
             session.setAttribute("captcha_answer", answer);
         } catch (Exception exp) {
-            System.out.println(exp.getMessage());
+            // nope
         }
     }
 

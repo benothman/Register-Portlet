@@ -18,8 +18,11 @@
  */
 package org.jboss.gatein.jsf.html;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.ResourceBundle;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIInput;
 import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
 
@@ -40,15 +43,18 @@ public class GateInHtmlInputText extends HtmlInputText implements Serializable {
      */
     public GateInHtmlInputText() {
         super();
-        this.setValue(this.getLabel());
     }
 
     @Override
     public void validate(FacesContext fc) {
         Object submittedValue = getSubmittedValue();
-        if (submittedValue == null) {
+        if (submittedValue == null) { // the value was not submitted at all
             return;
         }
+
+        ResourceBundle resourceBundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(fc, "msg");
+        String validationMessage = null;
+
         String newValue = (String) submittedValue;
         if (this.isRequired() && newValue.matches("\\s*")) {
             String requiredMessageStr = getRequiredMessage();
@@ -58,9 +64,12 @@ public class GateInHtmlInputText extends HtmlInputText implements Serializable {
                         requiredMessageStr,
                         requiredMessageStr);
             } else {
-                message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        "Value is required!",
-                        "The value is required and should not be empty or null!");
+                validationMessage = resourceBundle.getString(UIInput.REQUIRED_MESSAGE_ID);
+                if (validationMessage == null) {
+                    validationMessage = "Value is required!";
+                }
+                this.setValue(this.getLabel());
+                message = new FacesMessage(FacesMessage.SEVERITY_ERROR, validationMessage, validationMessage);
             }
 
             this.setStyle("border:solid 2px #FF0000;");
@@ -70,29 +79,30 @@ public class GateInHtmlInputText extends HtmlInputText implements Serializable {
         }
 
         super.validate(fc);
-        if (this.isValid()) {
-            this.setStyle("");
-        }
+        this.setStyle(this.isValid() ? "" : "border:solid 2px #FF0000;");
+    }
+
+    @Override
+    public void encodeBegin(FacesContext fc) throws IOException {
+
+
+
+
+        //this.setValue(this.getLabel());
+        super.encodeBegin(fc);
     }
 
     @Override
     public Object getSubmittedValue() {
         String value = (String) super.getSubmittedValue();
         String label = getLabel();
-        if (value != null && value.trim().equalsIgnoreCase(label)) {
-            return "";
-        }
-
-        return value;
+        return (value != null && value.trim().equalsIgnoreCase(label)) ? "" : value;
     }
 
     @Override
     public String getTitle() {
         String title = super.getTitle();
-        if (title == null || title.trim().length() == 0) {
-            return this.getLabel();
-        }
-        return title;
+        return (title == null || title.trim().length() == 0) ? this.getLabel() : title;
     }
 
     @Override
@@ -100,9 +110,6 @@ public class GateInHtmlInputText extends HtmlInputText implements Serializable {
         Object val = super.getValue();
         String stringVal = (String) val;
 
-        if (val == null || stringVal.trim().length() == 0) {
-            return this.getLabel();
-        }
-        return val;
+        return (val == null || stringVal.trim().length() == 0) ? this.getLabel() : val;
     }
 }

@@ -252,10 +252,8 @@
 
     <br/>
     <br/>
-    <a4j:commandButton id="submit-form" value="#{msg['button.action.submit']}" action="#{registerBean.save2}" reRender="register"/>
+    <a4j:commandButton id="submit-form" value="#{msg['button.action.submit']}" action="#{registerBean.save}" reRender="register"/>
     <rich:spacer width="5" />
     <a4j:commandButton id="cancel" value="#{msg['button.action.cancel']}" action="#{registerBean.cancel}" immediate="true" />
-    <rich:spacer width="5" />
-    <a4j:commandButton id="error" value="Error" action="#{registerBean.error}" immediate="true" />
 
 </ui:composition>

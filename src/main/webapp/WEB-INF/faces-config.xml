@@ -195,6 +195,12 @@
             <renderer-type>GATEIN_BUBBLE_INPUT_RENDERER</renderer-type>
             <renderer-class>org.jboss.gatein.jsf.renderer.GateInBubbleInputRenderer</renderer-class>
         </renderer>
+        <renderer>
+            <description>Renderer for the bubble info component</description>
+            <component-family>GTNIFAMILY</component-family>
+            <renderer-type>GATEIN_INPUT_RENDERER</renderer-type>
+            <renderer-class>org.jboss.gatein.jsf.renderer.GateInInputTextRenderer</renderer-class>
+        </renderer>
     </render-kit>
 
     <application>

@@ -19,7 +19,9 @@
 package org.jboss.gatein.jsf.html;
 
 import java.io.Serializable;
+import java.util.ResourceBundle;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIInput;
 import javax.faces.component.html.HtmlInputSecret;
 import javax.faces.context.FacesContext;
 
@@ -49,6 +51,10 @@ public class GateInHtmlInputSecret extends HtmlInputSecret implements Serializab
         if (submittedValue == null) {
             return;
         }
+        ResourceBundle resourceBundle = FacesContext.getCurrentInstance().getApplication().getResourceBundle(fc, "msg");
+        String validationMessage = null;
+
+
         String newValue = (String) submittedValue;
         if (this.isRequired() && newValue.matches("\\s*")) {
             String requiredMessageStr = getRequiredMessage();
@@ -58,9 +64,12 @@ public class GateInHtmlInputSecret extends HtmlInputSecret implements Serializab
                         requiredMessageStr,
                         requiredMessageStr);
             } else {
-                message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        "Value is required!",
-                        "The value is required and should not be empty or null!");
+                validationMessage = resourceBundle.getString(UIInput.REQUIRED_MESSAGE_ID);
+                if (validationMessage == null) {
+                    validationMessage = "Value is required!";
+                }
+
+                message = new FacesMessage(FacesMessage.SEVERITY_ERROR, validationMessage, validationMessage);
             }
 
             this.setStyle("border:solid 2px #FF0000;");
@@ -70,9 +79,7 @@ public class GateInHtmlInputSecret extends HtmlInputSecret implements Serializab
         }
 
         super.validate(fc);
-        if (this.isValid()) {
-            this.setStyle("");
-        }
+        this.setStyle(this.isValid() ? "" : "border:solid 2px #FF0000;");
     }
 
     @Override

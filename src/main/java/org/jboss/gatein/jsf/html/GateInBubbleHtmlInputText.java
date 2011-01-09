@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import org.jboss.gatein.jsf.renderer.GateInInputTextRenderer;
 import org.richfaces.component.html.HtmlRichMessage;
 
 /**
@@ -43,7 +44,6 @@ import org.richfaces.component.html.HtmlRichMessage;
  */
 public class GateInBubbleHtmlInputText extends GateInHtmlInputText {
 
-    public static final String UI_BUBBLE_INFO_FAMILY = "BIFAMILY";
     public static final String COMPONENT_TYPE = "org.jboss.gatein.jsf.html.GateInBubbleHtmlInputText";
     private GateInHtmlRichMessage htmlMessgae;
 
@@ -53,6 +53,7 @@ public class GateInBubbleHtmlInputText extends GateInHtmlInputText {
     public GateInBubbleHtmlInputText() {
         super();
         this.htmlMessgae = new GateInHtmlRichMessage();
+
     }
 
     @Override

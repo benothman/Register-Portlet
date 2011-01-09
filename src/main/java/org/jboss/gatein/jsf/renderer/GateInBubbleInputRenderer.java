@@ -18,13 +18,6 @@
  */
 package org.jboss.gatein.jsf.renderer;
 
-import java.io.IOException;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.render.Renderer;
-import org.jboss.gatein.jsf.html.GateInBubbleHtmlInputSecret;
-import org.jboss.gatein.jsf.html.GateInBubbleHtmlInputText;
-
 /**
  * {@code GateInBubbleInputRenderer}
  *
@@ -33,9 +26,8 @@ import org.jboss.gatein.jsf.html.GateInBubbleHtmlInputText;
  * @author Nabil Benothman
  * @version 1.0
  */
-public class GateInBubbleInputRenderer extends Renderer {
+public class GateInBubbleInputRenderer extends GateInInputTextRenderer {
 
-    public static final String RENDER_TYPE = "GATEIN_BUBBLE_INPUT_RENDERER";
 
     /**
      * Create a new instance of {@code GateInBubbleInputRenderer}
@@ -44,39 +36,5 @@ public class GateInBubbleInputRenderer extends Renderer {
         super();
     }
 
-    @Override
-    public void encodeBegin(FacesContext fc, UIComponent uic) throws IOException {
-        // validate component type
-        assertValidInput(fc, uic);
-        // encode component begin
-        uic.encodeBegin(fc);
-    }
-
-    @Override
-    public void encodeEnd(FacesContext fc, UIComponent uic) throws IOException {
-        // validate component type
-        assertValidInput(fc, uic);
-        // encode component end
-        uic.encodeEnd(fc);
-    }
-
-    /**
-     * Validate the type of the given component
-     *
-     * @param context The faces context
-     * @param uic The component to be validated
-     * @throws NullPointerException if the context or the uic is null
-     * @throws IllegalArgumentException if the component is not valid
-     */
-    private void assertValidInput(FacesContext context, UIComponent uic) {
-        if (context == null) {
-            throw new NullPointerException("context should not be null");
-        } else if (uic == null) {
-            throw new NullPointerException("component should not be null");
-        } else if (!(uic instanceof GateInBubbleHtmlInputText) && !(uic instanceof GateInBubbleHtmlInputSecret)) {
-            throw new IllegalArgumentException("Expected types : [" + GateInBubbleHtmlInputText.class.getName()
-                    + ", " + GateInBubbleHtmlInputSecret.class.getName() + "]"
-                    + ", found : " + uic.getClass().getName());
-        }
-    }
+   
 }
