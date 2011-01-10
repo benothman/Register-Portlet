@@ -18,8 +18,6 @@
  */
 package org.jboss.gatein.jsf.converter;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
@@ -34,8 +32,6 @@ import javax.faces.convert.Converter;
  * @version 1.0
  */
 public class GateInInputTextConverter implements Converter {
-
-    private static final Logger logger = Logger.getLogger(GateInInputTextConverter.class.getName());
 
     /**
      * Create a new instance of {@code GateInInputTextConverter}
