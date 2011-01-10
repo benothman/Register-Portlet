@@ -30,7 +30,7 @@ import javax.faces.context.FacesContext;
  *
  * Created on Nov 25, 2010, 5:32:01 PM
  *
- * @author nabilbenothman
+ * @author Nabil Benothman
  * @version 1.0
  */
 public class ResourceBean implements Map<String, String> {

@@ -41,7 +41,7 @@
         <h:panelGrid columns="2" cellpadding="10" cellspacing="10" width="90%">
 
             <gtn:bubbleInputText id="firstname" value="#{registerBean.data['user.name.given']}" title="#{msg['user.name.given']}"
-                                 validator="#{inputTextValidatorBean.validate}" styleClass="trigger"
+                                 validator="#{inputTextValidatorBean.validate}" styleClass="trigger" immediate="true"
                                  errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
                                  required="true" requiredMessage="#{msg['javax.faces.component.UIInput.REQUIRED']}"
                                  alt="First name" size="40" label="#{msg['user.name.given']}" dir="#{msg['view.text.dir']}">
@@ -50,7 +50,7 @@
             </gtn:bubbleInputText>
 
             <gtn:bubbleInputText id="lastname" value="#{registerBean.data['user.name.family']}" title="#{msg['user.name.family']}"
-                                 validator="#{inputTextValidatorBean.validate}" styleClass="trigger"
+                                 validator="#{inputTextValidatorBean.validate}" styleClass="trigger" immediate="true"
                                  required="true"  requiredMessage="#{msg['javax.faces.component.UIInput.REQUIRED']}"
                                  errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
                                  alt="Last name" size="40" label="#{msg['user.name.family']}" dir="#{msg['view.text.dir']}">
@@ -59,7 +59,7 @@
 
 
             <gtn:bubbleInputText id="email" value="#{registerBean.data['user.home-info.online.email']}" title="#{msg['user.home-info.online.email']}"
-                                 validator="#{emailValidatorBean.validate}"
+                                 validator="#{emailValidatorBean.validate}" immediate="true"
                                  required="true" requiredMessage="#{msg['javax.faces.component.UIInput.REQUIRED']}"
                                  errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
                                  styleClass="trigger" size="40" label="#{msg['user.home-info.online.email']}" dir="#{msg['view.text.dir']}">
@@ -68,7 +68,7 @@
             </gtn:bubbleInputText>
 
             <gtn:bubbleInputText id="username" value="#{registerBean.data['user.login.id']}" title="#{msg['user.login.id']}"
-                                 validator="#{userNameValidatorBean.validate}"
+                                 validator="#{userNameValidatorBean.validate}" immediate="true"
                                  required="true" requiredMessage="#{msg['javax.faces.component.UIInput.REQUIRED']}"
                                  errorClass="error" infoClass="success" fatalClass="error" warnClass="warning"
                                  styleClass="trigger" size="40" label="#{msg['user.login.id']}" dir="#{msg['view.text.dir']}">
@@ -108,7 +108,7 @@
                 <br/>
                 <a4j:region>
                     <gtn:bubbleInputText id="captcha-verification" size="40" label="#{msg['gatein.text.verification']}"
-                                         validator="#{captchaValidatorBean.validate}" dir="#{msg['view.text.dir']}"
+                                         validator="#{captchaValidatorBean.validate}" dir="#{msg['view.text.dir']}" immediate="true"
                                          required="true" requiredMessage="#{msg['javax.faces.component.UIInput.REQUIRED']}"
                                          errorClass="error" infoClass="success" styleClass="trigger" fatalClass="error" warnClass="warning">
 

@@ -25,6 +25,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIInput;
 import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
+import org.jboss.gatein.jsf.converter.GateInInputTextConverter;
 
 /**
  * {@code GateInHtmlInputText}
@@ -43,6 +44,7 @@ public class GateInHtmlInputText extends HtmlInputText implements Serializable {
      */
     public GateInHtmlInputText() {
         super();
+        this.setConverter(new GateInInputTextConverter());
     }
 
     @Override
@@ -82,22 +84,14 @@ public class GateInHtmlInputText extends HtmlInputText implements Serializable {
         this.setStyle(this.isValid() ? "" : "border:solid 2px #FF0000;");
     }
 
-    @Override
-    public void encodeBegin(FacesContext fc) throws IOException {
-
-
-
-
-        //this.setValue(this.getLabel());
-        super.encodeBegin(fc);
-    }
-
+    /*
     @Override
     public Object getSubmittedValue() {
         String value = (String) super.getSubmittedValue();
         String label = getLabel();
         return (value != null && value.trim().equalsIgnoreCase(label)) ? "" : value;
     }
+    */
 
     @Override
     public String getTitle() {
